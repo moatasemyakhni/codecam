@@ -156,3 +156,10 @@ const readFromFile = (codeUrl) => {
     });
     return content.toString();
 }
+
+module.exports = {
+    savePhoto,
+    base64ToImageWithPath,
+    getPhotosByUserId,
+    getPhotoById
+}
