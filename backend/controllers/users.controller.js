@@ -1,7 +1,10 @@
 require('dotenv').config();
 const User = require('../models/User');
+const Token = require('../models/Token');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const sendEmail = require('../utilities/sendEmail');
 
 const {
     minimumNameLength, 
@@ -185,3 +188,5 @@ const editFullName = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+// Reset password
