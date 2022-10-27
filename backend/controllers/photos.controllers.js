@@ -41,5 +41,26 @@ const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
     if(!photoExtensions.includes(extension.toUpperCase())) {
         throw {message: 'Not a valid extension'};
     }
-    
+   const base64Image = base64.replace(/^data:image\/png;base64,/, "");
+
+   const imageName = `${name.replace(/\\|\s|\//g, '')}_${Date.now()}.${extension}`;
+   const path = `${basePath}/${userId}`;
+   if(!fs.existsSync(path)) {
+    fs.mkdir(path, 
+        (error) => {
+            if(error) {
+                throw {message: error.message};
+            }
+        });
+   }
+   const url = `${urlPath}/${userId}/${imageName}`;
+   const completePath = `${path}/${imageName}`;
+   fs.writeFile(completePath, base64Image, 'base64', 
+   (error) => {
+    if(error) {
+        throw {message: error.message};
+    }
+   });
+
+   return url;
 }
