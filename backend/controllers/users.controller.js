@@ -10,6 +10,7 @@ const {
     minimumNameLength, 
     maximumNameLength,
     minimumPasswordLength,
+    allowedProgrammingLanguages,
 } = require('../utilities/conditionalVariables');
 
 const {
@@ -19,7 +20,7 @@ const {
 const {
     hackerEarthConfiguration,
     hackerEarth, 
-} = require('../utilities/hackerEarthApi');
+} = require('../utilities/hackerEarth');
 
 /**********************/
 // .env variables
@@ -32,6 +33,56 @@ const USER_IMAGE_STORAGE_PATH = process.env.USER_IMAGE_STORAGE_PATH;
 const USER_IMAGE_URL = process.env.USER_IMAGE_URL;
 /**********************/
 
+// code execution
+const codeOutput = async (req, res) => {
+    try {
+        const {language, source, inputs} = req.body;
+        if(!language || !source) {
+            // input is optional
+            throw {message: 'Language/source are required'};
+        }
+        if(!allowedProgrammingLanguages.includes(language)) {
+            throw {message: 'Unsupported language'};
+        }
+
+        hackerEarthConfiguration.lang = language;
+        hackerEarthConfiguration.source = source;
+        hackerEarthConfiguration.input = inputs;
+
+        const execution = await hackerEarth.execute(hackerEarthConfiguration);
+
+        const hackerEarthId = execution.data.he_id;
+
+        const status = await hackerEarth.get_status(hackerEarthId);
+
+        const outputUrl = status.data.result.run_status.output;
+        const codeStatus = status.data.result.run_status.status;
+        if(codeStatus !== 'AC') {
+            // AC => ACCEPTED
+            let errorMessage;
+            if(language === 'JAVASCRIPT_NODE') {
+                errorMessage = status.data.result.run_status.stderr;
+            }else {
+                errorMessage = status.data.result.compile_status;
+            }
+            throw {message: errorMessage};  
+        }
+
+        const getOutputConfiguration = {url: outputUrl};
+
+        const output = await hackerEarth.get_output(getOutputConfiguration);
+
+        const displayOutput = {
+            output: output.data,
+            error: false,
+        };
+
+        res.status(200).send(displayOutput);
+
+    } catch (error) {
+        res.status(400).send({error: true, message: error.message});
+    }
+}
 
 // Personal Information
 const createJWTToken = (user) => {
