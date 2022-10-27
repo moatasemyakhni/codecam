@@ -56,3 +56,15 @@ const getUserByEmail = async (email) => {
         return false;
     }
 }
+
+const getUserById = async (id) => {
+    try {
+        const user = await User.findById(id);
+        if(!user) {
+            return false;
+        }
+        return user;
+    } catch (error) {
+        return false;
+    }
+}
