@@ -218,5 +218,7 @@ module.exports = {
     base64ToImageWithPath,
     getPhotosByUserId,
     getPhotoById,
-    editPhotoById
+    editPhotoById,
+    deletePhoto,
+    
 }
