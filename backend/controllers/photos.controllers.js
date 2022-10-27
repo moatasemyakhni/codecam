@@ -128,6 +128,19 @@ const editPhotoById = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+const deletePhoto = async (req, res) => {
+    try {
+        const photoId = req.params.photoId;
+        if(!photoId) {
+            throw {message: 'Photo id is required'};
+        }
+        await Photo.deleteOne({_id: photoId});
+        res.status(200).send({error: false, message: 'Photo deleted successfully'});
+    } catch (error) {
+        res.status(400).send({error: true, message: error.message});
+    }
+}
 // should be used in try catch block
 
 const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
