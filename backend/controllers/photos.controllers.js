@@ -85,9 +85,10 @@ const getPhotoById = async (req, res) => {
         }
         const fileToRead = photo.codeUrl;
         const codeText = readFromFile(fileToRead);
-        
+        photo = {...photo, codeText};
+        res.status(200).send({error: false, photo: photo});
     } catch (error) {
-        
+        res.status(400).send({error: true, message: error.message});
     }
 }
 // should be used in try catch block
