@@ -116,6 +116,18 @@ const getUserByToken = async (req, res) => {
     }
 }
 
+// should be used in try catch block
+const checkUserAuth = async (token, id) => {
+    const decoded = jwt.verify(token.split(' ')[1], USER_ACCESS_TOKEN);
+    const user = await User.findOne({_id: decoded.userId}).select({email: 0, createdAt: 0, updatedAt: 0});
+    if(!user) {
+        throw {message: "User not found"};
+    }
+    if(user._id == id) return true;
+
+    return false;
+}
+
 const getUserByEmail = async (email) => {
     try {
         const user = await User.findOne({email: email});
@@ -198,8 +210,13 @@ const signup = async (req, res) => {
 
 const editProfile = async (req, res) => {
     try {
+        const token = req.headers.authorization;
         const userId = req.params.userId;
         const base64Image = req.body.base64Photo;
+        const checkAuth = await checkUserAuth(token, userId);
+        if(!checkAuth) {
+            throw {message: 'UnAuthorized'};
+        }
         if(!base64Image || !userId) {
             throw {message: 'User id and Image are required'};
         }
@@ -221,8 +238,13 @@ const editProfile = async (req, res) => {
 
 const editFullName = async (req, res) => {
     try {
+        const token = req.headers.authorization;
         const userId = req.params.userId;
         const fullName = req.body.fullName;
+        const checkAuth = await checkUserAuth(token, userId);
+        if(!checkAuth) {
+            throw {message: 'UnAuthorized'};
+        }
         if(!fullName || !userId) {
             throw {message: 'User id and fullName are required'};
         }
@@ -308,4 +330,5 @@ module.exports = {
     getUserByToken,
     getUserById,
     codeOutput,
+    checkUserAuth,
 };
