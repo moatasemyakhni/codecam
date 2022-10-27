@@ -115,9 +115,17 @@ const editPhotoById = async (req, res) => {
 
         //create new file.txt
         const getCodeUrl = writeInFile(photo.userId, snippetName, codeTextContent);
-        
+        // delete old file.txt
+        deleteFile(photo.codeUrl);
+
+        // assign new file.txt to photo
+        photo.codeUrl = getCodeUrl;
+        photo.programmingLanguage = programmingLanguage.toUpperCase();
+        photo.snippetName = snippetName;
+        await photo.save();
+        res.status(200).send({error: false, photo: photo});
     } catch (error) {
-        
+        res.status(400).send({error: true, message: error.message});
     }
 }
 // should be used in try catch block
@@ -196,5 +204,6 @@ module.exports = {
     savePhoto,
     base64ToImageWithPath,
     getPhotosByUserId,
-    getPhotoById
+    getPhotoById,
+    editPhotoById
 }
