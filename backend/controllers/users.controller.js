@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const {
-    minimumNameLength,
     minimumNameLength, 
     maximumNameLength,
     minimumPasswordLength,
@@ -160,4 +159,29 @@ const editProfile = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
     
+}
+
+const editFullName = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const fullName = req.body.fullName;
+        if(!fullName || !userId) {
+            throw {message: 'User id and fullName are required'};
+        }
+        if(fullName.trim().length < minimumNameLength) {
+            throw {message: `Name should be at least ${minimumNameLength} chars`};
+        }else if(fullName.trim().length > maximumNameLength) {
+            throw {message: `Name should be at most ${maximumNameLength} chars`};
+        }
+        const user = await User.findById(userId);
+        if(!user) {
+            throw {message: 'User Not Found'};
+        }
+        user.fullName = fullName;
+        await user.save();
+
+        res.status(200).send({error: false, message: 'FullName is updated successfully'});
+    } catch (error) {
+        res.status(400).send({error: true, message: error.message});
+    }
 }
