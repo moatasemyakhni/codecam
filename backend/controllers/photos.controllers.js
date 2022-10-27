@@ -186,6 +186,12 @@ const readFromFile = (codeUrl) => {
     return content.toString();
 }
 
+const deleteFile = (filePath) => {
+    if(fs.statSync(filePath)) {
+        fs.unlinkSync(filePath);
+    }
+}
+
 module.exports = {
     savePhoto,
     base64ToImageWithPath,
