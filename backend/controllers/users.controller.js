@@ -10,6 +10,10 @@ const {
     minimumPasswordLength,
 } = require('../utilities/conditionalVariables');
 
+const {
+    base64ToImageWithPath,
+} = require('./photos.controllers');
+
 /**********************/
 // .env variables
 USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
