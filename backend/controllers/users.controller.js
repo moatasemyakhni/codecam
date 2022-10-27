@@ -140,14 +140,24 @@ const signup = async (req, res) => {
 }
 
 const editProfile = async (req, res) => {
-    const userId = req.params.userId;
-    const base64Image = req.body.base64Photo;
-    if(!base64Image || !userId) {
-        throw {message: 'User id and Image are required'};
+    try {
+        const userId = req.params.userId;
+        const base64Image = req.body.base64Photo;
+        if(!base64Image || !userId) {
+            throw {message: 'User id and Image are required'};
+        }
+        const user = await User.findById(userId);
+        if(!user) {
+            throw {message: 'User Not Found'};
+        }
+        const newProfile = base64ToImageWithPath(user._id, base64Image, user.fullName, USER_IMAGE_STORAGE_PATH, USER_IMAGE_URL);
+
+        user.profilePhotoUrl = newProfile;
+        await user.save();
+
+        res.status(200).send({error: false, message: 'Profile updated successfully'});
+    } catch (error) {
+        res.status(400).send({error: true, message: error.message});
     }
-    const user = await User.findById(userId);
-    if(!user) {
-        throw {message: 'User Not Found'};
-    }
-    const newProfile = base64ToImageWithPath(user._id, base64Image, user.fullName)
+    
 }
