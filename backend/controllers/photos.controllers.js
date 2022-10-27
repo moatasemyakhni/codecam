@@ -1,8 +1,8 @@
 require('dotenv').config();
 const Photo = require('../models/Photo');
+const User = require('../models/User');
 const fs = require('fs');
 
-const {getUserById} = require('./users.controller');
 
 const {
     photoExtensions, // array
@@ -18,6 +18,18 @@ const CODE_IMAGE_STORAGE_PATH = process.env.CODE_IMAGE_STORAGE_PATH;
 const CODE_IMAGE_URL = process.env.CODE_IMAGE_URL;
 /**********************/
 
+
+const getUserById = async (id) => {
+    try {
+        const user = await User.findById(id);
+        if(!user) {
+            return false;
+        }
+        return user;
+    } catch (error) {
+        return false;
+    }
+}
 
 const getPhotosByUserId = async (req, res) => {
     try {
@@ -68,7 +80,7 @@ const savePhoto = async (req, res) => {
         await photo.save();
         res.status(201).send({error: false, message: 'Photo saved successfully'});
     } catch (error) {
-        res.status(400).send({error: true, message: error.message});
+        res.status(400).send({error: true, message: error.message, where: "here"});
     }
 }
 
@@ -187,7 +199,7 @@ const writeInFile = (userId, snippet, textContent) => {
 
     const url = `${CODE_TEXT_STORAGE_PATH}/${userId}/${fileName}`;
     const completePath = `${path}/${fileName}`;
-    fs.watchFile(completePath, textContent, 
+    fs.writeFile(completePath, textContent, 
         (error) => {
             if(error) {
                 throw {message: error.message};

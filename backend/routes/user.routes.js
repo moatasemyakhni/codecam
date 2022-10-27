@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.post('/', signup);
 router.post('/login', login);
-router.post('reset-password', sendEmailToUser);
+router.post('/reset-password', sendEmailToUser);
 router.post('/change-password', changePassword);
 
 // needs authorization
