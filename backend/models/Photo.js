@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const {allowedProgrammingLanguages} = require('../utilities/conditionalVariables');
+
 const photoSchema = new mongoose.Schema({
     photoUrl: {
         type: String,
