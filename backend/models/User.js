@@ -43,5 +43,10 @@ userSchema.pre('save', function(next) {
     next();
 });
 
+userSchema.path('email').validate(function(value) {
+    const expression = /^(\w([\.-]?\w)*)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return value.match(expression);
+}, 'Email is required with the right format');
+
 const User = mongoose.model('user', userSchema);
 module.exports = User;
