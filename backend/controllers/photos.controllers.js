@@ -44,12 +44,17 @@ const savePhoto = async (req, res) => {
         } = req.body;
 
         if(!base64Photo || !codeTextContent || !snippetName || !userId, !programmingLanguage) {
-            throw {message: "Incomplete request"};
+            throw {message: 'Incomplete request'};
         }
 
         if(!allowedProgrammingLanguages.includes(programmingLanguage.toUpperCase())) {
-            throw {message: "Unsupported Programming Language"};
+            throw {message: 'Unsupported Programming Language'};
         }
+
+        if(!getUserById(userId)) {
+            throw {message: 'User Not Found'};
+        }
+        
     } catch (error) {
         
     }
