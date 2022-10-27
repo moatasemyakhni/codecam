@@ -110,6 +110,7 @@ const signup = async (req, res) => {
             throw {message: `Password should be at least ${minimumPasswordLength} chars`};
         }
         
+        const user = await getUserByEmail(email);
 
     } catch (error) {
         
