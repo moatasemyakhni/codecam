@@ -143,3 +143,13 @@ const writeInFile = (userId, snippet, textContent) => {
 
         return url;
 }
+
+const readFromFile = (codeUrl) => {
+    const content = fs.readFileSync(codeUrl, 'utf-8', 
+    (error) => {
+        if(error) {
+            throw {message: error.message};
+        }
+    });
+    return content.toString();
+}
