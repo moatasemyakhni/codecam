@@ -16,3 +16,5 @@ const userAuthMiddleware = async (req, res, next) => {
         res.status(401).send({error: true, message: "Unauthorized"});
     }
 }
+
+module.exports = userAuthMiddleware;
