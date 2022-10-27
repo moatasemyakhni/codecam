@@ -243,3 +243,13 @@ const changePassword = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+module.exports = {
+    signup,
+    sendEmailToUser,
+    changePassword,
+    login,
+    editProfile,
+    editFullName,
+    getUserByToken,
+    getUserById,
+};
