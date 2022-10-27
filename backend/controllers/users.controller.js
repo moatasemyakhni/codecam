@@ -7,6 +7,7 @@ const {
     minimumNameLength,
     minimumNameLength, 
     maximumNameLength,
+    minimumPasswordLength,
 } = require('../utilities/conditionalVariables');
 
 /**********************/
@@ -94,5 +95,23 @@ const login = async (req, res) => {
         res.status(200).send({error: false, token: createJWTToken(user)});
     } catch (error) {
         res.status(404).send({error: true, message: error.message});
+    }
+}
+
+const signup = async (req, res) => {
+    const {fullName, email, password} = req.body;
+    try {
+        if(fullName.trim().length < minimumNameLength) {
+            throw {message: `Name should be at least ${minimumNameLength} chars`};
+        }else if(fullName.trim().length > maximumNameLength) {
+            throw {message: `Name should be at most ${maximumNameLength} chars`};
+        }
+        if(password.length < minimumNameLength) {
+            throw {message: `Password should be at least ${minimumPasswordLength} chars`};
+        }
+        
+
+    } catch (error) {
+        
     }
 }
