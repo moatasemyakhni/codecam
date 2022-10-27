@@ -36,6 +36,11 @@ const photoSchema = new mongoose.Schema({
     },
 });
 
+photoSchema.pre('save', function(next) {
+    this.updatedAt = Date.now();
+    next();
+});
+
 const Photo = mongoose.model('photo', photoSchema);
 
 module.exports = Photo;
