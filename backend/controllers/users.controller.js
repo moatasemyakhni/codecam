@@ -190,3 +190,27 @@ const editFullName = async (req, res) => {
 }
 
 // Reset password
+const sendEmailToUser = async (req, res) => {
+    try {
+        const email = req.body.email;
+        if(!email) {
+            throw {message: 'Email is required'};
+        }
+        const user = await getUserByEmail(email);
+        if(!user) {
+            throw {message: 'Email does not exists'};
+        }
+        let token = await Token.findOne({userId: user._id});
+        if(!token) {
+            token = new Token();
+            token.userId = user._id;
+            token.token = crypto.randomBytes(64).toString('hex');
+            await token.save();
+        }
+        const input = `${user._id}/${token.token}`;
+        await sendEmail(user.fullName, user.email, 'Reset Password', input);
+        res.status(201).send({error: false, message: 'Password reset link sent to your email account'});
+    } catch (error) {
+        res.status(400).send({error: true, message: error.message});
+    }
+}
