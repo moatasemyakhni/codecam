@@ -214,3 +214,32 @@ const sendEmailToUser = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+const changePassword = async (req, res) => {
+    try {
+        const string = req.body.idPlusToken;
+        const newPassword = req.body.password;
+        if(!string) {
+            throw {message: 'Token is required'};
+        }
+        const idPlusToken = string.split('/');
+        const userId = idPlusToken[0];
+        const token = idPlusToken[1];
+
+        const user = await User.findById(userId);
+        if(!user) {
+            throw {message: 'Invalid token or expired'};
+        }
+        const getToken = await Token.findOne({userId: userId, token: token});
+        if(!getToken) {
+            throw {message: 'Invalid token or expired'};
+        }
+        user.password = await bcrypt.hash(newPassword, 10);
+        await user.save();
+        // token is a one time usage
+        await getToken.delete();
+        res.status(200).send({error: false, message: 'Password reset successfully'});
+    } catch (error) {
+        res.status(400).send({error: true, message: error.message});
+    }
+}
