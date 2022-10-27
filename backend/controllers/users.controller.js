@@ -16,11 +16,13 @@ const {
 
 /**********************/
 // .env variables
-USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
+const USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
 
-ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS = process.env.ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS;
+const ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS = process.env.ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS;
 
-USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
+const USER_IMAGE_STORAGE_PATH = process.env.USER_IMAGE_STORAGE_PATH;
+
+const USER_IMAGE_URL = process.env.USER_IMAGE_URL;
 /**********************/
 
 
