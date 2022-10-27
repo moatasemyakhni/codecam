@@ -216,7 +216,7 @@ const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
    fs.writeFile(completePath, base64Image, 'base64', 
    (error) => {
     if(error) {
-        throw {message: error.message};
+        throw {message: error.stack};
     }
    });
 
@@ -231,7 +231,7 @@ const writeInFile = (userId, snippet, textContent) => {
     if(!fs.existsSync(path)) {
         fs.mkdir(path, 
             (error) => {
-                throw {message: error.message};
+                throw {message: error.stack};
             });
     }
 
@@ -240,7 +240,7 @@ const writeInFile = (userId, snippet, textContent) => {
     fs.writeFile(completePath, textContent, 
         (error) => {
             if(error) {
-                throw {message: error.message};
+                throw {message: error.stack};
             }
         });
 
