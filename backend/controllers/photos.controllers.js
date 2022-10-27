@@ -4,6 +4,15 @@ const fs = require('fs');
 
 const {getUserById} = require('./users.controller');
 
+/**********************/
+// .env variables
+const CODE_TEXT_STORAGE_PATH = process.env.CODE_TEXT_STORAGE_PATH;
+
+const CODE_IMAGE_STORAGE_PATH = process.env.CODE_IMAGE_STORAGE_PATH;
+
+const CODE_IMAGE_URL = process.env.CODE_IMAGE_URL;
+/**********************/
+
 
 const getPhotosByUserId = async (req, res) => {
     try {
