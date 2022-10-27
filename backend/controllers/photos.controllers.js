@@ -58,8 +58,17 @@ const savePhoto = async (req, res) => {
         const getPhotoUrl = base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_URL);
 
         const getCodeUrl = writeInFile(userId, snippetName, codeTextContent);
+
+        const photo = new Photo();
+        photo.photoUrl = getPhotoUrl;
+        photo.codeUrl = getCodeUrl;
+        photo.programmingLanguage = programmingLanguage.toUpperCase();
+        photo.snippetName = snippetName;
+        photo.userId = userId;
+        await photo.save();
+        res.status(201).send({error: false, message: "Photo saved successfully"});
     } catch (error) {
-        
+        res.status(400).send({error: true, message: error.message});
     }
 }
 // should be used in try catch block
