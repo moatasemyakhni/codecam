@@ -13,3 +13,11 @@ const {
 } = require('../controllers/users.controller');
 
 const router = express.Router();
+
+// no auth needed
+
+router.post('/', signup);
+router.post('/login', login);
+router.post('reset-password', sendEmailToUser);
+router.post('/change-password', changePassword);
+
