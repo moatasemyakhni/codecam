@@ -4,6 +4,11 @@ const fs = require('fs');
 
 const {getUserById} = require('./users.controller');
 
+const {
+    photoExtensions, // array
+    allowedProgrammingLanguages, // array
+} = require('../utilities/conditionalVariables');
+
 /**********************/
 // .env variables
 const CODE_TEXT_STORAGE_PATH = process.env.CODE_TEXT_STORAGE_PATH;
