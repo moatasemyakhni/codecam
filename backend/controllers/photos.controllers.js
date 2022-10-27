@@ -66,7 +66,7 @@ const savePhoto = async (req, res) => {
         photo.snippetName = snippetName;
         photo.userId = userId;
         await photo.save();
-        res.status(201).send({error: false, message: "Photo saved successfully"});
+        res.status(201).send({error: false, message: 'Photo saved successfully'});
     } catch (error) {
         res.status(400).send({error: true, message: error.message});
     }
@@ -91,6 +91,35 @@ const getPhotoById = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+const editPhotoById = async (req, res) => {
+    try {
+        const photoId = req.params.photoId;
+        const {
+            codeTextContent,
+            programmingLanguage,
+            snippetName,
+        } = req.body;
+
+        if(!photoId || !codeTextContent || !programmingLanguage || !snippetName) {
+            throw {message: 'Incomplete request'};
+        }
+
+        if(!allowedProgrammingLanguages.includes(programmingLanguage.toUpperCase())) {
+            throw {message: 'Unsupported Programming Language'};
+        }
+        const photo = await Photo.findById(photoId);
+        if(!photo) {
+            throw {message: 'No Photo found'}
+        }
+
+        //create new file.txt
+        const getCodeUrl = writeInFile(photo.userId, snippetName, codeTextContent);
+        
+    } catch (error) {
+        
+    }
+}
 // should be used in try catch block
 
 const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
@@ -99,7 +128,7 @@ const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
     if(!photoExtensions.includes(extension.toUpperCase())) {
         throw {message: 'Not a valid extension'};
     }
-   const base64Image = base64.replace(/^data:image\/png;base64,/, "");
+   const base64Image = base64.replace(/^data:image\/png;base64,/, '');
 
    const imageName = `${name.replace(/\\|\s|\//g, '')}_${Date.now()}.${extension}`;
    const path = `${basePath}/${userId}`;
