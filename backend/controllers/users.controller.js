@@ -82,6 +82,10 @@ const login = async (req, res) => {
         }
 
         const checkPassword = await bcrypt.compare(password, user.password);
+        if(!checkPassword) {
+            throw {message: 'Wrong Email or Password'};
+        }
+        res.status(200).send({error: false, token: createJWTToken(user)});
     } catch (error) {
         
     }
