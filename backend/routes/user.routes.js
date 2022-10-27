@@ -21,3 +21,10 @@ router.post('/login', login);
 router.post('reset-password', sendEmailToUser);
 router.post('/change-password', changePassword);
 
+// needs authorization
+router.get('/', userAuthMiddleware, getUserByToken);
+router.post('/run', userAuthMiddleware, codeOutput);
+router.patch('/edit/photo/:userId', userAuthMiddleware, editProfile);
+router.patch('/edit/name/:userId', userAuthMiddleware, editFullName);
+
+module.exports = router;
