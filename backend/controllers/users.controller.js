@@ -97,7 +97,6 @@ const createJWTToken = (user) => {
             expiresIn: ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS,
         }
     );
-
     return token;
 } 
 
@@ -184,7 +183,7 @@ const signup = async (req, res) => {
 
             const freshUser = {
                 user: user,
-                token: token,
+                token: createJWTToken(user),
                 error: false,
             };
 
