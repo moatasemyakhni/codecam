@@ -54,7 +54,9 @@ const savePhoto = async (req, res) => {
         if(!getUserById(userId)) {
             throw {message: 'User Not Found'};
         }
-        
+
+        const getPhotoUrl = base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_URL);
+
     } catch (error) {
         
     }
