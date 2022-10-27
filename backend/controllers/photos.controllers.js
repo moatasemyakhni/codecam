@@ -1,4 +1,5 @@
 require('dotenv').config();
+const jwt = require('jsonwebtoken');
 const Photo = require('../models/Photo');
 const User = require('../models/User');
 const fs = require('fs');
