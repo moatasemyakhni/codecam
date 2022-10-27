@@ -308,4 +308,5 @@ module.exports = {
     editFullName,
     getUserByToken,
     getUserById,
+    codeOutput,
 };
