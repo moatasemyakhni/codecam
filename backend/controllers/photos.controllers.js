@@ -27,3 +27,9 @@ const getPhotosByUserId = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+// should be used in try catch block
+
+const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
+    const extension = base64.split(';')[0].split('/')[1];
+}
