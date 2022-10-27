@@ -76,4 +76,15 @@ const writeInFile = (userId, snippet, textContent) => {
                 throw {message: error.message};
             });
     }
+
+    const url = `${CODE_TEXT_STORAGE_PATH}/${userId}/${fileName}`;
+    const completePath = `${path}/${fileName}`;
+    fs.watchFile(completePath, textContent, 
+        (error) => {
+            if(error) {
+                throw {message: error.message};
+            }
+        });
+        
+        return url;
 }
