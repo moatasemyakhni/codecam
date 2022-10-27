@@ -106,7 +106,7 @@ const getUserByToken = async (req, res) => {
 
     try {
         const decoded = jwt.verify(token.split(' ')[1], USER_ACCESS_TOKEN);
-        const user = await User.findOne({email: decoded.email}).select({email: 0, createdAt: 0, updatedAt: 0});
+        const user = await User.findOne({_id: decoded.userId}).select({email: 0, createdAt: 0, updatedAt: 0});
         if(!user) {
             throw {message: "User not found"};
         }
