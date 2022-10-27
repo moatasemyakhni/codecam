@@ -3,6 +3,11 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+const {
+    minimumNameLength, 
+    maximumNameLength,
+} = require('../utilities/conditionalVariables');
+
 /**********************/
 // .env variables
 USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
