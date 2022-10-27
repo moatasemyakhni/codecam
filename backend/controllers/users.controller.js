@@ -116,8 +116,19 @@ const signup = async (req, res) => {
             user.fullName = fullName;
             user.email = email;
             user.password = await bcrypt.hash(password, 10);
+            await user.save();
+
+            const freshUser = {
+                user: user,
+                token: token,
+                error: false,
+            };
+
+            res.status(201).send(freshUser);
+            return;
         }
+        throw {message: `${email} is taken`};
     } catch (error) {
-        
+        res.status(400).send({error: true, message: error.message});
     }
 }
