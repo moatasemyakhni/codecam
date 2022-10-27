@@ -2,6 +2,15 @@ require('dotenv').config();
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 
+/**********************/
+// .env variables
+USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
+
+ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS = process.env.ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS;
+
+USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
+/**********************/
+
 
 // Personal Information
 const createJWTToken = (user) => {
@@ -11,9 +20,9 @@ const createJWTToken = (user) => {
             fullName: user.fullName,
             profilePhotoUrl: user.profilePhotoUrl,
         },
-        process.env.User_ACCESS_TOKEN,
+        USER_ACCESS_TOKEN,
         {
-            expiresIn: process.env.ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS,
+            expiresIn: ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS,
         }
     );
 
@@ -24,7 +33,7 @@ const getUserByToken = async (req, res) => {
     const token = req.headers.authorization;
 
     try {
-        const decoded = jwt.verify(token.split(' ')[1], process.env.USER_ACCESS_TOKEN);
+        const decoded = jwt.verify(token.split(' ')[1], USER_ACCESS_TOKEN);
         const user = await User.findOne({email: decoded.email}).select({email: 0, createdAt: 0, updatedAt: 0});
         if(!user) {
             throw {message: "User not found"};
