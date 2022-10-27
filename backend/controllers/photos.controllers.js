@@ -37,4 +37,9 @@ const getPhotosByUserId = async (req, res) => {
 
 const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
     const extension = base64.split(';')[0].split('/')[1];
+
+    if(!photoExtensions.includes(extension.toUpperCase())) {
+        throw {message: 'Not a valid extension'};
+    }
+    
 }
