@@ -57,6 +57,7 @@ const savePhoto = async (req, res) => {
 
         const getPhotoUrl = base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_URL);
 
+        const getCodeUrl = writeInFile(userId, snippetName, codeTextContent);
     } catch (error) {
         
     }
