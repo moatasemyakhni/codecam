@@ -42,9 +42,14 @@ const getUserById = async (id) => {
 
 const getPhotosByUserId = async (req, res) => {
     try {
+        const token = req.headers.authorization;
         const userId = req.params.userId;
         if(!userId) {
             throw {message: 'User id is required'};
+        }
+        const checkAuth = await checkUserAuth(token, userId);
+        if(!checkAuth) {
+            throw {message: 'UnAuthorized'};
         }
         const photos = await Photo.find({userId: userId}).sort([['updatedAt', 'desc']]);
 
@@ -67,7 +72,11 @@ const savePhoto = async (req, res) => {
         if(!base64Photo || !codeTextContent || !snippetName || !userId, !programmingLanguage) {
             throw {message: 'Incomplete request'};
         }
-
+        const token = req.headers.authorization;
+        const checkAuth = await checkUserAuth(token, userId);
+        if(!checkAuth) {
+            throw {message: 'UnAuthorized'};
+        }
         if(!allowedProgrammingLanguages.includes(programmingLanguage.toUpperCase())) {
             throw {message: 'Unsupported Programming Language'};
         }
@@ -104,6 +113,11 @@ const getPhotoById = async (req, res) => {
         if(!photo) {
             throw {message: 'No photo is found'};
         }
+        const token = req.headers.authorization;
+        const checkAuth = await checkUserAuth(token, photo.userId);
+        if(!checkAuth) {
+            throw {message: 'UnAuthorized'};
+        }
         const fileToRead = photo.codeUrl;
         const codeText = readFromFile(fileToRead);
         photo = {...photo, codeText};
@@ -133,7 +147,11 @@ const editPhotoById = async (req, res) => {
         if(!photo) {
             throw {message: 'No Photo found'}
         }
-
+        const token = req.headers.authorization;
+        const checkAuth = await checkUserAuth(token, photo.userId);
+        if(!checkAuth) {
+            throw {message: 'UnAuthorized'};
+        }
         //create new file.txt
         const getCodeUrl = writeInFile(photo.userId, snippetName, codeTextContent);
         // delete old file.txt
@@ -156,7 +174,16 @@ const deletePhoto = async (req, res) => {
         if(!photoId) {
             throw {message: 'Photo id is required'};
         }
-        await Photo.deleteOne({_id: photoId});
+        const photo = await Photo.findById(photoId);
+        if(!photo) {
+            throw {message: 'No Photo found'}
+        }
+        const token = req.headers.authorization;
+        const checkAuth = await checkUserAuth(token, photo.userId);
+        if(!checkAuth) {
+            throw {message: 'UnAuthorized'};
+        }
+        await photo.delete();
         res.status(200).send({error: false, message: 'Photo deleted successfully'});
     } catch (error) {
         res.status(400).send({error: true, message: error.message});
