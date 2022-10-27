@@ -3,6 +3,15 @@ const Photo = require('../models/Photo');
 const User = require('../models/User');
 const fs = require('fs');
 
+const checkUserAuth = async (token, id) => {
+    const decoded = jwt.verify(token.split(' ')[1], USER_ACCESS_TOKEN);
+    if(!decoded) {
+        throw {message: "User not found"};
+    }
+    if(decoded.userId == id) return true;
+
+    return false;
+}
 
 const {
     photoExtensions, // array
