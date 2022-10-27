@@ -83,6 +83,8 @@ const getPhotoById = async (req, res) => {
         if(!photo) {
             throw {message: 'No photo is found'};
         }
+        const fileToRead = photo.codeUrl;
+        const codeText = readFromFile(fileToRead);
         
     } catch (error) {
         
