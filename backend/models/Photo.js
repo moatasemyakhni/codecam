@@ -13,6 +13,7 @@ const photoSchema = new mongoose.Schema({
     },
     programmingLanguage: {
         type: String,
+        enum: allowedProgrammingLanguages,
         required: 'Choosing a programming language is required',
     },
     snippetName: {
