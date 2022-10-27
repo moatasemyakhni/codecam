@@ -136,3 +136,16 @@ const signup = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+const editProfile = async (req, res) => {
+    const userId = req.params.userId;
+    const base64Image = req.body.base64Photo;
+    if(!base64Image || !userId) {
+        throw {message: 'User id and Image are required'};
+    }
+    const user = await User.findById(userId);
+    if(!user) {
+        throw {message: 'User Not Found'};
+    }
+    const newProfile = base64ToImageWithPath(user._id, base64Image, user.fullName)
+}
