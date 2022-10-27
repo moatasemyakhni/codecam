@@ -71,6 +71,23 @@ const savePhoto = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+const getPhotoById = async (req, res) => {
+    try {
+        const photoId = req.params.photoId;
+        if(!photoId) {
+            throw {message: 'Photo id is required'};
+        }
+
+        let photo = await Photo.findById(photoId).lean();
+        if(!photo) {
+            throw {message: 'No photo is found'};
+        }
+        
+    } catch (error) {
+        
+    }
+}
 // should be used in try catch block
 
 const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
