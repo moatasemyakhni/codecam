@@ -16,6 +16,11 @@ const {
     base64ToImageWithPath,
 } = require('./photos.controllers');
 
+const {
+    hackerEarthConfiguration,
+    hackerEarth, 
+} = require('../utilities/hackerEarthApi');
+
 /**********************/
 // .env variables
 const USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
