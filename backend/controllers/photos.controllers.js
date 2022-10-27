@@ -64,3 +64,16 @@ const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
 
    return url;
 }
+
+// should be used in try catch block
+const writeInFile = (userId, snippet, textContent) => {
+    // replace '/' and '\' by '' to not create new route
+    const fileName = `${snippet.replace(/\\|\s|\//g, '')}_${Date.now()}.txt`;
+    const path = `${CODE_TEXT_STORAGE_PATH}/${userId}`;
+    if(!fs.existsSync(path)) {
+        fs.mkdir(path, 
+            (error) => {
+                throw {message: error.message};
+            });
+    }
+}
