@@ -111,7 +111,12 @@ const signup = async (req, res) => {
         }
         
         const user = await getUserByEmail(email);
-
+        if(!user) {
+            const user = new User();
+            user.fullName = fullName;
+            user.email = email;
+            user.password = await bcrypt.hash(password, 10);
+        }
     } catch (error) {
         
     }
