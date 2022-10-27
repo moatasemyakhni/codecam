@@ -87,6 +87,6 @@ const login = async (req, res) => {
         }
         res.status(200).send({error: false, token: createJWTToken(user)});
     } catch (error) {
-        
+        res.status(404).send({error: true, message: error.message});
     }
 }
