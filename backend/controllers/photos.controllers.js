@@ -33,6 +33,27 @@ const getPhotosByUserId = async (req, res) => {
     }
 }
 
+const savePhoto = async (req, res) => {
+    try {
+        const {
+            base64Photo,
+            codeTextContent,
+            programmingLanguage,
+            snippetName,
+            userId,
+        } = req.body;
+
+        if(!base64Photo || !codeTextContent || !snippetName || !userId, !programmingLanguage) {
+            throw {message: "Incomplete request"};
+        }
+
+        if(!allowedProgrammingLanguages.includes(programmingLanguage.toUpperCase())) {
+            throw {message: "Unsupported Programming Language"};
+        }
+    } catch (error) {
+        
+    }
+}
 // should be used in try catch block
 
 const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
@@ -85,6 +106,6 @@ const writeInFile = (userId, snippet, textContent) => {
                 throw {message: error.message};
             }
         });
-        
+
         return url;
 }
