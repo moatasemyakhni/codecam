@@ -38,6 +38,10 @@ const userSchema = new mongoose.Schema({
     }
 });
 
+userSchema.pre('save', function(next) {
+    this.updatedAt = Date.now();
+    next();
+});
 
 const User = mongoose.model('user', userSchema);
 module.exports = User;
