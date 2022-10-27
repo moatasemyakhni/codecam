@@ -55,3 +55,5 @@ const emailTemplate = (fullName, text) => {
     </a>
     `;
 }
+
+module.exports = sendEmail;
