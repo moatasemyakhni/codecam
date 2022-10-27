@@ -69,3 +69,20 @@ const getUserById = async (id) => {
         return false;
     }
 }
+
+const login = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+        if(!email || !password) {
+            throw {message: 'Email and Password are required'};
+        }
+        const user = await User.findOne({email}).select('+password');
+        if(!user) {
+            throw {message: 'Wrong Email or Password'};
+        }
+
+        const checkPassword = await bcrypt.compare(password, user.password);
+    } catch (error) {
+        
+    }
+}
