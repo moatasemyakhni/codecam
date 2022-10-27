@@ -44,3 +44,15 @@ const getUserByToken = async (req, res) => {
         res.status(404).send({error: true, message: error.message});
     }
 }
+
+const getUserByEmail = async (email) => {
+    try {
+        const user = await User.findOne({email: email});
+        if(!user) {
+            return false;
+        }
+        return user;
+    } catch (error) {
+        return false;
+    }
+}
