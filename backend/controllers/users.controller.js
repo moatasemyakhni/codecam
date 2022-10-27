@@ -119,11 +119,10 @@ const getUserByToken = async (req, res) => {
 // should be used in try catch block
 const checkUserAuth = async (token, id) => {
     const decoded = jwt.verify(token.split(' ')[1], USER_ACCESS_TOKEN);
-    const user = await User.findOne({_id: decoded.userId}).select({email: 0, createdAt: 0, updatedAt: 0});
-    if(!user) {
+    if(!decoded) {
         throw {message: "User not found"};
     }
-    if(user._id == id) return true;
+    if(decoded.userId == id) return true;
 
     return false;
 }
