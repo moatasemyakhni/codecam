@@ -39,3 +39,19 @@ const sendEmail = async (fullName, email, subject, text) => {
         console.log('error:', error.message);
     }
 }
+
+const emailTemplate = (fullName, text) => {
+    return `
+    <p style="font-weight:bold;font-size:20px;">Dear ${fullName},</p>
+    <p style="font-weight:bold;font-size:20px;">Please copy the following code and paste it in the token box in maximum ${parseInt(TOKEN_EXPIRY_TIME_IN_SECONDS/60)} minutes: </p>
+    <h1 style="padding:10px;background-color:#ccc">${text}</h1>
+    <div style="font-weight:bold;font-size:20px;">
+        <p>In case token expired try to click on "forgot password" again.</p>
+        <p>Best Regards&nbsp;</p>
+        <p>CodeCamTeam&nbsp;</p>
+    </div>
+    <a href="https://linkedin.com/in/moatasem-yakhni-2b62b922b" target="_blank">
+        <img style="display:block;" src='cid:logo.png' width="50px" height="50px" />
+    </a>
+    `;
+}
