@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const {
+    minimumNameLength,
     minimumNameLength, 
     maximumNameLength,
 } = require('../utilities/conditionalVariables');
