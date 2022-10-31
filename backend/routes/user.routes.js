@@ -1,5 +1,4 @@
 const express = require('express');
-const userAuthMiddleware = require('../middlewares/user.middleware');
 const {
     editProfile,
     editFullName,
@@ -10,9 +9,9 @@ const {
 const router = express.Router();
 
 
-router.get('/', userAuthMiddleware, getUserByToken);
-router.post('/run', userAuthMiddleware, codeOutput);
-router.patch('/edit/photo/:userId', userAuthMiddleware, editProfile);
-router.patch('/edit/name/:userId', userAuthMiddleware, editFullName);
+router.get('/', getUserByToken);
+router.post('/run', codeOutput);
+router.patch('/edit/photo/:userId', editProfile);
+router.patch('/edit/name/:userId', editFullName);
 
 module.exports = router;
