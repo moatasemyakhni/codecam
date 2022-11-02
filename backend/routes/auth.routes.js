@@ -18,6 +18,10 @@ router.get('/reset-password/:id/:token', (_, res) => {
     return res.sendFile(path.join(__dirname, '../views/reset-password/index.html'));
 });
 
+router.get('/views/reset-password/logo', (_, res) => {
+    return res.sendFile(path.join(__dirname, '../views/reset-password/logo.png'));
+});
+
 
 
 module.exports = router;
