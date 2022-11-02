@@ -43,7 +43,7 @@ img {
     text-transform: uppercase;
     background-color: var(--main-color);
     color: white;
-    border: hidden;
+    border: 1px solid transparent;
     cursor: pointer;
 }
 
@@ -66,4 +66,16 @@ img {
     font-size: 18px;
     font-weight: bold;
     color: coral;
+}
+
+@media only screen and (max-width: 250px) {
+
+    .image-wrapper > img {
+        width: 150px;
+    }
+
+    .input {
+        font-size: 14px;
+    }
+
 }
