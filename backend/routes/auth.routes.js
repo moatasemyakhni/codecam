@@ -22,6 +22,9 @@ router.get('/views/reset-password/logo', (_, res) => {
     return res.sendFile(path.join(__dirname, '../views/reset-password/logo.png'));
 });
 
+router.get('/views/reset-password/style', (_, res) => {
+    return res.sendFile(path.join(__dirname, '../views/reset-password/style.css'));
+});
 
 
 module.exports = router;
