@@ -31,6 +31,8 @@ const ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS = process.env.ACCESS_TOKEN_EXPIRE_TIME_I
 const USER_IMAGE_STORAGE_PATH = process.env.USER_IMAGE_STORAGE_PATH;
 
 const USER_IMAGE_URL = process.env.USER_IMAGE_URL;
+
+const RESET_PASSWORD_BASE_URL = process.env.RESET_PASSWORD_BASE_URL;
 /**********************/
 
 // code execution
