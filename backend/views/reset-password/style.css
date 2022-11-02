@@ -3,6 +3,9 @@ img {
     height: 100%;
 }
 
+:root {
+    --main-color: #8293EE;
+}
 
 .container {
     width: 100%;
@@ -38,7 +41,7 @@ img {
 .btn-submit {
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #214ce6;
+    background-color: var(--main-color);
     color: white;
     border: hidden;
     cursor: pointer;
@@ -46,16 +49,16 @@ img {
 
 
 .btn-submit:hover {
-    border: 1px solid #214ce6;
+    border: 1px solid var(--main-color);
     background-color: white;
-    color: #214ce6;
+    color: var(--main-color);
 }
 
 
 .btn-submit:active {
-    border: 1px solid #214ce6;
-    background-color: rgba(33, 76, 230, 0.3);;
-    color: #214ce6;
+    border: 1px solid var(--main-color);
+    background-color: rgba(130, 147, 238, 0.3);
+    color: var(--main-color);
 }
 
 
