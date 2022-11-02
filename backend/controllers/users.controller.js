@@ -285,7 +285,7 @@ const sendEmailToUser = async (req, res) => {
             token.token = crypto.randomBytes(64).toString('hex');
             await token.save();
         }
-        const input = `${user._id}/${token.token}`;
+        const input = `${RESET_PASSWORD_BASE_URL}/${user._id}/${token.token}`;
         await sendEmail(user.fullName, user.email, 'Reset Password', input);
         res.status(201).send({error: false, message: 'Password reset link sent to your email account'});
     } catch (error) {
