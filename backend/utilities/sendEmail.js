@@ -29,9 +29,9 @@ const sendEmail = async (fullName, email, subject, text) => {
             subject: subject,
             html: emailTemplate(fullName, text),
             attachments: [{
-                filename: 'logo.png',
+                filename: 'colored-logo+name.png',
                 path: `${APP_IMAGE_LOGO_STORAGE_PATH}`,
-                cid: 'logo.png',
+                cid: 'logo',
             }],
         });
         console.log('Email is sent successfully');
@@ -44,14 +44,13 @@ const emailTemplate = (fullName, text) => {
     return `
     <p style="font-weight:bold;font-size:20px;">Dear ${fullName},</p>
     <p style="font-weight:bold;font-size:20px;">Please copy the following code and paste it in the token box in maximum ${parseInt(TOKEN_EXPIRY_TIME_IN_SECONDS/60)} minutes: </p>
-    <h1 style="padding:10px;background-color:#ccc">${text}</h1>
+    <h1 style="padding:10px;background-color:#f1f1f1;color:white;text-decoration: none;">${text}</h1>
     <div style="font-weight:bold;font-size:20px;">
         <p>In case token expired try to click on "forgot password" again.</p>
-        <p>Best Regards&nbsp;</p>
-        <p>CodeCamTeam&nbsp;</p>
+        <p>Best Regards,&nbsp;</p>
     </div>
-    <a href="https://linkedin.com/in/moatasem-yakhni-2b62b922b" target="_blank">
-        <img style="display:block;" src='cid:logo.png' width="50px" height="50px" />
+    <a style="width=175px;" href="https://linkedin.com/in/moatasem-yakhni-2b62b922b" target="_blank">
+        <img style="display:block;" src='cid:logo' width="175px" height="200px" />
     </a>
     `;
 }
