@@ -1,10 +1,8 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const https = require('https');
 const Photo = require('../models/Photo');
 const User = require('../models/User');
 const fs = require('fs');
-
 const { Storage } = require('@google-cloud/storage');
 
 const {
@@ -25,8 +23,6 @@ const CODE_TEXT_STORAGE_PATH = process.env.CODE_TEXT_STORAGE_PATH;
 const CODE_TEXT_CLOUD_URL = process.env.CODE_TEXT_CLOUD_URL;
 
 const CODE_IMAGE_STORAGE_PATH = process.env.CODE_IMAGE_STORAGE_PATH;
-
-const CODE_IMAGE_URL = process.env.CODE_IMAGE_URL;
 
 const CODE_IMAGE_CLOUD_URL = process.env.CODE_IMAGE_CLOUD_URL;
 
@@ -114,7 +110,6 @@ const savePhoto = async (req, res) => {
         }
 
         const getPhotoUrl = await base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_CLOUD_URL);
-        console.log(getPhotoUrl);
 
         const getCodeUrl = writeInFile(userId, snippetName, codeTextContent);
 
@@ -240,8 +235,6 @@ const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath) =>
             }
         });
    }
-//    for localhost
-//    const url = `${urlPath}/${userId}/${imageName}`;
 
     const completePath = `${path}/${imageName}`;
     fs.writeFile(completePath, base64Image, 'base64', 
@@ -255,8 +248,7 @@ const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath) =>
 
     await codeCamBucket.upload(completePath, {
         destination: destination
-    }).then((x) => console.log(x));
-
+    });
 
     const url = `${urlPath}/${userId}/${imageName}`;
 
@@ -288,9 +280,8 @@ const writeInFile = (userId, snippet, textContent) => {
     codeCamBucket.upload(completePath, {
         destination: destination
     });
-    console.log(destination);
+
     const url = `${CODE_TEXT_CLOUD_URL}/${userId}/${fileName}`;
-    // const url = `${CODE_TEXT_STORAGE_PATH}/${userId}/${fileName}`;
     return url;
 }
 
@@ -321,15 +312,11 @@ const readFromFile = async (codeUrl) => {
     return content.toString();
 }
 
-// readFromFile('https://console.cloud.google.com/storage/browser/code-cam-storage-perm/codes/texts/63555c219f5e386aff2e5065/Kanes_1667495768317.txt');
-
 const deleteFile = (filePath) => {
     if(fs.statSync(filePath)) {
         fs.unlinkSync(filePath);
     }
 }
-
-
 
 module.exports = {
     savePhoto,
