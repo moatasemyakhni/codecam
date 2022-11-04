@@ -2,11 +2,12 @@ require('dotenv').config();
 const User = require('../models/User');
 const Token = require('../models/Token');
 const crypto = require('crypto');
+const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const vision = require('@google-cloud/vision');
+const {Storage} = require('@google-cloud/storage');
 const sendEmail = require('../utilities/sendEmail');
-
 const {
     minimumNameLength, 
     maximumNameLength,
@@ -47,6 +48,13 @@ const client = new vision.ImageAnnotatorClient({
     keyFilename: GOOGLE_FILE_PATH,
     projectId: PROJECT_ID
 });
+
+const storage = new Storage({
+    keyFilename: GOOGLE_FILE_PATH,
+    projectId: PROJECT_ID
+   });
+
+const codeCamBucket = storage.bucket(BUCKET_NAME);
 
 const textDetection = async (req, res) => {
     try {
@@ -266,7 +274,7 @@ const editProfile = async (req, res) => {
         user.profilePhotoUrl = newProfile;
         await user.save();
 
-        res.status(200).send({error: false, message: 'Profile updated successfully'});
+        res.status(200).send({error: false, message: 'Profile updated successfully', profilePhoto: user.profilePhotoUrl});
     } catch (error) {
         res.status(400).send({error: true, message: error.message});
     }
