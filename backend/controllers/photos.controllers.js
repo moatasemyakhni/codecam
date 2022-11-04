@@ -1,21 +1,18 @@
 require('dotenv').config();
-const jwt = require('jsonwebtoken');
 const Photo = require('../models/Photo');
-const User = require('../models/User');
 const fs = require('fs');
 const { Storage } = require('@google-cloud/storage');
 
 const {
-    photoExtensions, // array
     allowedProgrammingLanguages, // array
 } = require('../utilities/conditionalVariables');
-const { response } = require('express');
 
-// const {
-//     checkUserAuth,
-//     getUserById,
-// } = require('./users.controller');
+const {
+    getUserById,
+    checkUserAuth,
+    base64ToImageWithPath
 
+} = require('./users.controller');
 /**********************/
 // .env variables
 const CODE_TEXT_STORAGE_PATH = process.env.CODE_TEXT_STORAGE_PATH;
@@ -25,8 +22,6 @@ const CODE_TEXT_CLOUD_URL = process.env.CODE_TEXT_CLOUD_URL;
 const CODE_IMAGE_STORAGE_PATH = process.env.CODE_IMAGE_STORAGE_PATH;
 
 const CODE_IMAGE_CLOUD_URL = process.env.CODE_IMAGE_CLOUD_URL;
-
-const USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
 
 const GOOGLE_FILE_PATH = process.env.GOOGLE_FILE_PATH;
 
@@ -41,28 +36,6 @@ const storage = new Storage({
    });
 
 const codeCamBucket = storage.bucket(BUCKET_NAME);
-
-const checkUserAuth = async (token, id) => {
-    const decoded = jwt.verify(token.split(' ')[1], USER_ACCESS_TOKEN);
-    if(!decoded) {
-        throw {message: "User not found"};
-    }
-    if(decoded.userId == id) return true;
-
-    return false;
-}
-
-const getUserById = async (id) => {
-    try {
-        const user = await User.findById(id);
-        if(!user) {
-            return false;
-        }
-        return user;
-    } catch (error) {
-        return false;
-    }
-}
 
 const getPhotosByUserId = async (req, res) => {
     try {
@@ -105,7 +78,8 @@ const savePhoto = async (req, res) => {
             throw {message: 'Unsupported Programming Language'};
         }
 
-        if(!getUserById(userId)) {
+        const user = await getUserById(userId);
+        if(!user) {
             throw {message: 'User Not Found'};
         }
 
@@ -213,47 +187,7 @@ const deletePhoto = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
-// should be used in try catch block
 
-const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath) => {
-    const extension = base64.split(';')[0].split('/')[1];
-    if(!photoExtensions.includes(extension.toUpperCase())) {
-        throw {message: 'Not a valid extension'};
-    }
-    
-    const find = `data:image/${extension};base64,`;
-    const regex = new RegExp(find, "g");
-    const base64Image = base64.replace(regex, '');
-
-   const imageName = `${name.replace(/\\|\s|\//g, '')}_${Date.now()}.${extension}`;
-   const path = `${basePath}/${userId}`;
-   if(!fs.existsSync(path)) {
-    fs.mkdir(path, 
-        (error) => {
-            if(error) {
-                throw {message: error.message};
-            }
-        });
-   }
-
-    const completePath = `${path}/${imageName}`;
-    fs.writeFile(completePath, base64Image, 'base64', 
-    (error) => {
-        if(error) {
-            throw {message: error.stack};
-        }
-    });
-
-    const destination = `${urlPath.split(`${BUCKET_NAME}/`)[1]}/${userId}/${imageName}`;
-
-    await codeCamBucket.upload(completePath, {
-        destination: destination
-    });
-
-    const url = `${urlPath}/${userId}/${imageName}`;
-
-    return url;
-}
 
 // should be used in try catch block
 const writeInFile = (userId, snippet, textContent) => {
