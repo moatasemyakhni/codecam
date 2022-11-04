@@ -11,7 +11,8 @@ const {
     minimumNameLength, 
     maximumNameLength,
     minimumPasswordLength,
-    allowedProgrammingLanguages,
+    allowedProgrammingLanguages, // array
+    photoExtensions, // array
 } = require('../utilities/conditionalVariables');
 
 
