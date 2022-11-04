@@ -1,13 +1,17 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const https = require('https');
 const Photo = require('../models/Photo');
 const User = require('../models/User');
 const fs = require('fs');
+
+const { Storage } = require('@google-cloud/storage');
 
 const {
     photoExtensions, // array
     allowedProgrammingLanguages, // array
 } = require('../utilities/conditionalVariables');
+const { response } = require('express');
 
 // const {
 //     checkUserAuth,
@@ -18,12 +22,29 @@ const {
 // .env variables
 const CODE_TEXT_STORAGE_PATH = process.env.CODE_TEXT_STORAGE_PATH;
 
+const CODE_TEXT_CLOUD_URL = process.env.CODE_TEXT_CLOUD_URL;
+
 const CODE_IMAGE_STORAGE_PATH = process.env.CODE_IMAGE_STORAGE_PATH;
 
 const CODE_IMAGE_URL = process.env.CODE_IMAGE_URL;
 
+const CODE_IMAGE_CLOUD_URL = process.env.CODE_IMAGE_CLOUD_URL;
+
 const USER_ACCESS_TOKEN = process.env.USER_ACCESS_TOKEN;
+
+const GOOGLE_FILE_PATH = process.env.GOOGLE_FILE_PATH;
+
+const PROJECT_ID = process.env.PROJECT_ID;
+
+const BUCKET_NAME = process.env.BUCKET_NAME;
 /**********************/
+
+const storage = new Storage({
+    keyFilename: GOOGLE_FILE_PATH,
+    projectId: PROJECT_ID
+   });
+
+const codeCamBucket = storage.bucket(BUCKET_NAME);
 
 const checkUserAuth = async (token, id) => {
     const decoded = jwt.verify(token.split(' ')[1], USER_ACCESS_TOKEN);
@@ -92,7 +113,8 @@ const savePhoto = async (req, res) => {
             throw {message: 'User Not Found'};
         }
 
-        const getPhotoUrl = base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_URL);
+        const getPhotoUrl = await base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_CLOUD_URL);
+        console.log(getPhotoUrl);
 
         const getCodeUrl = writeInFile(userId, snippetName, codeTextContent);
 
@@ -103,7 +125,7 @@ const savePhoto = async (req, res) => {
         photo.snippetName = snippetName;
         photo.userId = userId;
         await photo.save();
-        res.status(201).send({error: false, message: 'Photo saved successfully'});
+        res.status(201).send({error: false, photo: photo, message: 'Photo saved successfully'});
     } catch (error) {
         res.status(400).send({error: true, message: error.message, where: "here"});
     }
@@ -198,13 +220,15 @@ const deletePhoto = async (req, res) => {
 }
 // should be used in try catch block
 
-const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
+const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath) => {
     const extension = base64.split(';')[0].split('/')[1];
-
     if(!photoExtensions.includes(extension.toUpperCase())) {
         throw {message: 'Not a valid extension'};
     }
-   const base64Image = base64.replace(/^data:image\/png;base64,/, '');
+    
+    const find = `data:image/${extension};base64,`;
+    const regex = new RegExp(find, "g");
+    const base64Image = base64.replace(regex, '');
 
    const imageName = `${name.replace(/\\|\s|\//g, '')}_${Date.now()}.${extension}`;
    const path = `${basePath}/${userId}`;
@@ -216,16 +240,27 @@ const base64ToImageWithPath = (userId, base64, name, basePath, urlPath) => {
             }
         });
    }
-   const url = `${urlPath}/${userId}/${imageName}`;
-   const completePath = `${path}/${imageName}`;
-   fs.writeFile(completePath, base64Image, 'base64', 
-   (error) => {
-    if(error) {
-        throw {message: error.stack};
-    }
-   });
+//    for localhost
+//    const url = `${urlPath}/${userId}/${imageName}`;
 
-   return url;
+    const completePath = `${path}/${imageName}`;
+    fs.writeFile(completePath, base64Image, 'base64', 
+    (error) => {
+        if(error) {
+            throw {message: error.stack};
+        }
+    });
+
+    const destination = `${urlPath.split(`${BUCKET_NAME}/`)[1]}/${userId}/${imageName}`;
+
+    await codeCamBucket.upload(completePath, {
+        destination: destination
+    }).then((x) => console.log(x));
+
+
+    const url = `${urlPath}/${userId}/${imageName}`;
+
+    return url;
 }
 
 // should be used in try catch block
@@ -240,7 +275,6 @@ const writeInFile = (userId, snippet, textContent) => {
             });
     }
 
-    const url = `${CODE_TEXT_STORAGE_PATH}/${userId}/${fileName}`;
     const completePath = `${path}/${fileName}`;
     fs.writeFile(completePath, textContent, 
         (error) => {
@@ -248,25 +282,54 @@ const writeInFile = (userId, snippet, textContent) => {
                 throw {message: error.stack};
             }
         });
+    
+    const destination = `${CODE_TEXT_CLOUD_URL.split(`${BUCKET_NAME}/`)[1]}/${userId}/${fileName}`;
 
-        return url;
+    codeCamBucket.upload(completePath, {
+        destination: destination
+    });
+    console.log(destination);
+    const url = `${CODE_TEXT_CLOUD_URL}/${userId}/${fileName}`;
+    // const url = `${CODE_TEXT_STORAGE_PATH}/${userId}/${fileName}`;
+    return url;
 }
 
-const readFromFile = (codeUrl) => {
-    const content = fs.readFileSync(codeUrl, 'utf-8', 
+const readFromFile = async (codeUrl) => {
+    const path = codeUrl.split('/');
+    id = path[path.length-2];
+    textName = path[path.length-1];
+
+    const destination = `${CODE_TEXT_STORAGE_PATH}/${id}/${textName}`
+    const srcFileName = codeUrl.split(`${BUCKET_NAME}/`)[1];
+    const options = {
+        destination: destination,
+        srcFileName: srcFileName
+    }
+    await storage
+        .bucket(BUCKET_NAME)
+        .file(srcFileName)
+        .download(options);
+        
+
+    const content = fs.readFileSync(destination, 'utf-8', 
     (error) => {
         if(error) {
-            throw {message: error.message};
+            throw {message: error};
         }
     });
+    
     return content.toString();
 }
+
+// readFromFile('https://console.cloud.google.com/storage/browser/code-cam-storage-perm/codes/texts/63555c219f5e386aff2e5065/Kanes_1667495768317.txt');
 
 const deleteFile = (filePath) => {
     if(fs.statSync(filePath)) {
         fs.unlinkSync(filePath);
     }
 }
+
+
 
 module.exports = {
     savePhoto,
