@@ -5,7 +5,6 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const vision = require('@google-cloud/vision');
-const { Storage } = require('@google-cloud/storage');
 const sendEmail = require('../utilities/sendEmail');
 
 const {
@@ -32,8 +31,6 @@ const ACCESS_TOKEN_EXPIRE_TIME_IN_HOURS = process.env.ACCESS_TOKEN_EXPIRE_TIME_I
 
 const USER_IMAGE_STORAGE_PATH = process.env.USER_IMAGE_STORAGE_PATH;
 
-const USER_IMAGE_URL = process.env.USER_IMAGE_URL;
-
 const USER_IMAGE_CLOUD_URL = process.env.USER_IMAGE_CLOUD_URL;
 
 const RESET_PASSWORD_BASE_URL = process.env.RESET_PASSWORD_BASE_URL;
@@ -53,12 +50,28 @@ const client = new vision.ImageAnnotatorClient({
     projectId: PROJECT_ID
 });
 
-const storage = new Storage({
-    keyFilename: GOOGLE_FILE_PATH,
-    projectId: PROJECT_ID
-   });
-
-const codeCamBucket = storage.bucket(BUCKET_NAME);
+const textDetection = async (req, res) => {
+    try {
+        const {base64Image, fullName} = req.body;
+        if(!base64Image || !fullName) {
+            throw {message: 'Image and Name is required'};
+        }
+        
+        const url = await base64ToImageWithPath('unsaved', base64Image, fullName, CODE_IMAGE_STORAGE_PATH, UNSAVED_IMAGES_CLOUD_PATH);
+        const fileName = url.split(`${BUCKET_NAME}/`)[1];
+        const [result] = await client.textDetection(`gs://${BUCKET_NAME}/${fileName}`);
+        if(!result.fullTextAnnotation) {
+            if(!result.error) {
+                throw {message: 'Picture is in bad quality/does not include code'};
+            }
+            throw {message: result.error.message};
+        }
+        const detection = result.fullTextAnnotation.text;
+        res.status(200).send(detection);
+    } catch (error) {
+        res.status(400).send({error: true, message: error.message});
+    }
+}
 
 // code execution
 const codeOutput = async (req, res) => {
