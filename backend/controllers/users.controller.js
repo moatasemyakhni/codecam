@@ -56,6 +56,7 @@ const storage = new Storage({
 
 const codeCamBucket = storage.bucket(BUCKET_NAME);
 
+//scan photo
 const textDetection = async (req, res) => {
     try {
         const {base64Image, fullName} = req.body;
@@ -73,7 +74,7 @@ const textDetection = async (req, res) => {
             throw {message: result.error.message};
         }
         const detection = result.fullTextAnnotation.text;
-        res.status(200).send(detection);
+        res.status(200).send({error: false, detection: detection});
     } catch (error) {
         res.status(400).send({error: true, message: error.message});
     }
