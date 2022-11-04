@@ -13,6 +13,7 @@ const {
     base64ToImageWithPath
 
 } = require('./users.controller');
+const path = require('path');
 /**********************/
 // .env variables
 const CODE_TEXT_STORAGE_PATH = process.env.CODE_TEXT_STORAGE_PATH;
@@ -153,7 +154,8 @@ const editPhotoById = async (req, res) => {
         //create new file.txt
         const getCodeUrl = writeInFile(photo.userId, snippetName, codeTextContent);
         // delete old file.txt
-        deleteFile(photo.codeUrl);
+        const localDestination = photo.codeUrl.split(`${BUCKET_NAME}/`)[1];
+        deleteFile(path.join(__dirname, `../storage/${localDestination}`));
 
         // assign new file.txt to photo
         photo.codeUrl = getCodeUrl;
@@ -195,7 +197,8 @@ const writeInFile = (userId, snippet, textContent) => {
     const fileName = `${snippet.replace(/\\|\s|\//g, '')}_${Date.now()}.txt`;
     const path = `${CODE_TEXT_STORAGE_PATH}/${userId}`;
     if(!fs.existsSync(path)) {
-        fs.mkdir(path, 
+        fs.mkdir(
+            path, 
             (error) => {
                 throw {message: error.stack};
             });
