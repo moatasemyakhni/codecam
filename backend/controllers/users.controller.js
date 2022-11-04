@@ -14,9 +14,6 @@ const {
     allowedProgrammingLanguages,
 } = require('../utilities/conditionalVariables');
 
-const {
-    base64ToImageWithPath,
-} = require('./photos.controllers');
 
 const {
     hackerEarthConfiguration,
@@ -359,6 +356,48 @@ const changePassword = async (req, res) => {
         res.status(400).send({error: true, message: error.message});
     }
 }
+
+// should be used in try catch block
+
+const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath) => {
+    const extension = base64.split(';')[0].split('/')[1];
+    if(!photoExtensions.includes(extension.toUpperCase())) {
+        throw {message: 'Not a valid extension'};
+    }
+    
+    const find = `data:image/${extension};base64,`;
+    const regex = new RegExp(find, "g");
+    const base64Image = base64.replace(regex, '');
+
+   const imageName = `${name.replace(/\\|\s|\//g, '')}_${Date.now()}.${extension}`;
+   const path = `${basePath}/${userId}`;
+   if(!fs.existsSync(path)) {
+    fs.mkdir(path, 
+        (error) => {
+            if(error) {
+                throw {message: error.message};
+            }
+        });
+   }
+
+    const completePath = `${path}/${imageName}`;
+    fs.writeFile(completePath, base64Image, 'base64', 
+    (error) => {
+        if(error) {
+            throw {message: error.stack};
+        }
+    });
+
+    const destination = `${urlPath.split(`${BUCKET_NAME}/`)[1]}/${userId}/${imageName}`;
+
+    await codeCamBucket.upload(completePath, {
+        destination: destination
+    });
+
+    const url = `${urlPath}/${userId}/${imageName}`;
+
+    return url;
+}
 module.exports = {
     signup,
     sendEmailToUser,
@@ -370,5 +409,6 @@ module.exports = {
     getUserById,
     codeOutput,
     checkUserAuth,
-    textDetection
+    textDetection,
+    base64ToImageWithPath
 };
