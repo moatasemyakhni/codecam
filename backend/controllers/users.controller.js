@@ -4,6 +4,8 @@ const Token = require('../models/Token');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const vision = require('@google-cloud/vision');
+const { Storage } = require('@google-cloud/storage');
 const sendEmail = require('../utilities/sendEmail');
 
 const {
@@ -32,8 +34,31 @@ const USER_IMAGE_STORAGE_PATH = process.env.USER_IMAGE_STORAGE_PATH;
 
 const USER_IMAGE_URL = process.env.USER_IMAGE_URL;
 
+const USER_IMAGE_CLOUD_URL = process.env.USER_IMAGE_CLOUD_URL;
+
 const RESET_PASSWORD_BASE_URL = process.env.RESET_PASSWORD_BASE_URL;
+
+const GOOGLE_FILE_PATH = process.env.GOOGLE_FILE_PATH;
+
+const PROJECT_ID = process.env.PROJECT_ID;
+
+const BUCKET_NAME = process.env.BUCKET_NAME;
+
+const UNSAVED_IMAGES_CLOUD_PATH = process.env.UNSAVED_IMAGES_CLOUD_PATH;
+
+const CODE_IMAGE_STORAGE_PATH = process.env.CODE_IMAGE_STORAGE_PATH;
 /**********************/
+const client = new vision.ImageAnnotatorClient({
+    keyFilename: GOOGLE_FILE_PATH,
+    projectId: PROJECT_ID
+});
+
+const storage = new Storage({
+    keyFilename: GOOGLE_FILE_PATH,
+    projectId: PROJECT_ID
+   });
+
+const codeCamBucket = storage.bucket(BUCKET_NAME);
 
 // code execution
 const codeOutput = async (req, res) => {
@@ -225,7 +250,7 @@ const editProfile = async (req, res) => {
         if(!user) {
             throw {message: 'User Not Found'};
         }
-        const newProfile = base64ToImageWithPath(user._id, base64Image, user.fullName, USER_IMAGE_STORAGE_PATH, USER_IMAGE_URL);
+        const newProfile = await base64ToImageWithPath(user._id, base64Image, user.fullName, USER_IMAGE_STORAGE_PATH, USER_IMAGE_CLOUD_URL);
 
         user.profilePhotoUrl = newProfile;
         await user.save();
@@ -332,4 +357,5 @@ module.exports = {
     getUserById,
     codeOutput,
     checkUserAuth,
+    textDetection
 };
