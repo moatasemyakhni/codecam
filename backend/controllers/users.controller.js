@@ -306,7 +306,7 @@ const editFullName = async (req, res) => {
         user.fullName = fullName;
         await user.save();
 
-        res.status(200).send({error: false, message: 'FullName is updated successfully'});
+        res.status(200).send({error: false, message: 'FullName is updated successfully', newName: user.fullName});
     } catch (error) {
         res.status(400).send({error: true, message: error.message});
     }
