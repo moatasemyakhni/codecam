@@ -8,11 +8,11 @@ interface InputProps {
     errorMessage?: string,
     placeholder?: string,
     label?: string,
-
+    ref?: any,
 }
 
 const Input: FC<InputProps> = (props) => {
-  
+
   return (
     
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -32,6 +32,7 @@ const Input: FC<InputProps> = (props) => {
                 placeholder={props.placeholder}
                 placeholderTextColor={colors.darkMode.white}
                 keyboardType='default'
+                ref={props.ref}
               />
             </View>
         </View>
