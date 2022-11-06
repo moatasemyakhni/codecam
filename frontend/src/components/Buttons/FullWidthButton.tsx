@@ -1,24 +1,33 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { FC } from 'react'
 import {styles} from './styles'
 
 
 interface FullWidthButtonProps {
     title?: string, 
-    onPress?: () => void,
     BGRed?: boolean,
     BGBlue?: boolean,
     BGGreen?: boolean,
     BGPrimary?: boolean,
-    enabled?: boolean
+    enabled?: boolean,
+    onPress?: () => void,
 }
 
 const FullWidthButton: FC<FullWidthButtonProps> = (props) => {
 // an enabled prop will be passed once all fields become non-empty
   return (
     <View style={{ flex: 1, marginHorizontal: 10, }}>    
-        <TouchableOpacity disabled={!props.enabled} onPress={ props.onPress }>
-            <View style={ [styles.btn , props.BGRed? styles.btnBGRed: props.BGBlue? styles.btnBGBlue : props.BGGreen? styles.btnBGGreen: styles.btnBGPrimary, !props.enabled? styles.disabled:''] }>
+        <TouchableOpacity
+            disabled={!props.enabled} 
+            onPress={ props.onPress }
+            >
+            <View 
+                style={ [
+                    styles.btn , 
+                    props.BGRed? styles.btnBGRed: props.BGBlue? styles.btnBGBlue : props.BGGreen? styles.btnBGGreen: styles.btnBGPrimary,
+                    !props.enabled? styles.disabled:null
+                ] }
+            >
                 <Text style={styles.btnText}>
                     {props.title}
                 </Text>
@@ -28,6 +37,7 @@ const FullWidthButton: FC<FullWidthButtonProps> = (props) => {
   )
 }
 
+// if no color is selected, button will be colored with the primary color
 FullWidthButton.defaultProps = {
     onPress: () => {},
     title: 'Confirm',
