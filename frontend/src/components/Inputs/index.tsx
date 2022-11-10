@@ -32,7 +32,7 @@ const Input: FC<InputProps> = (props) => {
                 <TextInput
                   style={ [styles.input, props.error? styles.inputError: styles.inputErrorFree] }
                   placeholder={props.placeholder}
-                  placeholderTextColor={colors.darkMode.white}
+                  placeholderTextColor={colors.white}
                   keyboardType='default'
                   ref={props.ref}
                   secureTextEntry={props.isPassword? true: false}
