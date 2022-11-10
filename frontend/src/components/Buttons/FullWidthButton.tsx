@@ -16,7 +16,7 @@ interface FullWidthButtonProps {
 const FullWidthButton: FC<FullWidthButtonProps> = (props) => {
 // an enabled prop will be passed once all fields become non-empty
   return (
-    <View style={{ flex: 1, marginHorizontal: 10, }}>    
+    <View style={styles.btnWrapper}>    
         <TouchableOpacity
             disabled={!props.enabled} 
             onPress={ props.onPress }
