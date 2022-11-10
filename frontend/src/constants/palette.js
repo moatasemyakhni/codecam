@@ -1,16 +1,30 @@
 export const colors = {
     darkMode: {
-        primary: '#8293ee',
         background: '#21262d',
-        white: '#f5f5f5',
-        green: '#39af7b',
-        blue: '#71a0ff',
-        red: '#ff5d5d',
-        transparent: 'rgba(255, 255, 255, 0.2)',
     },
-}
+    
+    primary: '#8293ee',
+    white: '#f5f5f5',
+    green: '#39af7b',
+    greenOpacity: 'rgba(57, 175, 123, 0.2)',
+    blue: '#71a0ff',
+    red: '#ff5d5d',
+    redOpacity: 'rgba(255, 93, 93, 0.2)',
+    transparent: 'rgba(255, 255, 255, 0.2)',
 
+    lightMode: {
+        background: '#f5f5f5',
+    }
+    
+}
+export const spacing = {
+    paddingFromPhoneWidth: 25,
+    paddingHorizontal15: 15,
+    paddingTop10: 10,
+    gapBetweenInputs: 26,
+}
 
 export default {
     colors,
+    spacing,
 }
