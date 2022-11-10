@@ -18,12 +18,12 @@ export const styles = StyleSheet.create({
         paddingVertical: 21,
     },
     error: { 
-        color: colors.darkMode.red,
-        backgroundColor: colors.darkMode.redOpacity,
+        color: colors.red,
+        backgroundColor: colors.redOpacity,
     },
     success: {
-        color: colors.darkMode.green,
-        backgroundColor: colors.darkMode.greenOpacity
+        color: colors.green,
+        backgroundColor: colors.greenOpacity
     }
 });
 
