@@ -1,22 +1,21 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../constants/palette'
+import { colors, spacing } from '../../constants/palette'
 
 
 export const styles = StyleSheet.create({
     input: {
-        height: 54,
-        backgroundColor: colors.darkMode.transparent,
+        backgroundColor: colors.transparent,
         borderWidth: 1,
         borderRadius: 5,
         padding: 12,
-        color: colors.darkMode.white,
+        color: colors.white,
         fontSize: 20,
     },
     inputError: {  
-        borderColor: colors.darkMode.red,
+        borderColor: colors.red,
     },
     inputErrorFree: {  
-        borderColor: colors.darkMode.primary,
+        borderColor: colors.primary,
     },
     label: {
         textTransform: 'capitalize',
@@ -24,11 +23,14 @@ export const styles = StyleSheet.create({
         fontSize: 14,
     },
     labelText: {
-        color: colors.darkMode.primary,
+        color: colors.primary,
 
     },
     errorMessage: {
-        color: colors.darkMode.red,
+        color: colors.red,
+    },
+    inputGap: {
+        marginVertical: spacing.gapBetweenInputs,
     }
 })
 
