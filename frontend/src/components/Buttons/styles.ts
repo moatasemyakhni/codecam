@@ -3,30 +3,33 @@ import { colors } from '../../constants/palette'
 
 
 export const styles = StyleSheet.create({
+    btnWrapper: {
+        flex: 1, 
+    },
     btn: {
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: colors.darkMode.primary,
+        backgroundColor: colors.primary,
         borderRadius: 5,
         height: 50,
     },
     btnText: {
-        color: colors.darkMode.white,
+        color: colors.white,
         fontSize: 18,
         fontWeight: 'bold',
         textTransform: 'uppercase',
     },
     btnBGPrimary: {
-        backgroundColor: colors.darkMode.primary,
+        backgroundColor: colors.primary,
     },
     btnBGRed: {
-        backgroundColor: colors.darkMode.red,
+        backgroundColor: colors.red,
     },
     btnBGGreen: {
-        backgroundColor: colors.darkMode.green,
+        backgroundColor: colors.green,
     },
     btnBGBlue: {
-        backgroundColor: colors.darkMode.blue,
+        backgroundColor: colors.blue,
     },
     disabled: {
         opacity: 0.77,
