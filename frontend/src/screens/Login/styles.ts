@@ -13,34 +13,11 @@ export const styles = StyleSheet.create({
     links: {
         fontSize: 20,
         lineHeight: 23,
-        color: colors.darkMode.primary,
+        color: colors.primary,
         textAlign: 'center',
         paddingBottom: 21,
     }
 });
-// export const styles = StyleSheet.create({
-//     logoWrapper: {
-//         flexDirection: 'row', 
-//         justifyContent: 'center',
-//         paddingTop: 96,
-//         paddingBottom: 105,
-//     },
-//     form: {
-//         paddingHorizontal: 20,
-//         paddingVertical: 30,
-
-//     },
-//     gap: {
-//         paddingVertical: 26,
-//     },
-//     links: {
-//         fontSize: 20,
-//         lineHeight: 23,
-//         color: colors.darkMode.primary,
-//         textAlign: 'center',
-//         paddingBottom: 21,
-//     }
-// });
 
 export default {
     styles,
