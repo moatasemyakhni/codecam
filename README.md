@@ -31,32 +31,32 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 
 | Landing WireFrame | Home Mockup |
 | -----------------| -----|
-| ![Landing](https://github.com/moatasemyakhni/codecam/readme/Landing_Page_WireFrame.jpg) | ![Landing](https://github.com/moatasemyakhni/codecam/readme/Landing_Page.jpg) |
+| ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/Landing_Page_WireFrame.jpg) | ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/Landing_Page.jpg) |
 
 | Home WireFrame | Home Mockup |
 | -----------------| -----|
-| ![Home](https://github.com/moatasemyakhni/codecam/readme/Home_Page_WireFrame.jpg) | ![Home](https://github.com/moatasemyakhni/codecam/readme/Home_Page.jpg) |
+| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/Home_Page_WireFrame.jpg) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/Home_Page.jpg) |
 
 | Run Code WireFrame | Run Code Mockup |
 | -----------------| -----|
-| ![Run Code](https://github.com/moatasemyakhni/codecam/readme/Run_Code_Page_WireFrame.jpg) | ![Run Code](https://github.com/moatasemyakhni/codecam/readme/Run_Code_Page.jpg) |
+| ![Run Code](https://github.com/moatasemyakhni/codecam/blob/main/readme/Run_Code_Page_WireFrame.jpg) | ![Run Code](https://github.com/moatasemyakhni/codecam/blob/main/readme/Run_Code_Page.jpg) |
 
 | History WireFrame | History Mockup |
 | -----------------| -----|
-| ![History](https://github.com/moatasemyakhni/codecam/readme/Home_Page_WireFrame.jpg) | ![History](https://github.com/moatasemyakhni/codecam/readme/History_Page.jpg) |
+| ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/History_Page_WireFrame.jpg) | ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/History_Page.jpg) |
 
 | Setting WireFrame | Setting Mockup |
 | -----------------| -----|
-| ![Setting](https://github.com/moatasemyakhni/codecam/readme/Setting_Page_WireFrame.jpg) | ![Setting](https://github.com/moatasemyakhni/codecam/readme/Setting_Page.jpg) |
+| ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/Setting_Page_WireFrame.jpg) | ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/Setting_Page.jpg) |
 
 
 | Edit WireFrame | Edit Mockup |
 | -----------------| -----|
-| ![Edit](https://github.com/moatasemyakhni/codecam/readme/Edit_Profile_Page_WireFrame.jpg) | ![Edit](https://github.com/moatasemyakhni/codecam/readme/Edit_Profile_Page.jpg) |
+| ![Edit](https://github.com/moatasemyakhni/codecam/blob/main/readme/Edit_Profile_Page_WireFrame.jpg) | ![Edit](https://github.com/moatasemyakhni/codecam/blob/main/readme/Edit_Profile_Page.jpg) |
 
 | Sign up WireFrame | Sign up Mockup |
 | -----------------| -----|
-| ![Sign up](https://github.com/moatasemyakhni/codecam/readme/Signup_Page_WireFrame.jpg) | ![Sign up](https://github.com/moatasemyakhni/codecam/readme/Signup_Page.jpg) |
+| ![Sign up](https://github.com/moatasemyakhni/codecam/blob/main/readme/Signup_Page_WireFrame.jpg) | ![Sign up](https://github.com/moatasemyakhni/codecam/blob/main/readme/Signup_Page.jpg) |
 
 
 
@@ -80,7 +80,7 @@ Here's a brief high-level overview of the tech stack the CodeCam app uses:
 
 | Landing | Home |
 | -----------------| -----|
-| ![Landing](https://github.com/moatasemyakhni/codecam/readme/Real_Landing_Page.jpg) | ![Home](https://github.com/moatasemyakhni/codecam/readme/Real_Home_Page.jpg) |
+| ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/Real_Landing_Page.jpg) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/Real_Home_Page.jpg) |
 
 
 <br><br>
