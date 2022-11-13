@@ -13,9 +13,10 @@ import {ImagePickerOptions} from 'expo-image-picker';
 import DeleteWithBorderIcon from '../../../assets/images/icons/DeleteWithBorderIcon';
 import CheckIcon from '../../../assets/images/icons/CheckIcon';
 import LogoXL from '../../../assets/images/logos/LogoXL';
-import { getExtenstionFromFilePath } from '../../constants/utilities';
+import { getExtensionFromFilePath } from '../../constants/utilities';
 
-const CameraScreen = (props) => {
+
+const CameraScreen = ({navigation}) => {
     const [hasCameraPermissions, setHasCameraPermissions] = useState(null);
     const [image, setImage] = useState(null);
     const [extension, setExtension] = useState(null);
@@ -46,16 +47,12 @@ const CameraScreen = (props) => {
             }
             const result = await ImagePicker.launchImageLibraryAsync(options);
             if(!result.cancelled) {
-                // console.log(result);
-                setImage(result.uri);
-                setExtension(getExtenstionFromFilePath(result.uri))
-                
-                // props.globalState.setBase64(result.base64);
-                // props.globalState.setBase64(imageExtension);
-                // console.log(props.globalState.getBase64, "CAMERA");
-                // console.log(props.globalState.getBase64, "CAMERA EXT");
+                setImage(result['uri']);
+                setExtension(getExtensionFromFilePath(result['uri']))
             }
         } catch (error) {
+            console.log(error);
+            
             Alert.alert("Something Wrong happened")
         }
     }
@@ -70,10 +67,8 @@ const CameraScreen = (props) => {
                     exif: true,
                 }
                 const data = await cameraRef.current.takePictureAsync(options);
-                console.log(data.uri);
                 setImage(data.uri);
-                setExtension(getExtenstionFromFilePath(data.uri))
-                console.log(extension);
+                setExtension(getExtensionFromFilePath(data.uri))
                 
             } catch (error) {
                 Alert.alert("Something Wrong happened")
@@ -92,7 +87,7 @@ const CameraScreen = (props) => {
 
     const moveToCode = () => {
         //put data later in params
-        props.navigation.navigate('RunCode')
+        navigation.navigate('RunCode')
     }
 
     return (
@@ -157,7 +152,7 @@ const CameraScreen = (props) => {
                             <CameraIcon />
                         </TouchableOpacity>
 
-                        <TouchableOpacity style={styles.icon} onPress={() => props.navigation.navigate('History')}>
+                        <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('History')}>
                             <HistoryIcon />
                             <Text style={styles.iconLabelText} >History</Text>
                         </TouchableOpacity>
