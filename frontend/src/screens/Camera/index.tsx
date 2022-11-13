@@ -13,7 +13,7 @@ import {ImagePickerOptions} from 'expo-image-picker';
 import DeleteWithBorderIcon from '../../../assets/images/icons/DeleteWithBorderIcon';
 import CheckIcon from '../../../assets/images/icons/CheckIcon';
 import LogoXL from '../../../assets/images/logos/LogoXL';
-
+import { getExtenstionFromFilePath } from '../../constants/utilities';
 
 const CameraScreen = (props) => {
     const [hasCameraPermissions, setHasCameraPermissions] = useState(null);
@@ -40,7 +40,7 @@ const CameraScreen = (props) => {
             const options: ImagePickerOptions = {
                 mediaTypes:  ImagePicker.MediaTypeOptions.Images,
                 allowsEditing: true,
-                base64: false,
+                base64: true,
                 exif: false,
                 quality: 1,
             }
@@ -48,9 +48,7 @@ const CameraScreen = (props) => {
             if(!result.cancelled) {
                 // console.log(result);
                 setImage(result.uri);
-                const imageExtensionArr = result.uri.split('.');
-                const imageExtension = imageExtensionArr[imageExtensionArr.length - 1];
-                setExtension(imageExtension)
+                setExtension(getExtenstionFromFilePath(result.uri))
                 
                 // props.globalState.setBase64(result.base64);
                 // props.globalState.setBase64(imageExtension);
@@ -58,7 +56,7 @@ const CameraScreen = (props) => {
                 // console.log(props.globalState.getBase64, "CAMERA EXT");
             }
         } catch (error) {
-            console.log("saveImage function: ", error);
+            Alert.alert("Something Wrong happened")
         }
     }
 
@@ -69,14 +67,16 @@ const CameraScreen = (props) => {
                 const options: CameraPictureOptions = {
                     quality: 1,// highest quality
                     base64: true,
-                    exif: false,
+                    exif: true,
                 }
                 const data = await cameraRef.current.takePictureAsync(options);
-                // console.log(data.uri);
+                console.log(data.uri);
                 setImage(data.uri);
-            } catch (error) {
-                Alert.alert(error)
+                setExtension(getExtenstionFromFilePath(data.uri))
+                console.log(extension);
                 
+            } catch (error) {
+                Alert.alert("Something Wrong happened")
             }
         }
     }
@@ -91,6 +91,7 @@ const CameraScreen = (props) => {
     }
 
     const moveToCode = () => {
+        //put data later in params
         props.navigation.navigate('RunCode')
     }
 
