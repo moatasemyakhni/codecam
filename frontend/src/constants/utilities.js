@@ -1,5 +1,5 @@
 
-export const getExtenstionFromFilePath = (path) => {
+export const getExtensionFromFilePath = (path) => {
     const imageExtensionArr = path.split('.');
     const imageExtension = imageExtensionArr[imageExtensionArr.length - 1];
     return imageExtension;
