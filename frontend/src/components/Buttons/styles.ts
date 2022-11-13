@@ -34,6 +34,20 @@ export const styles = StyleSheet.create({
     disabled: {
         opacity: 0.77,
     },
+    // iconButton
+    iconBtn: {
+        height: 40,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingBottom: 20,
+    },
+    iconText: {
+        fontWeight: 'bold',
+        fontSize: 16,
+        color: colors.white,
+        marginLeft: 10,
+    }
 })
 
 export default {
