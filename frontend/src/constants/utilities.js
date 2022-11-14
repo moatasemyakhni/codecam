@@ -15,3 +15,15 @@ export const allowedProgrammingLanguages = [
     {label: 'JAVA', value: 'JAVA8'},
     {label: 'PHP', value: 'PHP'},
 ];
+
+export const editorSupportedLanguages = [
+    'javascript',
+    'python',
+    'python',
+    'c',
+    'cpp',
+    'csharp',
+    'java',
+    'php'
+
+]
