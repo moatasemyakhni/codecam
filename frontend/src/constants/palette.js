@@ -11,6 +11,8 @@ export const colors = {
     red: '#ff5d5d',
     redOpacity: 'rgba(255, 93, 93, 0.2)',
     transparent: 'rgba(255, 255, 255, 0.2)',
+    lightBlack: '#222222',
+    lightBlackOpacity: 'rgba(204, 204, 204, 0.23)',
 
     lightMode: {
         background: '#f5f5f5',
