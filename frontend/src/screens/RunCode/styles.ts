@@ -71,6 +71,37 @@ export const styles = StyleSheet.create({
         justifyContent: 'space-between', 
         marginVertical: 21
     },
+    promptContainer: { 
+        backgroundColor: colors.primary,  
+    },
+    promptTitle: { 
+        color: colors.white, 
+        fontSize: 20, 
+        textAlign: 'center', 
+        fontWeight: 'bold', 
+        textTransform: 'capitalize' 
+    },
+    promptDescription: {
+        color: colors.white, 
+        fontSize: 16,
+    },
+    descriptionTitle: {
+        padding: 5,
+    },
+    codeSnippet: { 
+        backgroundColor: colors.darkMode.background, 
+        padding: 10,
+        borderRadius: 5, 
+    },
+    yellow: {
+        color: colors.yellow
+    },
+    red: {
+        color: colors.red,
+    },
+    white: {
+        color: colors.white
+    }
 
 });
 
