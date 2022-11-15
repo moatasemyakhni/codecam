@@ -13,6 +13,7 @@ export const colors = {
     transparent: 'rgba(255, 255, 255, 0.2)',
     lightBlack: '#222222',
     lightBlackOpacity: 'rgba(204, 204, 204, 0.23)',
+    yellow: '#ffff00',
 
     lightMode: {
         background: '#f5f5f5',
