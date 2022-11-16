@@ -2,7 +2,6 @@ import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React, { FC, useState } from 'react'
 import DeleteIcon from '../../../assets/images/icons/DeleteIcon';
 import { StackNavigationProp } from '@react-navigation/stack';
-import DeletePrompt from './DeletePrompt';
 import { styles } from './styles';
 import Prompt from '../Prompt';
 import { colors } from '../../constants/palette';
