@@ -148,10 +148,12 @@ const CameraScreen = ({navigation}) => {
                             <Text style={ styles.iconLabelText }>Library</Text>
                         </TouchableOpacity>
 
+                        {/* camera button */}
                         <TouchableOpacity onPress={takePicture}>
                             <CameraIcon />
                         </TouchableOpacity>
 
+                        {/* history button */}
                         <TouchableOpacity style={styles.icon} onPress={() => navigation.navigate('History')}>
                             <HistoryIcon />
                             <Text style={styles.iconLabelText} >History</Text>
