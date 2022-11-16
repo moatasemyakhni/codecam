@@ -3,8 +3,16 @@ import { colors } from '../../constants/palette'
 
 
 export const styles = StyleSheet.create({
+    container: { 
+        flexDirection: 'row', 
+        justifyContent: 'space-around', 
+        width: '100%'
+    },
     btnWrapper: {
         flex: 1, 
+    },
+    groupBtn: {
+        width: '45%'
     },
     btn: {
         alignItems: 'center',
@@ -34,7 +42,6 @@ export const styles = StyleSheet.create({
     disabled: {
         opacity: 0.77,
     },
-    // iconButton
     iconBtn: {
         height: 40,
         flexDirection: 'row',
@@ -47,9 +54,6 @@ export const styles = StyleSheet.create({
         fontSize: 16,
         color: colors.white,
         marginLeft: 10,
-    }
-})
+    },
 
-export default {
-    styles,
-}
+})
