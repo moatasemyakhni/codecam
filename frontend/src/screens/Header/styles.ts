@@ -15,11 +15,16 @@ export const styles = StyleSheet.create({
         fontWeight:'bold', 
         color: colors.white,
     },
+    
     image: { 
         backgroundColor: colors.white,
         width: 36,
-        height: 36,  
+        height: 36,
         borderRadius: 20,
         resizeMode: 'contain', 
     },
+    smSize: {
+        width: 36,
+        height: 36,
+    }
 });
