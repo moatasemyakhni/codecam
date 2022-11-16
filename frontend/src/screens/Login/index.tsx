@@ -1,14 +1,15 @@
 import React from 'react'
 import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
-import { useNavigation } from '@react-navigation/native'
 import LogoXL from '../../../assets/images/logos/LogoXL'
 import Input from '../../components/Inputs'
 import FullWidthButton from '../../components/Buttons/FullWidthButton'
 import { styles } from './styles'
 
 
-const Login = () => {
-    const navigation = useNavigation();
+const Login = ({navigation}) => {
+    const login = () => {
+      navigation.navigate('Camera');
+    }
     return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.loginContainer}>
       <ScrollView>
@@ -21,7 +22,7 @@ const Login = () => {
           <View style={styles.form}>
             <Input label='Email' placeholder='Email...' />
             <Input isPassword inputGap label='Password' placeholder='Password...' />
-            <FullWidthButton BGPrimary title='Login' />
+            <FullWidthButton enabled BGPrimary title='Login' onPress={login} />
             <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
                 <Text style={[styles.links, styles.linkTopPadding]}>Signup</Text>
             </TouchableOpacity>
