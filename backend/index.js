@@ -5,6 +5,7 @@ const users = require('./routes/user.routes');
 const photos = require('./routes/photo.routes');
 const auth = require('./routes/auth.routes');
 
+const ip = require('ip');
 const express = require('express');
 const userAuthMiddleware = require('./middlewares/user.middleware');
 
@@ -27,5 +28,5 @@ app.use('/photos', userAuthMiddleware, photos);
 // accounts settings(login, signup, change password...)
 app.use('/', auth);
 
-
-app.listen(PORT, () => console.log('Start Server'));
+const address = ip.address();
+app.listen(PORT, address, () => console.log(`Start Server on http://${address}:${PORT}`));
