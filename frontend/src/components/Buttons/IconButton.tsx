@@ -10,7 +10,6 @@ interface IconButtonProps {
     onPress?: () => void
     icon?: keyof typeof Entypo.glyphMap,
     color?: string,
-    size?:number,
 }
 
 const IconButton: FC<IconButtonProps> = ({ title, onPress, icon, color }) => {
@@ -30,12 +29,10 @@ const IconButton: FC<IconButtonProps> = ({ title, onPress, icon, color }) => {
 }
 
 IconButton.defaultProps = {
-    title: 'Needs Permission',
+    title: '',
     icon: 'emoji-sad',
     color: colors.white,
-    onPress: () => {}
-
-
+    onPress: () => {},
 }
 
 export default IconButton
