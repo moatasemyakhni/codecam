@@ -55,5 +55,18 @@ export const styles = StyleSheet.create({
         color: colors.white,
         marginLeft: 10,
     },
+    bgIconBtn: { 
+        backgroundColor: 'transparent', 
+        justifyContent: 'flex-start',
+        paddingVertical: 14,
+        paddingHorizontal: 8,
+        height: 63,
+        borderBottomWidth: 1,
+        borderColor: 'white',
+      },
+      bgIconText: {
+        fontSize: 20, 
+        textTransform: 'uppercase'
+    },
 
-})
+});
