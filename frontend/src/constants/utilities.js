@@ -5,6 +5,8 @@ export const getExtensionFromFilePath = (path) => {
     return imageExtension;
 }
 
+export const shareGithubLink = 'https://github.com/moatasemyakhni/codecam';
+export const linkedInLink = 'http://linkedin.com/in/moatasem-yakhni-2b62b922b'
 export const allowedProgrammingLanguages = [
     {label: 'JAVASCRIPT', value: 'JAVASCRIPT_NODE'},
     {label: 'PYTHON2', value: 'PYTHON2'},
