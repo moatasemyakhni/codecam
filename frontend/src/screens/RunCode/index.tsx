@@ -10,7 +10,8 @@ import FullWidthButton from "../../components/Buttons/FullWidthButton";
 import { styles } from "./styles";
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { colors } from "../../constants/palette";
-
+import InputPrompt from "./InputPrompt";
+import Toast from 'react-native-root-toast';
 
 
  const RunCode = () => {
@@ -20,11 +21,21 @@ import { colors } from "../../constants/palette";
     const [editorLanguage, setEditorLanguage] = useState(editorSupportedLanguages[0]);
     const [codeContent, setCodeContent] = useState('hello');
     const [output, setOutput] = useState(null);
+    const [visiblePrompt, setVisiblePrompt] = useState(false);
     
     const [snippetName, setSnippetName] = useState(null);
     const onChange = (val) => {
-        console.log("change", val);
+        // console.log("change", val);
         
+    }
+    const saveCode = () => {
+        Toast.show('Code is saved in History', {
+            duration: Toast.durations.LONG,
+            
+        })
+    }
+    const showPrompt = () => {
+        setVisiblePrompt(true);
     }
     const icon = () => (<AntDesign name="down" size={16} color={colors.white} />)
 
@@ -37,6 +48,8 @@ import { colors } from "../../constants/palette";
 
         }
     }
+
+    
 
      return (
         
@@ -94,6 +107,8 @@ import { colors } from "../../constants/palette";
                                 BGBlue
                                 enabled
                                 title="Execute"
+                                
+                                onPress={showPrompt}
                                 Icon={
                                     <FontAwesome5 name="play-circle" size={24} color={colors.white} />
                                 }
@@ -103,6 +118,7 @@ import { colors } from "../../constants/palette";
                                 BGGreen
                                 enabled
                                 title="save"
+                                onPress={saveCode}
                                 Icon={
                                     <MaterialIcons name="save" size={24} color={colors.white} />
                                 }
@@ -113,7 +129,9 @@ import { colors } from "../../constants/palette";
              </View>
          </View>
          
+            <InputPrompt setVisiblePrompt={setVisiblePrompt} visiblePrompt={visiblePrompt} />
          </ScrollView>
+
      );
  }
 
