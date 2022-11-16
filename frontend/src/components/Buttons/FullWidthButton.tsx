@@ -2,7 +2,6 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React, { FC } from 'react'
 import {styles} from './styles'
 
-
 interface FullWidthButtonProps {
     title?: string, 
     BGRed?: boolean,
@@ -10,13 +9,15 @@ interface FullWidthButtonProps {
     BGGreen?: boolean,
     BGPrimary?: boolean,
     enabled?: boolean,
+    groupBtn?: boolean,
+    Icon?: JSX.Element,
     onPress?: () => void,
 }
 
 const FullWidthButton: FC<FullWidthButtonProps> = (props) => {
 // an enabled prop will be passed once all fields become non-empty
   return (
-    <View style={styles.btnWrapper}>    
+    <View style={!props.groupBtn?styles.btnWrapper: styles.groupBtn}>    
         <TouchableOpacity
             disabled={!props.enabled} 
             onPress={ props.onPress }
@@ -28,9 +29,21 @@ const FullWidthButton: FC<FullWidthButtonProps> = (props) => {
                     !props.enabled? styles.disabled:null
                 ] }
             >
-                <Text style={styles.btnText}>
-                    {props.title}
-                </Text>
+                    {!props.Icon?
+                        
+                        <Text style={styles.btnText}>
+                            {props.title}
+                        </Text>
+                    :
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+                            <Text></Text>
+                            <Text style={styles.btnText}>
+                            {props.title}
+                            </Text>
+                            {props.Icon}
+                        </View>
+
+                    }
             </View>
         </TouchableOpacity>
     </View>
@@ -46,6 +59,8 @@ FullWidthButton.defaultProps = {
     BGGreen: false,
     BGPrimary: true,
     enabled: false,
+    groupBtn: false,
+    Icon: null,
 }
 
 export default FullWidthButton
