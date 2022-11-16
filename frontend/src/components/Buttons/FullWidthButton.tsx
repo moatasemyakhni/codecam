@@ -35,7 +35,7 @@ const FullWidthButton: FC<FullWidthButtonProps> = (props) => {
                             {props.title}
                         </Text>
                     :
-                        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%' }}>
+                        <View style={styles.container}>
                             <Text></Text>
                             <Text style={styles.btnText}>
                             {props.title}
