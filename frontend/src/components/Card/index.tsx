@@ -4,6 +4,8 @@ import DeleteIcon from '../../../assets/images/icons/DeleteIcon';
 import { StackNavigationProp } from '@react-navigation/stack';
 import DeletePrompt from './DeletePrompt';
 import { styles } from './styles';
+import Prompt from '../Prompt';
+import { colors } from '../../constants/palette';
 
 
 interface CardPropsInterface {
@@ -19,14 +21,13 @@ const Card: FC<CardPropsInterface> = ({snippetTitle, date, imageUrl, navigation}
     const [visiblePrompt, setVisiblePrompt] = useState(false);
     const handleDelete = () => {
         console.log("DELETED");
-        setVisiblePrompt(true);
     }
   return (
     <View style={styles.cardContainer}>
       <Text style={styles.snippetTitle}>{snippetTitle || "Snippet1"}</Text>
        <View style={styles.infoSection}>
             <Text style={styles.date}>{date}</Text>
-            <TouchableOpacity onPress={handleDelete}>
+            <TouchableOpacity onPress={() => setVisiblePrompt(true)}>
                 <DeleteIcon />
             </TouchableOpacity>
        </View>
@@ -43,7 +44,7 @@ const Card: FC<CardPropsInterface> = ({snippetTitle, date, imageUrl, navigation}
         
             }
         </TouchableOpacity>
-        <DeletePrompt setVisiblePrompt={setVisiblePrompt} visiblePrompt={visiblePrompt} />
+        <Prompt setVisiblePrompt={setVisiblePrompt} visiblePrompt={visiblePrompt} bgColor={colors.red} color={colors.red} description={'Are you sure you want to delete code?'} label={'DELETE'} onAction={handleDelete} onSuccessMessage={'Code Deleted Successfully'} title={'Delete Code'} />
     </View>
   )
 }
