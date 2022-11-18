@@ -1,13 +1,13 @@
 
 import Prompt from '../Prompt';
 import React, { FC, useState } from 'react'
+import Toast from 'react-native-root-toast';
 import DeleteIcon from '../../../assets/images/icons/DeleteIcon';
 
 import { 
     View, 
     Text, 
-    Image,  
-    Alert,
+    Image,
     TouchableOpacity,
 } from 'react-native'
 import { styles } from './styles';
@@ -33,23 +33,22 @@ const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, na
     const [visiblePrompt, setVisiblePrompt] = useState(false);
     const [message, setMessage] = useState('Code Deleted Successfully');
 
-    const handlePressPhoto = (photoId) => {
-        (async () => {
-            const response = await getPhotoById(photoId);
-            console.log(response, "RESPONSE");
-            if(response.error) {
-                Alert.alert("Error", response.message);
-                return;
-            }
-            const photo = response.photo;
-            navigation.navigate('RunCode', {
-                photoSnippetName: photo.snippetName, 
-                textContent: photo.codeText,language: 
-                photo.programmingLanguage, 
-                photoId, 
-                newPhoto: false
-            })
-        })();
+    const handlePressPhoto = async (photoId) => {
+        const response = await getPhotoById(photoId);
+        if(response.error) {
+            Toast.show(response.message, {
+                duration: Toast.durations.LONG,
+            });
+            return;
+        }
+        const photo = response.photo;
+        navigation.navigate('RunCode', {
+            photoSnippetName: photo.snippetName, 
+            textContent: photo.codeText,
+            language: photo.programmingLanguage, 
+            photoId: photoId, 
+            newPhoto: false
+        });
     }
 
     const handleDelete = async () => {
@@ -60,7 +59,7 @@ const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, na
         }       
         store.dispatch(
             updateUserPhotos({
-            userCodePhotos: userCodePhotos.filter(photos => photos._id !== photoId);
+            userCodePhotos: userCodePhotos.filter(photos => photos._id !== photoId),
             })
         );
         setMessage(response.message);
