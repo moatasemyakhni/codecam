@@ -64,3 +64,25 @@ export const getPhotoById: getPhotoByIdInterface = async (photoId) => {
     }
 }
 
+
+export interface EditPhotoInterface {
+    (
+        photoId: string,
+        data: {
+            codeTextContent: string,
+            programmingLanguage: string,
+            snippetName: string,
+        } 
+    ) : Promise<any>
+}
+
+export const editPhotoById:EditPhotoInterface = async (photoId, data) => {
+    try {
+        const token = await getToken();
+        config.headers.Authorization = `Bearer ${token}`;
+        const response = await apiManager.patch(`${photosBaseUrl}/photo/${photoId}`, data, config);
+        return response.data;
+    } catch (error) {
+        return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
+    }
+}
