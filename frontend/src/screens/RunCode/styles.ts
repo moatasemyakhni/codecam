@@ -66,6 +66,10 @@ export const styles = StyleSheet.create({
         borderTopWidth:1, 
         borderTopColor: colors.white 
     },
+    outputText: {
+        paddingTop: 10,
+        color: colors.white,
+    },
     groupBtns: { 
         flexDirection:'row', 
         justifyContent: 'space-between', 
