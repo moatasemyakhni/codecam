@@ -49,3 +49,18 @@ export const signup:SignupInterface = async (data):Promise<any> => {
     }
 }
 
+
+interface SendEmailInterface {
+    (data: {
+        email: string,
+    }): Promise<any>
+}
+
+export const sendEmail:SendEmailInterface = async (data):Promise<any> => {
+    try {
+        const response = await apiManager.post('/send-password', data);
+        return response.data;
+    } catch (error) {
+        return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
+    }
+}
