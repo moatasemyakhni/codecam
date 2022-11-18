@@ -1,15 +1,23 @@
-import React, { useState } from 'react'
-import { View, Text, TouchableOpacity, KeyboardAvoidingView, ScrollView, Platform } from 'react-native'
-import LogoXL from '../../../assets/images/logos/LogoXL'
-import Input from '../../components/Inputs'
-import FullWidthButton from '../../components/Buttons/FullWidthButton'
-import { styles } from './styles'
-import { useEffect } from 'react'
+import Input from '../../components/Inputs';
+import React, { useState, useEffect } from 'react';
+import LogoXL from '../../../assets/images/logos/LogoXL';
+import FullWidthButton from '../../components/Buttons/FullWidthButton';
+
+import { 
+  View,
+  Text,  
+  Platform,
+  ScrollView, 
+  KeyboardAvoidingView,
+} from 'react-native';
+import { styles } from './styles';
+import { emailFormat } from '../../constants/utilities';
+import { sendEmail } from '../../api/auth/authApi';
 
 
 const ForgotPassword = () => {
-    const [isError, setIsError] = useState(false);
-    const [message, setMessage] = useState('');
+    
+
     return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.forgotPasswordContainer}>
       <ScrollView>
@@ -20,8 +28,24 @@ const ForgotPassword = () => {
           </View>
 
           <View style={styles.form}>
-            <Input inputGap label='Email' placeholder='Email...' />
-            <FullWidthButton BGPrimary title='Send Token' />
+            <Input
+              inputGap
+              label='Email'
+              placeholder='Email...'
+              error={isError}
+              errorMessage={message}
+              setError={setIsError}
+              setVal={setEmail}
+              val={email}
+              setMessage={setMessage}
+
+             />
+            <FullWidthButton
+              BGPrimary 
+              title='Send Token'
+              enabled={enabled}
+              onPress={handleChange}  
+            />
             <Text style={[
                 styles.linkTopPadding,
                 styles.statusMessage, 
