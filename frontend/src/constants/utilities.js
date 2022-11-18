@@ -36,3 +36,5 @@ export const emailFormat = (value) => {
     return value.match(expression);
 }
 
+export const comparePasswords = (pwd, pwdConfirm) => pwd.trim() === pwdConfirm.trim();
+
