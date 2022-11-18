@@ -82,3 +82,24 @@ export const editProfile: editProfileInterface = async (userId, data) => {
         return error.hasOwnProperty('response')? error.response.data: {...error, error: true};
     }
 }
+
+
+export interface textDetectionInterface {
+    (
+        data: {
+            fullName: string,
+            base64Image: string,
+        }
+    ): Promise<any>
+}
+
+export const textDetection = async (data) => {
+    try {
+        const token = await getToken();
+        config.headers.Authorization = `Bearer ${token}`;
+        const response = await apiManager.post(`${usersBaseUrl}/scan`, data, config);
+        return response.data;
+    } catch (error) {
+        return error.hasOwnProperty('response')? error.response.data: {...error, error: true};
+    }   
+}
