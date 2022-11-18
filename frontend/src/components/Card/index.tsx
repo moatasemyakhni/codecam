@@ -28,7 +28,12 @@ interface CardPropsInterface {
 }
 
 const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, navigation}) => {
+    const { userCodePhotos } = useSelector((state) => state.user);
+    
+    const [visiblePrompt, setVisiblePrompt] = useState(false);
+    const [message, setMessage] = useState('Code Deleted Successfully');
 
+    
     
     
   return (
