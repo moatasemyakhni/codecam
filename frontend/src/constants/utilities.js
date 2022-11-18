@@ -39,3 +39,5 @@ export const emailFormat = (value) => {
 export const comparePasswords = (pwd, pwdConfirm) => pwd.trim() === pwdConfirm.trim();
 
 export const passwordStrength = (pwd) => pwd.trim().length >= 6 && pwd.trim().length < 64;
+
+export const validName = (name) => name.trim().length>=3 && name.trim().length < 25;
