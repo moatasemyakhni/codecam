@@ -11,7 +11,7 @@ const config = {
 const getToken = async () => await AsyncStorage.getItem('token');
 
 
-interface getAllPhotosForUserInterface {
+export interface getAllPhotosForUserInterface {
     (
         userId: string,
     ): Promise<any>
@@ -22,6 +22,24 @@ export const getAllPhotosForUser: getAllPhotosForUserInterface = async (userId) 
         const token = await getToken();
         config.headers.Authorization = `Bearer ${token}`;
         const response = await apiManager.get(`${photosBaseUrl}/${userId}`, config);
+        return response.data;
+    } catch (error) {
+        return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
+    }
+}
+
+
+export interface deletePhotoInterface {
+    (
+        photoId: string,
+    ): Promise<any>
+}
+
+export const deletePhoto: deletePhotoInterface = async (photoId) => {
+    try {
+        const token = await getToken();
+        config.headers.Authorization = `Bearer ${token}`;
+        const response = await apiManager.delete(`${photosBaseUrl}/${photoId}`, config);
         return response.data;
     } catch (error) {
         return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
