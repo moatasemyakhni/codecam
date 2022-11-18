@@ -2,9 +2,10 @@ import React from 'react';
 import Login from '../screens/Login';
 import Signup from '../screens/Signup';
 import ForgotPassword from '../screens/ForgotPassword';
-import { createStackNavigator } from '@react-navigation/stack';
+
 import { colors } from '../constants/palette';
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 
 const AuthStack = () => {
