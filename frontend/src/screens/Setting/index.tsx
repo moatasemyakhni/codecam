@@ -1,16 +1,21 @@
-import { Text, View, Image, ScrollView, Alert } from 'react-native'
-import React, {useState} from 'react'
-import { styles } from './styles'
-import BigIconButton from '../../components/Buttons/BigIconButton'
-import EditPenIcon from '../../../assets/images/icons/EditPenIcon'
-import ShareIcon from '../../../assets/images/icons/ShareIcon'
-import AboutUsIcon from '../../../assets/images/icons/AboutUsIcon'
-import ExitIcon from '../../../assets/images/icons/ExitIcon'
 import * as SMS from 'expo-sms';
-import { shareGithubLink, linkedInLink } from '../../constants/utilities';
+import React, {useState} from 'react';
 import * as Linking from 'expo-linking';
-import Prompt from '../../components/Prompt'
-import { colors } from '../../constants/palette'
+import Prompt from '../../components/Prompt';
+import ExitIcon from '../../../assets/images/icons/ExitIcon';
+import ShareIcon from '../../../assets/images/icons/ShareIcon';
+import AboutUsIcon from '../../../assets/images/icons/AboutUsIcon';
+import EditPenIcon from '../../../assets/images/icons/EditPenIcon';
+import BigIconButton from '../../components/Buttons/BigIconButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import { Text, View, Image, ScrollView, Alert } from 'react-native';
+import { styles } from './styles';
+import { colors } from '../../constants/palette';
+import { store } from '../../redux/store';
+import { useSelector } from 'react-redux';
+import { deleteUser } from '../../redux/slices/userSlice';
+import { shareGithubLink, linkedInLink } from '../../constants/utilities';
 
 
 export const Setting = (props) => {
@@ -18,62 +23,56 @@ export const Setting = (props) => {
   const [visibleAbout, setVisibleAbout] = useState(false);
   const [visibleLogout, setVisibleLogout] = useState(false);
 
+  const {userProfile} = useSelector(state => state.user);
+
   const handleEdit = () => {
     props.navigation.navigate('EditProfile')
     console.log("edit")
   }
 
   const handleShare = async () => {
-    // setVisibleShare(true);
-    
-    
-    console.log("Share");
-    const isAvailable = await SMS.isAvailableAsync();
-    if (isAvailable) {
-      console.log("HEY");
-      
-      await SMS.sendSMSAsync(
-        [],
-        `Discover CodeCam where dead written code is turned alive and executable!:\n${shareGithubLink}`,
-      );
-    } else {
-      Alert.alert("Something wrong happened");
+    try {
+      const isAvailable = await SMS.isAvailableAsync();
+      if (isAvailable) {
+        
+        await SMS.sendSMSAsync(
+          [],
+          `Discover CodeCam where dead written code is turned alive and executable!:\n${shareGithubLink}`,
+        );
+      }else {
+        Alert.alert("Something wrong happened");
+      }
+    } catch (error) {
+        Alert.alert("Something wrong happened");
     }
-    
   }
 
   const handleAboutUs = () => {
-    // setVisibleAbout(true);
-    console.log(visibleLogout);
     Linking.openURL(`${linkedInLink}`);
   }
 
-  const handleLogout = () => {
-    // setVisibleLogout(true);
-    console.log("Logout");
-    
+  const handleLogout = async () => {
+    try {
+      store.dispatch(deleteUser());
+      await AsyncStorage.removeItem('token');
+    } catch (error) {
+      Alert.alert("Something went wrong");
+    }
   }
   
   return (
     <View style={styles.container}>
       <ScrollView>
       {
-        !props.imgSource?
-          <Image 
-          source={ 
-            require('../../../assets/images/icons/default-profile.png')
-          }
-          style={styles.image}
-          />
-        :
         <Image 
           source={{ 
-            uri: props.imgSource,
+            uri: userProfile.profileImage,
             }}
+          style={styles.image}
         />
       }
 
-      <Text style={styles.name}>{props.name || 'John Smith'}</Text>
+      <Text style={styles.name}>{userProfile.fullName || 'NA'}</Text>
       <View style={styles.btnGrouping}>
         <BigIconButton onPress={handleEdit} title={'Edit Profile'} Icon={EditPenIcon} />
         <BigIconButton onPress={() => setVisibleShare(true)} title={'Share the app'} Icon={ShareIcon} />
