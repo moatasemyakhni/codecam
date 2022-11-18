@@ -33,6 +33,24 @@ const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, na
     const [visiblePrompt, setVisiblePrompt] = useState(false);
     const [message, setMessage] = useState('Code Deleted Successfully');
 
+    const handlePressPhoto = (photoId) => {
+        (async () => {
+            const response = await getPhotoById(photoId);
+            console.log(response, "RESPONSE");
+            if(response.error) {
+                Alert.alert("Error", response.message);
+                return;
+            }
+            const photo = response.photo;
+            navigation.navigate('RunCode', {
+                photoSnippetName: photo.snippetName, 
+                textContent: photo.codeText,language: 
+                photo.programmingLanguage, 
+                photoId, 
+                newPhoto: false
+            })
+        })();
+    }
     
     
     
