@@ -47,7 +47,11 @@ const ForgotPassword = () => {
     }, [email]);
 
     return (
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.forgotPasswordContainer}>
+    <KeyboardAvoidingView 
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+      enabled 
+      style={styles.forgotPasswordContainer}
+    >
       <ScrollView>
         <View>
 
