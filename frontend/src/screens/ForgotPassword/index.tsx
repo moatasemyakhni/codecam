@@ -21,7 +21,30 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [enabled, setEnabled] = useState(false);
 
-    
+    const handleChange = async () => {
+      setEnabled(false)
+      if(!emailFormat(email)) {
+        setEnabled(true);
+        setIsError(true);
+        setMessage('Wrong email format');
+        return;
+      }
+      const response = await sendEmail({email: email});
+      if(response.error) {
+        setEnabled(true);
+        setIsError(true);
+        setMessage(response.message);
+        return;
+      }
+
+      setEnabled(true);
+      setMessage(response.message);
+      setEmail('');
+    }
+
+    useEffect(() => {
+      setEnabled([email].every(Boolean));
+    }, [email]);
 
     return (
     <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} enabled style={styles.forgotPasswordContainer}>
