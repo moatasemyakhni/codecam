@@ -1,19 +1,34 @@
-import { View, Text, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native'
-import React, { FC } from 'react'
-import { colors } from '../../constants/palette'
-import {styles} from './styles'
+import { 
+  View, 
+  Text, 
+  Keyboard,
+  TextInput, 
+  TouchableWithoutFeedback, 
+} from 'react-native';
+import {styles} from './styles';
+import React, { FC } from 'react';
+import { colors } from '../../constants/palette';
 
 interface InputProps {
     error?: boolean,
     errorMessage?: string,
     placeholder?: string,
     label?: string,
-    ref?: any,
     inputGap?: boolean,
     isPassword?: boolean,
+    val?: string|null,
+    setVal?: (e: string|null) => void,
+    setError?: (e: boolean) => void,
+    setMessage?: (e: string|null) => void,
 }
 
 const Input: FC<InputProps> = (props) => {
+
+  const handleChange = (e) => {
+    props.setError(false);
+    props.setMessage('');
+    props.setVal(e);
+  }
 
   return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -24,7 +39,9 @@ const Input: FC<InputProps> = (props) => {
                     !props.error?(
                         props.label
                     ): (
+                      
                         props.errorMessage
+                        
                     )
                 }
             </Text>
@@ -34,8 +51,9 @@ const Input: FC<InputProps> = (props) => {
                   placeholder={props.placeholder}
                   placeholderTextColor={colors.white}
                   keyboardType='default'
-                  ref={props.ref}
+                  onChangeText={handleChange}
                   secureTextEntry={props.isPassword? true: false}
+                  value={props.val}
                 />
               </View>
           </View>
