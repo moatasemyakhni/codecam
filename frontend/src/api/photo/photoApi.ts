@@ -46,3 +46,21 @@ export const deletePhoto: deletePhotoInterface = async (photoId) => {
     }
 }
 
+
+export interface getPhotoByIdInterface {
+    (
+        photoId: string,
+    ): Promise<any>
+}
+
+export const getPhotoById: getPhotoByIdInterface = async (photoId) => {
+    try {
+        const token = await getToken();
+        config.headers.Authorization = `Bearer ${token}`;
+        const response = await apiManager.get(`${photosBaseUrl}/photo/${photoId}`, config);
+        return response.data;
+    } catch (error) {
+        return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
+    }
+}
+
