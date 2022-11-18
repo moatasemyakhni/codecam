@@ -1,38 +1,96 @@
-import React, { useState } from "react";
-import RNPickerSelect from "react-native-picker-select";
-import { Text, View, TextInput, ScrollView } from "react-native";
-import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../constants/utilities";
-import { AntDesign } from '@expo/vector-icons';
-import CodeEditor from '@rivascva/react-native-code-editor';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useKeyboard } from '@react-native-community/hooks';
-import FullWidthButton from "../../components/Buttons/FullWidthButton";
-import { styles } from "./styles";
-import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
-import { colors } from "../../constants/palette";
 import InputPrompt from "./InputPrompt";
 import Toast from 'react-native-root-toast';
+import React, { useState, useEffect } from "react";
+import RNPickerSelect from "react-native-picker-select";
+import CodeEditor from '@rivascva/react-native-code-editor';
+import FullWidthButton from "../../components/Buttons/FullWidthButton";
+
+import { styles } from "./styles";
+import { 
+    Text, 
+    View, 
+    TextInput, 
+    ScrollView 
+} from "react-native";
+import { useSelector } from "react-redux";
+import { store } from "../../redux/store";
+import { AntDesign } from '@expo/vector-icons';
+import { colors } from "../../constants/palette";
+import { editPhotoById } from "../../api/photo/photoApi";
+import { useKeyboard } from '@react-native-community/hooks';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { addPhoto, updateUserPhotos } from "../../redux/slices/userSlice";
+import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../constants/utilities";
 
 
- const RunCode = () => {
+ const RunCode = ({route}) => {
     const keyboard = useKeyboard();
-    const languagePlaceHolder = { label: "Choose a Language...", value: null }
+    const {photoId, newPhoto, language, textContent, photoSnippetName} = route.params;
+    const languagePlaceHolder = { label: "Choose a Language...", value: null };
     const [chosenLanguage, setChosenLanguage] = useState(allowedProgrammingLanguages[0]);
     const [editorLanguage, setEditorLanguage] = useState(editorSupportedLanguages[0]);
-    const [codeContent, setCodeContent] = useState('hello');
+    const [codeContent, setCodeContent] = useState(textContent);
     const [output, setOutput] = useState(null);
     const [visiblePrompt, setVisiblePrompt] = useState(false);
-    
-    const [snippetName, setSnippetName] = useState(null);
-    const onChange = (val) => {
-        // console.log("change", val);
-        
-    }
-    const saveCode = () => {
-        Toast.show('Code is saved in History', {
-            duration: Toast.durations.LONG,
+    const [enable, setEnable] = useState(true);
+    const [snippetName, setSnippetName] = useState(photoSnippetName);
+    const {userCodePhotos} = useSelector(state => state.user);
+    useEffect(() => {
+
+        if(!newPhoto) {
+            let currentLanguageIndex = 0;
+            allowedProgrammingLanguages.forEach((lang, index) => {
+                if(lang.value.toUpperCase() === language.toUpperCase()) {
+                    currentLanguageIndex = index;
+                    return;
+                }
+            });
+
+            setChosenLanguage(allowedProgrammingLanguages[currentLanguageIndex]);
+            setEditorLanguage(editorSupportedLanguages[currentLanguageIndex]);
+        }
+    }, [photoId]);
+
+    const saveCode = async () => {
+        try {
+            setEnable(false);
+            const data = {
+                codeTextContent: codeContent,
+                programmingLanguage: chosenLanguage.value,
+                snippetName: snippetName
+            };
+            const response = await editPhotoById(photoId, data)
+            if(response.error) {
+                Toast.show(response.message, {
+                    duration: Toast.durations.LONG,
+                });
+                setEnable(true);
+                return;
+            }
+            const photos = userCodePhotos.filter(item => item._id !== photoId);
+            console.log(photos, "AFTER FILTER");
+            const photo = response.photo;
+            store.dispatch(updateUserPhotos({
+                userCodePhotos: photos
+            }))
+            store.dispatch(addPhoto({
+                photo,
+            }))
+
+            console.log(userCodePhotos, "AFTER ADD DISPATCH");
             
-        })
+            Toast.show('Code Saved Successfully', {
+                duration: Toast.durations.LONG,
+            });
+
+        } catch (error) {
+            Toast.show(error.message, {
+                duration: Toast.durations.LONG,
+            });
+        } finally {
+            setEnable(true);
+        }
     }
     const showPrompt = () => {
         setVisiblePrompt(true);
@@ -54,29 +112,34 @@ import Toast from 'react-native-root-toast';
      return (
         
         <ScrollView>
-         <View style={styles.container}>
-             <TextInput 
-             style={ styles.snippetInput }
-             value={snippetName || "Snippet"}
-             placeholder={"Snippet Name..."}
-             />
-             <View style={styles.contentWrapper}>
-                <RNPickerSelect
-                    onValueChange={ changeLanguage }
-                    items={ allowedProgrammingLanguages }
-                    useNativeAndroidPickerStyle={false}
-                    placeholder={languagePlaceHolder}
-                    style={{ inputIOS: styles.inputIOS , inputAndroid: styles.inputAndroid, iconContainer:styles.iconContainer }}
-                    value={chosenLanguage.value}
-                    
-                    
-                    Icon={icon}
+            <View style={styles.container}>
+                <TextInput 
+                    style={ styles.snippetInput }
+                    value={snippetName}
+                    placeholder={"Snippet Name..."}
+                    onChangeText={val => setSnippetName(val)}
                 />
-                
+
+                <View style={styles.contentWrapper}>
+                    <RNPickerSelect
+                        onValueChange={ changeLanguage }
+                        items={ allowedProgrammingLanguages }
+                        useNativeAndroidPickerStyle={false}
+                        placeholder={languagePlaceHolder}
+                        style={{ 
+                            inputIOS: styles.inputIOS , 
+                            inputAndroid: styles.inputAndroid, 
+                            iconContainer:styles.iconContainer 
+                        }}
+                        value={chosenLanguage.value}
+                        Icon={icon}
+                    />
+                    
                     <SafeAreaView >
                         <View style={styles.editorContainer}>
                             
                             <CodeEditor
+
                                 style={{                           
                                     ...{
                                         fontSize: 18,
@@ -89,7 +152,8 @@ import Toast from 'react-native-root-toast';
                                         : {}),
                                 }}
                                 language={editorLanguage}
-                                onChange={onChange}
+                                onChange={(e) => {setCodeContent(e);
+                                } }
                                 initialValue={codeContent}
                                 showLineNumbers
                             />
@@ -97,7 +161,7 @@ import Toast from 'react-native-root-toast';
                         </View>
                         <Text style={styles.outputTitle}>Output</Text>
                         <View style={styles.outputWrapper}>
-                            <Text>
+                            <Text style={styles.outputText}>
                                 {output}
                             </Text>
                         </View>
@@ -105,18 +169,18 @@ import Toast from 'react-native-root-toast';
                             <FullWidthButton
                                 groupBtn
                                 BGBlue
-                                enabled
+                                enabled={enable? true : false}
                                 title="Execute"
                                 
                                 onPress={showPrompt}
                                 Icon={
                                     <FontAwesome5 name="play-circle" size={24} color={colors.white} />
                                 }
-                             />
+                            />
                             <FullWidthButton
                                 groupBtn
                                 BGGreen
-                                enabled
+                                enabled={enable? true : false}
                                 title="save"
                                 onPress={saveCode}
                                 Icon={
@@ -126,11 +190,18 @@ import Toast from 'react-native-root-toast';
                         </View>
                 
                     </SafeAreaView>
-             </View>
-         </View>
+                </View>
+            </View>
          
-            <InputPrompt setVisiblePrompt={setVisiblePrompt} visiblePrompt={visiblePrompt} />
-         </ScrollView>
+            <InputPrompt  
+                setVisiblePrompt={setVisiblePrompt} 
+                visiblePrompt={visiblePrompt}
+                languageValue={chosenLanguage.value}
+                textContent={codeContent}
+                setOutput={setOutput}
+                output={output}
+            />
+        </ScrollView>
 
      );
  }
