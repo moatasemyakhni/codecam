@@ -16,6 +16,11 @@ import { sendEmail } from '../../api/auth/authApi';
 
 
 const ForgotPassword = () => {
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState('');
+    const [email, setEmail] = useState('');
+    const [enabled, setEnabled] = useState(false);
+
     
 
     return (
