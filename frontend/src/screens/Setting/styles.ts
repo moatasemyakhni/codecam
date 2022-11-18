@@ -9,9 +9,12 @@ export const styles = StyleSheet.create({
 
     },
     image: {
-        width: '60%',
         resizeMode: 'contain',
         alignSelf: 'center',
+        backgroundColor: '#f5f5f5', 
+        height: 200, 
+        borderRadius: 999,
+        width: 200,
         marginVertical: 40,
     },
     name: {
@@ -19,7 +22,7 @@ export const styles = StyleSheet.create({
         color: colors.white,
         fontWeight: 'bold',
         fontSize: 22,
-        marginBottom: 200,
+        marginBottom: 100,
 
     },
     btnContainer: {
