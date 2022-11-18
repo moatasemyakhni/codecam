@@ -100,7 +100,7 @@ export interface savePhotoInterface {
     ) : Promise<any>
 }
 
-export const savePhoto = async (data) => {
+export const savePhoto: savePhotoInterface = async (data) => {
     try {
         const token = await getToken();
         config.headers.Authorization = `Bearer ${token}`;
