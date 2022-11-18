@@ -93,7 +93,7 @@ export interface textDetectionInterface {
     ): Promise<any>
 }
 
-export const textDetection = async (data) => {
+export const textDetection: textDetectionInterface = async (data) => {
     try {
         const token = await getToken();
         config.headers.Authorization = `Bearer ${token}`;
