@@ -61,3 +61,24 @@ export const editFullName: editFullNameInterface = async (userId, data) => {
         return error.hasOwnProperty('response')? error.response.data: {...error, error: true};
     }
 }
+
+
+export interface editProfileInterface {
+    (
+        userId: string,
+        data: {
+            base64Photo: string,
+        }
+    ) : Promise<any>
+}
+
+export const editProfile: editProfileInterface = async (userId, data) => {
+    try {
+        const token = await getToken();
+        config.headers.Authorization = `Bearer ${token}`;
+        const response = await apiManager.patch(`${usersBaseUrl}/edit/photo/${userId}`, data, config);
+        return response.data;
+    } catch (error) {
+        return error.hasOwnProperty('response')? error.response.data: {...error, error: true};
+    }
+}
