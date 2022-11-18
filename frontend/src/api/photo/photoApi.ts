@@ -86,3 +86,27 @@ export const editPhotoById:EditPhotoInterface = async (photoId, data) => {
         return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
     }
 }
+
+
+export interface savePhotoInterface {
+    (
+        data: {
+            codeTextContent: string,
+            snippetName: string,
+            userId: string,
+            programmingLanguage: string,
+            base64Photo: string,
+        }
+    ) : Promise<any>
+}
+
+export const savePhoto = async (data) => {
+    try {
+        const token = await getToken();
+        config.headers.Authorization = `Bearer ${token}`;
+        const response = await apiManager.post(`${photosBaseUrl}/`, data, config);
+        return response.data;
+    } catch (error) {
+        return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
+    }
+}
