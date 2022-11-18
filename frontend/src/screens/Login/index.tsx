@@ -32,7 +32,50 @@ const Login = ({navigation}) => {
     setEnabled([email, password].every(Boolean));
   }, [email, password])
 
-  
+  const loginUser = async () => {
+    setEnabled(false)
+    if(!emailFormat(email)) {
+      setEmailError(true);
+      setEmailMessage('Wrong email format');
+      setEnabled(true);
+      return;
+    }
+      
+    const user = await login({email, password});
+
+    if(user.error) {
+      setEmailError(true);
+      setPasswordError(true);
+      setEmailMessage(user.message);
+      setPasswordMessage(user.message);
+      setEnabled(true);
+      return;
+    }
+      
+    const userInfo = await getUserInfo();
+
+    if(userInfo.error) {
+      setEmailError(true);
+      setPasswordError(true);
+      setEmailMessage(userInfo.message);
+      setPasswordMessage(userInfo.message);
+      setEnabled(true);
+      return;
+    }
+    
+    store.dispatch(updateUserProfile({
+      userProfile: {
+        userId: userInfo.user._id,
+        fullName: userInfo.user.fullName,
+        profileImage: userInfo.user.profilePhotoUrl,
+      }
+      })
+    );
+    
+      setEnabled(true);
+      setEmail('');
+      setPassword('');
+    }
 
 
     return (
