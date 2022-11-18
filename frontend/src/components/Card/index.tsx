@@ -51,7 +51,20 @@ const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, na
             })
         })();
     }
-    
+
+    const handleDelete = async () => {
+        const response = await deletePhoto(photoId);
+        if(response.error) {
+            setMessage(response.message);
+            return;
+        }       
+        store.dispatch(
+            updateUserPhotos({
+            userCodePhotos: userCodePhotos.filter(photos => photos._id !== photoId);
+            })
+        );
+        setMessage(response.message);
+    }
     
     
   return (
