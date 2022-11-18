@@ -1,25 +1,49 @@
-import { View, Text } from 'react-native'
 import React, { useState } from 'react'
-import { styles } from './styles'
 import Dialog from "react-native-dialog";
+
+import { styles } from './styles'
+import { View, Text } from 'react-native'
 import { colors } from '../../constants/palette';
+import { codeOutput } from '../../api/user/userApi';
 
 
-const InputPrompt = ({visiblePrompt, setVisiblePrompt}) => {
-
+const InputPrompt = ({visiblePrompt, setVisiblePrompt, languageValue, textContent, output, setOutput}) => {
+    const [disable, setDisable] = useState(false);
     const handleCancel = () => {
         setVisiblePrompt(false);
     }
     const [inputValues, setInputValues] = useState('');
-    const handleRun = () => {
+    const handleRun = async () => {
         // call api
+        setDisable(true);
+        let input;
         if(!inputValues) {
             console.log("null");
-            
+            input = null;
         }else{ 
             const inputs = inputValues.split(' ').filter(val => val).join('\n');
             console.log(inputs);
+            input = inputs;
         }
+        const data = {
+            source: textContent,
+            language: languageValue,
+            inputs: input,
+        }
+
+        const response = await codeOutput(data);
+        console.log(response);
+        if(response.error) {
+            response.message === "OK"? setOutput('Missing/Wrong type of an input') : setOutput(response.message);
+            setDisable(false);
+            setVisiblePrompt(false);
+            return;
+        }
+
+        setOutput(response.output);
+        console.log(output, "OUTPUT");
+        
+        setDisable(false);
         setVisiblePrompt(false);
     }
 
@@ -42,9 +66,9 @@ const InputPrompt = ({visiblePrompt, setVisiblePrompt}) => {
                 </View>
             </Dialog.Description>
             <Dialog.Input underlineColorAndroid={colors.white} style={styles.white} placeholderTextColor={colors.white} onChangeText={(e) => setInputValues(e)} value={inputValues} placeholder='"John Smith"  20'/>
-            <Dialog.Button bold color={colors.white} label="CLEAR INPUT" onPress={clearInput} />
-            <Dialog.Button bold color={colors.white} label="GO BACK" onPress={handleCancel} />
-            <Dialog.Button bold color={colors.white} label="RUN" onPress={handleRun} />
+            <Dialog.Button disabled={disable? true : false} bold color={colors.white} label="CLEAR INPUT" onPress={clearInput} />
+            <Dialog.Button disabled={disable? true : false} bold color={colors.white} label="GO BACK" onPress={handleCancel} />
+            <Dialog.Button disabled={disable? true : false} bold color={colors.white} label="RUN" onPress={handleRun} />
           </Dialog.Container>
       );
 }
