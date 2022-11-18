@@ -1,4 +1,3 @@
-
 export const getExtensionFromFilePath = (path) => {
     const imageExtensionArr = path.split('.');
     const imageExtension = imageExtensionArr[imageExtensionArr.length - 1];
@@ -6,7 +5,10 @@ export const getExtensionFromFilePath = (path) => {
 }
 
 export const shareGithubLink = 'https://github.com/moatasemyakhni/codecam';
-export const linkedInLink = 'http://linkedin.com/in/moatasem-yakhni-2b62b922b'
+
+export const linkedInLink = 'http://linkedin.com/in/moatasem-yakhni-2b62b922b';
+
+
 export const allowedProgrammingLanguages = [
     {label: 'JAVASCRIPT', value: 'JAVASCRIPT_NODE'},
     {label: 'PYTHON2', value: 'PYTHON2'},
@@ -27,5 +29,10 @@ export const editorSupportedLanguages = [
     'csharp',
     'java',
     'php'
+];
 
-]
+export const emailFormat = (value) => {
+    const expression = /^(\w([\.-]?\w)*)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    return value.match(expression);
+}
+
