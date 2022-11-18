@@ -53,7 +53,17 @@ const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, na
         
             }
         </TouchableOpacity>
-        <Prompt setVisiblePrompt={setVisiblePrompt} visiblePrompt={visiblePrompt} bgColor={colors.red} color={colors.red} description={'Are you sure you want to delete code?'} label={'DELETE'} onAction={handleDelete} onSuccessMessage={message} title={'Delete Code'}  />
+        <Prompt 
+            setVisiblePrompt={setVisiblePrompt} 
+            visiblePrompt={visiblePrompt} 
+            bgColor={colors.red} 
+            color={colors.red} 
+            description={'Are you sure you want to delete code?'} 
+            label={'DELETE'}
+            onAction={handleDelete} 
+            onSuccessMessage={message} 
+            title={'Delete Code'}  
+        />
     </View>
   )
 }
