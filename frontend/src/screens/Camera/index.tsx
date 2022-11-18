@@ -1,18 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Text, View, Image, Alert, TouchableOpacity } from 'react-native';
-import { Camera, CameraType, CameraPictureOptions, FlashMode } from 'expo-camera';
+import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
-import { styles } from './styles';
+import LogoXL from '../../../assets/images/logos/LogoXL';
+import React, { useEffect, useRef, useState } from 'react';
 import IconButton from '../../components/Buttons/IconButton';
-import { colors } from '../../constants/palette';
-import LibraryIcon from '../../../assets/images/icons/LibraryIcon';
+import CheckIcon from '../../../assets/images/icons/CheckIcon';
 import CameraIcon from '../../../assets/images/icons/CameraIcon';
 import HistoryIcon from '../../../assets/images/icons/HistoryIcon';
-import * as ImagePicker from 'expo-image-picker';
-import {ImagePickerOptions} from 'expo-image-picker';
+import LibraryIcon from '../../../assets/images/icons/LibraryIcon';
 import DeleteWithBorderIcon from '../../../assets/images/icons/DeleteWithBorderIcon';
-import CheckIcon from '../../../assets/images/icons/CheckIcon';
-import LogoXL from '../../../assets/images/logos/LogoXL';
+
+import { 
+    Text, 
+    View, 
+    Image, 
+    Alert, 
+    TouchableOpacity
+} from 'react-native';
+import { 
+    Camera, 
+    CameraType,
+    CameraPictureOptions, 
+    FlashMode 
+} from 'expo-camera';
+import { styles } from './styles';
+import { colors } from '../../constants/palette';
+import {ImagePickerOptions} from 'expo-image-picker';
 import { getExtensionFromFilePath } from '../../constants/utilities';
 
 
@@ -53,7 +65,7 @@ const CameraScreen = ({navigation}) => {
         } catch (error) {
             console.log(error);
             
-            Alert.alert("Something Wrong happened")
+            Alert.alert("Something Wrong happened");
         }
     }
 
