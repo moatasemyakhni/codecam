@@ -17,13 +17,12 @@ export const login:LoginInterface = async (data):Promise<any> => {
         });
         
         if(!response.data.error) {
-            
             const token = response.data.token;
             await AsyncStorage.setItem('token', token);
         }
         return response.data;
     } catch (error) {
-        return error;
+        return error.hasOwnProperty('response')? error.response.data : {...error, error: true};
         
     }
 }
