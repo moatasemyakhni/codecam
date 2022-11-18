@@ -2,7 +2,7 @@ import { apiManager } from "../ApiManager";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-interface LoginInterface {
+export interface LoginInterface {
     (data: {
         email: string,
         password: string,
@@ -28,7 +28,7 @@ export const login:LoginInterface = async (data):Promise<any> => {
 }
 
 
-interface SignupInterface {
+export interface SignupInterface {
     (data: {
         fullName: string,
         email: string,
@@ -50,7 +50,7 @@ export const signup:SignupInterface = async (data):Promise<any> => {
 }
 
 
-interface SendEmailInterface {
+export interface SendEmailInterface {
     (data: {
         email: string,
     }): Promise<any>
