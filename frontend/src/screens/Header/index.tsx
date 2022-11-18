@@ -1,10 +1,16 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React, { FC } from 'react'
-import { styles } from './styles'
+import React, { FC, useEffect } from 'react';
+
+import { 
+  View, 
+  Text, 
+  Image, 
+  TouchableOpacity 
+} from 'react-native';
+import { styles } from './styles';
+import { useSelector } from 'react-redux';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 interface HeaderProps {
-  imageSrc?: string,
   extension?: string,
   title?: string,
   navigation?: StackNavigationProp<any>
@@ -12,6 +18,12 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = (props) => {
+  const { userProfile } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    console.log(userProfile);
+    
+  }, [])
   return (
     <View style={styles.container}>
 
@@ -26,14 +38,9 @@ const Header: FC<HeaderProps> = (props) => {
             }
           >
             {
-              !props.imageSrc?
-              <Image
-                  source={require('../../../assets/images/icons/default-profile-sm.png')}
-              />
-              :
               <Image
                   source={{ 
-                    uri: `data:image/${props.extension};base64,${props.imageSrc}`
+                    uri: userProfile.profileImage
                   }}
                   style={[styles.image, styles.smSize]}
               />
