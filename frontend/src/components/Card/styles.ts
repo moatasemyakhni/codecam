@@ -17,6 +17,7 @@ export const styles = StyleSheet.create({
     infoSection: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginBottom: 20,
     },
     date: { 
         fontSize: 16,
