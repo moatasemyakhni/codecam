@@ -26,8 +26,7 @@ export const Setting = (props) => {
   const {userProfile} = useSelector(state => state.user);
 
   const handleEdit = () => {
-    props.navigation.navigate('EditProfile')
-    console.log("edit")
+    props.navigation.navigate('EditProfile');
   }
 
   const handleShare = async () => {
