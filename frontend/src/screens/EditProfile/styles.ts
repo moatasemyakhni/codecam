@@ -7,7 +7,23 @@ export const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.darkMode.background,
         paddingHorizontal: spacing.paddingFromPhoneWidth,
-        minHeight: Math.round(Dimensions.get('window').height) - 60
+        minHeight: Math.round(Dimensions.get('window').height)
+    },
+    imageWrapper: { 
+        backgroundColor: 'black', 
+        width:200, 
+        alignSelf: 'center', 
+        justifyContent: 'center', 
+        height: 200, 
+        marginVertical: 40, 
+        borderRadius: 9999, 
+        position: 'relative'  
+    },
+    imageText: { 
+        color: 'white', 
+        fontSize: 28, 
+        position:'absolute', 
+        left: 80,
     },
     image: {
         resizeMode: 'contain',
@@ -20,13 +36,10 @@ export const styles = StyleSheet.create({
         opacity:0.3,
     },
     btnContainer: {
-        flex: 1, 
-        width: '100%', 
-        position: 'relative' 
+        flex: 1,  
+        marginTop: 40,
     },
-    btnWrapper:{ 
-        position:'absolute', 
-        bottom: 30, 
-        width:'100%' 
+    btnWrapper:{  
+
     },
 });
