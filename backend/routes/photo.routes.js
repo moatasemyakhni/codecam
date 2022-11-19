@@ -6,7 +6,7 @@ const {
     getPhotosByUserId,
     editPhotoById,
     deletePhoto,
-} = require('../controllers/photos.controllers');
+} = require('../controllers/photos.controller');
 
 const router = express.Router();
 router.get('/photo/:photoId', getPhotoById);
