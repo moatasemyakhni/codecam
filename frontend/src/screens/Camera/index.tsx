@@ -1,3 +1,4 @@
+import Toast from 'react-native-root-toast';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import LogoXL from '../../../assets/images/logos/LogoXL';
@@ -23,21 +24,26 @@ import {
     FlashMode 
 } from 'expo-camera';
 import { styles } from './styles';
+import { store } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { colors } from '../../constants/palette';
+import { savePhoto } from '../../api/photo/photoApi';
 import {ImagePickerOptions} from 'expo-image-picker';
+import { textDetection } from '../../api/user/userApi';
+import { addPhoto } from '../../redux/slices/userSlice';
 import { getExtensionFromFilePath } from '../../constants/utilities';
 
 
 const CameraScreen = ({navigation}) => {
     const [hasCameraPermissions, setHasCameraPermissions] = useState(null);
     const [image, setImage] = useState(null);
+    const [base64Image, setBase64Image] = useState(null);
     const [extension, setExtension] = useState(null);
     //type of camera (front or back camera)
     const [type, setType] = useState(CameraType.back);
     const [flash, setFlash] = useState(FlashMode.off);
     const cameraRef = useRef(null);
-    const { userProfile } = useSelector(state => state.user)
+    const { userProfile } = useSelector(state => state.user);
 
     useEffect(() => {
         (async () => {
@@ -62,11 +68,10 @@ const CameraScreen = ({navigation}) => {
             const result = await ImagePicker.launchImageLibraryAsync(options);
             if(!result.cancelled) {
                 setImage(result['uri']);
+                setBase64Image(result['base64'])
                 setExtension(getExtensionFromFilePath(result['uri']))
             }
         } catch (error) {
-            console.log(error);
-            
             Alert.alert("Something Wrong happened");
         }
     }
@@ -82,6 +87,7 @@ const CameraScreen = ({navigation}) => {
                 }
                 const data = await cameraRef.current.takePictureAsync(options);
                 setImage(data.uri);
+                setBase64Image(data.base64);
                 setExtension(getExtensionFromFilePath(data.uri))
                 
             } catch (error) {
@@ -99,9 +105,42 @@ const CameraScreen = ({navigation}) => {
         )
     }
 
-    const moveToCode = () => {
+    const moveToCode = async () => {
+        try {
+            const defaultSnippetName = 'Snippet1';
+            const img = `data:image/${extension};base64,${base64Image}`;
+            
+            const textResponse = await textDetection({
+                base64Image: img,
+                fullName: defaultSnippetName,
+            });
+            
+            if(textResponse.error) {
+                Toast.show(textResponse.message, {
+                    duration: Toast.durations.LONG,
+                });
+                setImage(null);
+                return;
+            }
+            const codeTextContent = textResponse.detection;
+            const defaultProgrammingLanguage = 'PYTHON3';
+            
+            navigation.navigate('RunCode', {
+                photoSnippetName: defaultSnippetName, 
+                textContent: codeTextContent,
+                language: defaultProgrammingLanguage, 
+                photoId: '', 
+                newPhoto: true,
+                base64Photo: img, //specific for new photos
+            });
+        } catch (error) {
+            Toast.show(error.message, {
+                duration: Toast.durations.LONG,
+            });
+        } finally {
+            setImage(null);
+        }
         
-        navigation.navigate('RunCode')
     }
 
     return (
