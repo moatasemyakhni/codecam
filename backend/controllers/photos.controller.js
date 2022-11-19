@@ -121,8 +121,6 @@ const getPhotoById = async (req, res) => {
         }
         const fileToRead = photo.codeUrl;
         const codeText = await readFromFile(fileToRead);
-        // const codeText = readResponse.data;
-        console.log(codeText, "TEXT");
         photo = {...photo, codeText};
         res.status(200).send({error: false, photo: photo});
     } catch (error) {
@@ -204,7 +202,6 @@ const writeInFile = (userId, snippet, textContent) => {
         fs.mkdir(
             path, 
             (error) => {
-                console.log(error);
                 throw {message: error};
             });
     }
