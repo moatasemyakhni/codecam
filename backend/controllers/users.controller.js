@@ -43,6 +43,9 @@ const BUCKET_NAME = process.env.BUCKET_NAME;
 const UNSAVED_IMAGES_CLOUD_PATH = process.env.UNSAVED_IMAGES_CLOUD_PATH;
 
 const CODE_IMAGE_STORAGE_PATH = process.env.CODE_IMAGE_STORAGE_PATH;
+
+const GET_USER_IMAGE_CLOUD_URL = process.env.GET_USER_IMAGE_CLOUD_URL;
+
 /**********************/
 const client = new vision.ImageAnnotatorClient({
     keyFilename: GOOGLE_FILE_PATH,
@@ -64,7 +67,7 @@ const textDetection = async (req, res) => {
             throw {message: 'Image and Name is required'};
         }
         
-        const url = await base64ToImageWithPath('unsaved', base64Image, fullName, CODE_IMAGE_STORAGE_PATH, UNSAVED_IMAGES_CLOUD_PATH);
+        const url = await base64ToImageWithPath('unsaved', base64Image, fullName, CODE_IMAGE_STORAGE_PATH, UNSAVED_IMAGES_CLOUD_PATH, UNSAVED_IMAGES_CLOUD_PATH);
         const fileName = url.split(`${BUCKET_NAME}/`)[1];
         const [result] = await client.textDetection(`gs://${BUCKET_NAME}/${fileName}`);
         if(!result.fullTextAnnotation) {
@@ -270,7 +273,7 @@ const editProfile = async (req, res) => {
         if(!user) {
             throw {message: 'User Not Found'};
         }
-        const newProfile = await base64ToImageWithPath(user._id, base64Image, user.fullName, USER_IMAGE_STORAGE_PATH, USER_IMAGE_CLOUD_URL);
+        const newProfile = await base64ToImageWithPath(user._id, base64Image, user.fullName, USER_IMAGE_STORAGE_PATH, USER_IMAGE_CLOUD_URL, GET_USER_IMAGE_CLOUD_URL);
 
         user.profilePhotoUrl = newProfile;
         await user.save();
@@ -369,7 +372,7 @@ const changePassword = async (req, res) => {
 
 // should be used in try catch block
 
-const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath) => {
+const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath, getUrlPath) => {
     const extension = base64.split(';')[0].split('/')[1];
     if(!photoExtensions.includes(extension.toUpperCase())) {
         throw {message: 'Not a valid extension'};
@@ -404,7 +407,7 @@ const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath) =>
         destination: destination
     });
 
-    const url = `${urlPath}/${userId}/${imageName}`;
+    const url = `${getUrlPath}/${userId}/${imageName}`;
 
     return url;
 }
