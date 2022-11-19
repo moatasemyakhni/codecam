@@ -33,7 +33,8 @@ const Login = ({navigation}) => {
   }, [email, password])
 
   const loginUser = async () => {
-    setEnabled(false)
+    try {
+      setEnabled(false)
     if(!emailFormat(email)) {
       setEmailError(true);
       setEmailMessage('Wrong email format');
@@ -53,7 +54,8 @@ const Login = ({navigation}) => {
     }
       
     const userInfo = await getUserInfo();
-
+    console.log(userInfo);
+    
     if(userInfo.error) {
       setEmailError(true);
       setPasswordError(true);
@@ -75,7 +77,15 @@ const Login = ({navigation}) => {
       setEnabled(true);
       setEmail('');
       setPassword('');
+    } catch (error) {
+      setEmailError(true);
+      setPasswordError(true);
+      setEmailMessage(error.message);
+      setPasswordMessage(error.message);
+      setEnabled(true);
     }
+    
+}
 
 
     return (
