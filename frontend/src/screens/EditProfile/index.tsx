@@ -6,11 +6,19 @@ import React, { useEffect, useState } from 'react';
 import * as MediaLibrary from 'expo-media-library';
 import FullWidthButton from '../../components/Buttons/FullWidthButton';
 
+import { 
+    Text, 
+    View, 
+    Image, 
+    Platform,
+    ScrollView, 
+    TouchableOpacity,  
+    KeyboardAvoidingView 
+} from 'react-native';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
 import { store } from '../../redux/store';
 import {ImagePickerOptions} from 'expo-image-picker';
-import { View, Image, TouchableOpacity } from 'react-native';
 import { updateUserProfile } from '../../redux/slices/userSlice';
 import { editFullName, editProfile } from '../../api/user/userApi';
 import { getExtensionFromFilePath } from '../../constants/utilities';
@@ -30,7 +38,6 @@ const EditProfile = ({navigation}) => {
                 fullName: fullName,
             }
             const response = await editFullName(userProfile.userId, data);
-            console.log(response);
             if(response.error) {
                 setError(true);
                 setMessage(response.message);
@@ -77,8 +84,7 @@ const EditProfile = ({navigation}) => {
             }
             const result = await ImagePicker.launchImageLibraryAsync(options);
             if(!result.cancelled) {
-                const extension = getExtensionFromFilePath(result['uri'])
-                console.log(extension);
+                const extension = getExtensionFromFilePath(result['uri']);
                 
                 const data = {
                     base64Photo: `data:image/${extension};base64,${result['base64']}`
@@ -102,7 +108,6 @@ const EditProfile = ({navigation}) => {
                 navigation.pop();
             }
         } catch (error) {
-            console.log(error);
             Toast.show(JSON.stringify(error), {
                 duration: Toast.durations.LONG,
             });
@@ -110,38 +115,52 @@ const EditProfile = ({navigation}) => {
     }
 
   return (
-    <View style={styles.container}>
-        <TouchableOpacity activeOpacity={0.95} onPress={pickImage}>
-        {
-            <Image 
-                source={{
-                    uri: userProfile.profileImage,
-                }}
-                style={styles.image}
-            />
-        }
-        </TouchableOpacity>
-      <Input 
-        label='FullName' 
-        placeholder='FullName...' 
-        setVal={setFullName}
-        val={fullName}
-        error={error}
-        errorMessage={message}
-        setMessage={setMessage}
-        setError={setError}
-        />
-      <View style={styles.btnContainer}>
-        <View style={styles.btnWrapper}>
-            <FullWidthButton 
-                BGGreen 
-                enabled={enable? true: false}
-                title='UPDATE'
-                onPress={handleUpdateName}
+    <KeyboardAvoidingView 
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
+        enabled 
+        style={styles.container}
+        keyboardVerticalOffset={100}
+    > 
+        <ScrollView>
+            <TouchableOpacity 
+                activeOpacity={0.95} 
+                onPress={pickImage}
+                style={styles.imageWrapper}
+            >
+                <Text style={styles.imageText}>Edit</Text>
+            
+                <Image 
+                    source={{
+                        uri: userProfile.profileImage,
+                    }}
+                    style={styles.image}
                 />
+            
+            </TouchableOpacity>
+        <Input 
+            label='FullName' 
+            placeholder='FullName...' 
+            setVal={setFullName}
+            val={fullName}
+            error={error}
+            errorMessage={message}
+            setMessage={setMessage}
+            setError={setError}
+            />
+      
+        <View style={styles.btnContainer}>
+            <View style={styles.btnWrapper}>
+                <FullWidthButton 
+                    BGGreen 
+                    enabled={enable? true: false}
+                    title='UPDATE'
+                    onPress={handleUpdateName}
+                    />
+            </View>
         </View>
-      </View>
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+    
   )
 }
 
