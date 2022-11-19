@@ -44,7 +44,7 @@ const emailTemplate = (fullName, text) => {
     return `
     <p style="font-weight:bold;font-size:20px;">Dear ${fullName},</p>
     <p style="font-weight:bold;font-size:20px;">Please copy the following code and paste it in the token box in maximum ${parseInt(TOKEN_EXPIRY_TIME_IN_SECONDS/60)} minutes: </p>
-    <h1 style="padding:10px;background-color:#f1f1f1;color:white;text-decoration: none;">${text}</h1>
+    <h1 style="padding:10px;background-color:#8293ee;color:#f5f5f5;text-decoration: none;">${text}</h1>
     <div style="font-weight:bold;font-size:20px;">
         <p>In case token expired try to click on "forgot password" again.</p>
         <p>Best Regards,&nbsp;</p>
