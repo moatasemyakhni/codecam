@@ -39,7 +39,7 @@ btnSubmit.addEventListener('click', async (e) => {
         const id = href[href.length-2];
         const token = href[href.length-1];
         const idPlusToken = `${id}/${token}`;
-        const response = await changePassword('http://localhost:3500/change-password', {
+        const response = await changePassword('https://motasemtest.herokuapp.com/change-password', {
             idPlusToken: idPlusToken,
             password: password.value,
         });
