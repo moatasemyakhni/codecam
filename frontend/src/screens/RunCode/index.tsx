@@ -16,17 +16,17 @@ import { useSelector } from "react-redux";
 import { store } from "../../redux/store";
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from "../../constants/palette";
-import { editPhotoById } from "../../api/photo/photoApi";
 import { useKeyboard } from '@react-native-community/hooks';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
+import { editPhotoById, savePhoto } from "../../api/photo/photoApi";
 import { addPhoto, updateUserPhotos } from "../../redux/slices/userSlice";
 import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../constants/utilities";
 
 
- const RunCode = ({route}) => {
+ const RunCode = ({route, navigation}) => {
     const keyboard = useKeyboard();
-    const {photoId, newPhoto, language, textContent, photoSnippetName} = route.params;
+    const {photoId, newPhoto, language, textContent, photoSnippetName, base64Photo} = route.params;
     const languagePlaceHolder = { label: "Choose a Language...", value: null };
     const [chosenLanguage, setChosenLanguage] = useState(allowedProgrammingLanguages[0]);
     const [editorLanguage, setEditorLanguage] = useState(editorSupportedLanguages[0]);
@@ -35,7 +35,7 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
     const [visiblePrompt, setVisiblePrompt] = useState(false);
     const [enable, setEnable] = useState(true);
     const [snippetName, setSnippetName] = useState(photoSnippetName);
-    const {userCodePhotos} = useSelector(state => state.user);
+    const {userCodePhotos, userProfile} = useSelector(state => state.user);
     useEffect(() => {
 
         if(!newPhoto) {
@@ -60,29 +60,53 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                 programmingLanguage: chosenLanguage.value,
                 snippetName: snippetName
             };
-            const response = await editPhotoById(photoId, data)
-            if(response.error) {
-                Toast.show(response.message, {
+            if(!newPhoto) {
+                const response = await editPhotoById(photoId, data)
+                if(response.error) {
+                    Toast.show(response.message, {
+                        duration: Toast.durations.LONG,
+                    });
+                    setEnable(true);
+                    return;
+                }
+                const photos = userCodePhotos.filter(item => item._id !== photoId);
+                const photo = response.photo;
+                store.dispatch(updateUserPhotos({
+                    userCodePhotos: photos
+                }))
+                store.dispatch(addPhoto({
+                    photo,
+                }))
+                
+                Toast.show('Code Saved Successfully', {
                     duration: Toast.durations.LONG,
                 });
-                setEnable(true);
-                return;
+                
+            }else {
+                const savePhotoResponse = await savePhoto({
+                    base64Photo: base64Photo,
+                    codeTextContent: codeContent,
+                    programmingLanguage: allowedProgrammingLanguages[0].value,
+                    snippetName: snippetName,
+                    userId: userProfile.userId,
+                });
+    
+                if(savePhotoResponse.error) {
+                    Toast.show(savePhotoResponse.message, {
+                        duration: Toast.durations.LONG,
+                    });
+                    return;
+                }
+    
+                Toast.show(savePhotoResponse.message, {
+                    duration: Toast.durations.LONG,
+                });
             }
-            const photos = userCodePhotos.filter(item => item._id !== photoId);
-            console.log(photos, "AFTER FILTER");
-            const photo = response.photo;
-            store.dispatch(updateUserPhotos({
-                userCodePhotos: photos
-            }))
-            store.dispatch(addPhoto({
-                photo,
-            }))
-
-            console.log(userCodePhotos, "AFTER ADD DISPATCH");
-            
-            Toast.show('Code Saved Successfully', {
-                duration: Toast.durations.LONG,
-            });
+            navigation.navigate({
+                name: 'History',
+                params: {refresh: true}
+            }
+            );
 
         } catch (error) {
             Toast.show(error.message, {
@@ -199,7 +223,6 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                 languageValue={chosenLanguage.value}
                 textContent={codeContent}
                 setOutput={setOutput}
-                output={output}
             />
         </ScrollView>
 
