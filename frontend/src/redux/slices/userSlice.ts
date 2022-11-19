@@ -1,16 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-export interface User {
+export interface UserInterface {
     userProfile?: {
         userId?: string,
         fullName?: string,
         profileImage?: string,
     },
-    userCodePhotos?: Array<Photos>
+    userCodePhotos?: Array<PhotosInterface>
 }
 
-export interface Photos {
+export interface PhotosInterface {
   userId?: string,
   postId?: string,
   codeUrl?: string,
@@ -21,7 +21,7 @@ export interface Photos {
   updatedAt?: Date,
 }
 
-const initialState: User = {
+const initialState: UserInterface = {
   userProfile: null,
   userCodePhotos: null,
 }
