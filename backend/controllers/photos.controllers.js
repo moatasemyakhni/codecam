@@ -29,6 +29,8 @@ const GOOGLE_FILE_PATH = process.env.GOOGLE_FILE_PATH;
 const PROJECT_ID = process.env.PROJECT_ID;
 
 const BUCKET_NAME = process.env.BUCKET_NAME;
+
+const GET_CODE_IMAGE_CLOUD_URL = process.env.GET_CODE_IMAGE_CLOUD_URL;
 /**********************/
 
 const storage = new Storage({
@@ -84,7 +86,7 @@ const savePhoto = async (req, res) => {
             throw {message: 'User Not Found'};
         }
 
-        const getPhotoUrl = await base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_CLOUD_URL);
+        const getPhotoUrl = await base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_CLOUD_URL, GET_CODE_IMAGE_CLOUD_URL);
 
         const getCodeUrl = writeInFile(userId, snippetName, codeTextContent);
 
@@ -118,7 +120,9 @@ const getPhotoById = async (req, res) => {
             throw {message: 'UnAuthorized'};
         }
         const fileToRead = photo.codeUrl;
-        const codeText = readFromFile(fileToRead);
+        const codeText = await readFromFile(fileToRead);
+        // const codeText = readResponse.data;
+        console.log(codeText, "TEXT");
         photo = {...photo, codeText};
         res.status(200).send({error: false, photo: photo});
     } catch (error) {
@@ -200,7 +204,8 @@ const writeInFile = (userId, snippet, textContent) => {
         fs.mkdir(
             path, 
             (error) => {
-                throw {message: error.stack};
+                console.log(error);
+                throw {message: error};
             });
     }
 
@@ -208,7 +213,7 @@ const writeInFile = (userId, snippet, textContent) => {
     fs.writeFile(completePath, textContent, 
         (error) => {
             if(error) {
-                throw {message: error.stack};
+                throw {message: error};
             }
         });
     
@@ -249,6 +254,8 @@ const readFromFile = async (codeUrl) => {
     return content.toString();
 }
 
+
+
 const deleteFile = (filePath) => {
     if(fs.statSync(filePath)) {
         fs.unlinkSync(filePath);
@@ -262,5 +269,5 @@ module.exports = {
     getPhotoById,
     editPhotoById,
     deletePhoto,
-    
+    readFromFile
 }
