@@ -13,10 +13,12 @@ export const colors = {
     transparent: 'rgba(255, 255, 255, 0.2)',
     lightBlack: '#222222',
     lightBlackOpacity: 'rgba(204, 204, 204, 0.23)',
+    gray: '#A9A9AC',
     yellow: '#ffff00',
 
     lightMode: {
         background: '#f5f5f5',
+        inputText: '#222222',
     }
     
 }
