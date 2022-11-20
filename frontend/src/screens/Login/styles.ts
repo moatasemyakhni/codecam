@@ -1,9 +1,21 @@
-import { StyleSheet } from 'react-native'
-import { colors, spacing } from '../../constants/palette'
+import { StyleSheet } from 'react-native';
+import { colors, spacing } from '../../constants/palette';
+
 
 export const styles = StyleSheet.create({
-    loginContainer: { flex: 1, backgroundColor: colors.darkMode.background },
-    logoWrapper: {flex:1, alignItems: 'center'},
+    containerBgColorLight: {
+        backgroundColor: colors.lightMode.background 
+    },
+    containerBgColorDark: {
+        backgroundColor: colors.darkMode.background,
+    },
+    loginContainer: { 
+        flex: 1,
+    },
+    logoWrapper: {
+        flex:1, 
+        alignItems: 'center'
+    },
     linkTopPadding: {
         paddingTop: spacing.paddingTop10,
     },

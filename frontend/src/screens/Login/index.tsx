@@ -9,10 +9,12 @@ import {
   Platform,
   ScrollView, 
   TouchableOpacity, 
-  KeyboardAvoidingView, 
+  KeyboardAvoidingView,
 } from 'react-native';
 import { styles } from './styles';
+import { useSelector } from 'react-redux';
 import { store } from '../../redux/store';
+import { StatusBar } from 'expo-status-bar';
 import { login } from '../../api/auth/authApi';
 import { getUserInfo } from '../../api/user/userApi';
 import { emailFormat } from '../../constants/utilities';
@@ -28,6 +30,7 @@ const Login = ({navigation}) => {
   const [passwordMessage, setPasswordMessage] = useState('');
   const [enabled, setEnabled] = useState(false);
 
+  const { theme } = useSelector(state => state.ui);
   useEffect(() => {
     setEnabled([email, password].every(Boolean));
   }, [email, password])
@@ -35,49 +38,49 @@ const Login = ({navigation}) => {
   const loginUser = async () => {
     try {
       setEnabled(false)
-    if(!emailFormat(email)) {
-      setEmailError(true);
-      setEmailMessage('Wrong email format');
-      setEnabled(true);
-      return;
-    }
-      
-    const user = await login({email, password});
-
-    if(user.error) {
-      setEmailError(true);
-      setPasswordError(true);
-      setEmailMessage(user.message);
-      setPasswordMessage(user.message);
-      setEnabled(true);
-      return;
-    }
-      
-    const userInfo = await getUserInfo();
-    console.log(userInfo);
-    
-    if(userInfo.error) {
-      setEmailError(true);
-      setPasswordError(true);
-      setEmailMessage(userInfo.message);
-      setPasswordMessage(userInfo.message);
-      setEnabled(true);
-      return;
-    }
-    
-    store.dispatch(updateUserProfile({
-      userProfile: {
-        userId: userInfo.user._id,
-        fullName: userInfo.user.fullName,
-        profileImage: userInfo.user.profilePhotoUrl,
+      if(!emailFormat(email)) {
+        setEmailError(true);
+        setEmailMessage('Wrong email format');
+        setEnabled(true);
+        return;
       }
-      })
-    );
+        
+      const user = await login({email, password});
+
+      if(user.error) {
+        setEmailError(true);
+        setPasswordError(true);
+        setEmailMessage(user.message);
+        setPasswordMessage(user.message);
+        setEnabled(true);
+        return;
+      }
+        
+      const userInfo = await getUserInfo();
+      
+      if(userInfo.error) {
+        setEmailError(true);
+        setPasswordError(true);
+        setEmailMessage(userInfo.message);
+        setPasswordMessage(userInfo.message);
+        setEnabled(true);
+        return;
+      }
+      
+      store.dispatch(updateUserProfile({
+        userProfile: {
+          userId: userInfo.user._id,
+          fullName: userInfo.user.fullName,
+          profileImage: userInfo.user.profilePhotoUrl,
+        }
+        })
+      );
     
       setEnabled(true);
       setEmail('');
       setPassword('');
     } catch (error) {
+      console.log(error)
       setEmailError(true);
       setPasswordError(true);
       setEmailMessage(error.message);
@@ -92,7 +95,14 @@ const Login = ({navigation}) => {
       <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         enabled 
-        style={styles.loginContainer}
+        style={[
+          styles.loginContainer,
+          theme==='dark'? 
+            styles.containerBgColorDark 
+              : 
+            styles.containerBgColorLight
+
+        ]}
       >
         <ScrollView>
           <View>
@@ -135,6 +145,11 @@ const Login = ({navigation}) => {
 
           </View>
         </ScrollView>
+
+        <StatusBar 
+          style={theme === 'dark'? 'light' : 'dark'} 
+          networkActivityIndicatorVisible 
+        />
       </KeyboardAvoidingView>
     )
 }
