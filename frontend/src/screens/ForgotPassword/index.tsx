@@ -13,6 +13,7 @@ import {
 import { styles } from './styles';
 import { emailFormat } from '../../constants/utilities';
 import { sendEmail } from '../../api/auth/authApi';
+import { useSelector } from 'react-redux';
 
 
 const ForgotPassword = () => {
@@ -20,6 +21,8 @@ const ForgotPassword = () => {
     const [message, setMessage] = useState('');
     const [email, setEmail] = useState('');
     const [enabled, setEnabled] = useState(false);
+
+    const {theme} = useSelector(state => state.ui);
 
     const handleChange = async () => {
       setEnabled(false)
@@ -50,7 +53,13 @@ const ForgotPassword = () => {
     <KeyboardAvoidingView 
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
       enabled 
-      style={styles.forgotPasswordContainer}
+      style={[
+        styles.forgotPasswordContainer,
+        theme==='dark'?
+          styles.containerBgColorDark
+        :
+          styles.containerBgColorLight
+      ]}
     >
       <ScrollView>
         <View>
