@@ -40,7 +40,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.blue,
     },
     disabled: {
-        opacity: 0.77,
+        opacity: 0.5,
     },
     iconBtn: {
         height: 40,
@@ -64,9 +64,21 @@ export const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: 'white',
       },
-      bgIconText: {
+    bgIconText: {
         fontSize: 20, 
         textTransform: 'uppercase'
     },
-
+    textLightMode: {
+        color: colors.primary,
+    },
+    textDarkMode: {
+        color: colors.white
+    },
+    borderTextLightMode: {
+        
+        borderColor: colors.primary
+    },
+    borderTextDarkMode: {
+        borderColor: colors.white
+    },
 });
