@@ -3,9 +3,14 @@ import { colors, spacing } from '../../constants/palette';
 
 
 export const styles = StyleSheet.create({
+    containerDarkMode: {
+        backgroundColor: colors.darkMode.background,
+    },
+    containerLightMode: {
+        backgroundColor: colors.lightMode.background,
+    },
     container: {
         flex: 1,
-        backgroundColor: colors.darkMode.background,
         paddingHorizontal: spacing.paddingFromPhoneWidth,
         minHeight: Math.round(Dimensions.get('window').height)
     },
