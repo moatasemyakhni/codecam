@@ -2,6 +2,12 @@ import { StyleSheet } from 'react-native';
 import { colors, spacing } from '../../constants/palette';
 
 export const styles = StyleSheet.create({
+    containerLightMode: {
+        backgroundColor: colors.lightMode.background,
+    },
+    containerDarkMode: {
+        backgroundColor: colors.darkMode.background,
+    },
     container: {
         flex: 1,
         backgroundColor: colors.darkMode.background,
@@ -16,6 +22,18 @@ export const styles = StyleSheet.create({
         borderRadius: 999,
         width: 200,
         marginVertical: 40,
+    },
+    textLightMode: {
+        color: colors.primary,
+    },
+    textDarkMode: {
+        color: colors.white
+    },
+    borderTextLightMode: {
+        borderColor: colors.primary
+    },
+    borderTextDarkMode: {
+        borderColor: colors.white
     },
     name: {
         textAlign: 'center',

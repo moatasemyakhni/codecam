@@ -24,6 +24,7 @@ export const Setting = (props) => {
   const [visibleLogout, setVisibleLogout] = useState(false);
 
   const {userProfile} = useSelector(state => state.user);
+  const {theme} = useSelector(state => state.ui);
 
   const handleEdit = () => {
     props.navigation.navigate('EditProfile');
@@ -60,7 +61,13 @@ export const Setting = (props) => {
   }
   
   return (
-    <View style={styles.container}>
+    <View style={[
+      styles.container,
+      theme==='dark'?
+        styles.containerDarkMode
+      :
+        styles.containerLightMode
+    ]}>
       <ScrollView>
       {
         <Image 
@@ -71,12 +78,38 @@ export const Setting = (props) => {
         />
       }
 
-      <Text style={styles.name}>{userProfile.fullName || 'NA'}</Text>
-      <View style={styles.btnGrouping}>
-        <BigIconButton onPress={handleEdit} title={'Edit Profile'} Icon={EditPenIcon} />
-        <BigIconButton onPress={() => setVisibleShare(true)} title={'Share the app'} Icon={ShareIcon} />
-        <BigIconButton onPress={() => setVisibleAbout(true)} title={'About us'} Icon={AboutUsIcon} />
-        <BigIconButton onPress={() => setVisibleLogout(true)} title={'Logout'} Icon={ExitIcon} />
+      <Text style={[
+        styles.name,
+        theme==='dark'?
+          styles.textDarkMode
+        :
+          styles.textLightMode
+        ]}>{userProfile.fullName || 'NA'}</Text>
+      <View style={[styles.btnGrouping, theme==='dark'? styles.borderTextDarkMode: styles.borderTextLightMode]}>
+        <BigIconButton 
+          onPress={handleEdit}
+          title={'Edit Profile'} 
+          Icon={EditPenIcon}
+          darkTheme={theme==='dark'?true : false}
+          />
+        <BigIconButton 
+          onPress={() => setVisibleShare(true)} 
+          title={'Share the app'} 
+          Icon={ShareIcon}
+          darkTheme={theme==='dark'?true : false}
+          />
+        <BigIconButton 
+          onPress={() => setVisibleAbout(true)}
+          title={'About us'} 
+          Icon={AboutUsIcon}
+          darkTheme={theme==='dark'?true : false}
+          />
+        <BigIconButton 
+          onPress={() => setVisibleLogout(true)}
+          title={'Logout'} 
+          Icon={ExitIcon} 
+          darkTheme={theme==='dark'?true : false}
+          />
       </View>
       </ScrollView>
 
