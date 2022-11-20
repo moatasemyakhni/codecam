@@ -30,9 +30,6 @@ const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    addUser(_, action) {
-        return action.payload;
-    },
     deleteUser() {
         // when logout or token expires
         return initialState;
@@ -50,8 +47,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { 
-    addUser, 
+export const {
     deleteUser, 
     updateUserProfile,
     updateUserPhotos,
