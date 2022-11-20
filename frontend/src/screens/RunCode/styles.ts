@@ -3,18 +3,28 @@ import { colors } from "../../constants/palette";
 
 
 export const styles = StyleSheet.create({
+    containerLightMode: {
+        backgroundColor: colors.lightMode.background,
+    },
+    containerDarkMode: {
+        backgroundColor: colors.darkMode.background,
+    },
     container : {
        flex: 1,
-       backgroundColor: colors.darkMode.background,
-
+    },
+    snippetColorsDark: {
+        backgroundColor: colors.white,
+        color: colors.lightBlack,
+    },
+    snippetColorsLight: {
+        backgroundColor: colors.darkMode.background,
+        color: colors.white,
     },
     snippetInput: {
        height: 50,
-       paddingHorizontal: 5,
+       paddingHorizontal: 10,
        paddingTop: 20,
        paddingBottom: 15,
-       backgroundColor: colors.white,
-       color: colors.lightBlack,
        fontWeight: 'bold',
        marginBottom: 15,
     },
@@ -25,7 +35,12 @@ export const styles = StyleSheet.create({
     contentWrapper: {
        paddingHorizontal: 22,
     },
-    inputIOS: {
+    selectInputColorsDark: {
+
+    },
+    selectInputColorsLight: {
+    },
+    inputIOSDark: {
        fontSize: 15,
        paddingTop: 20,
        paddingHorizontal: 15,
@@ -36,7 +51,7 @@ export const styles = StyleSheet.create({
        color: colors.white,
        backgroundColor: colors.lightBlackOpacity,
    },
-   inputAndroid: {
+   inputAndroidDark: {
        fontSize: 15,
         paddingTop: 20,
         paddingHorizontal: 15,
@@ -47,6 +62,28 @@ export const styles = StyleSheet.create({
         color: colors.white,
         backgroundColor: colors.lightBlackOpacity,
    },
+   inputIOSLight: {
+    fontSize: 15,
+    paddingTop: 20,
+    paddingHorizontal: 15,
+    paddingBottom: 15,
+    borderWidth: 2,
+    borderColor: colors.lightBlack,
+    borderRadius: 5,
+    color: colors.white,
+    backgroundColor: colors.gray
+    },
+    inputAndroidLight: {
+        fontSize: 15,
+        paddingTop: 20,
+        paddingHorizontal: 15,
+        paddingBottom: 15,
+        borderWidth: 2,
+        borderColor: colors.lightBlack,
+        borderRadius: 5,
+        color: colors.white,
+        backgroundColor: colors.gray
+    },
    editorContainer: { 
     borderWidth: 2, 
     borderColor: colors.primary, 
@@ -54,21 +91,36 @@ export const styles = StyleSheet.create({
     height: 300, 
     marginVertical: 15 
     },
+    
+    mainColorLight: {
+        color: colors.primary
+    },
+    mainColorDark: {
+        color: colors.white
+    },
     outputTitle: { 
         textAlign:'center', 
         fontWeight: 'bold', 
-        fontSize: 15, 
-        color: colors.white, 
+        fontSize: 15,
         paddingBottom: 16, 
+    },
+    outputBorderDark: {
+        borderColor: colors.white 
+    },
+    outputBorderLight: {
+        borderColor: colors.primary 
     },
     outputWrapper:{ 
         height: 150, 
         borderTopWidth:1, 
-        borderTopColor: colors.white 
+    },
+    outputWrapperLight: {
+        borderLeftWidth: 1,
+        borderRightWidth: 1,
     },
     outputText: {
         paddingTop: 10,
-        color: colors.white,
+        paddingHorizontal: 10,
     },
     groupBtns: { 
         flexDirection:'row', 

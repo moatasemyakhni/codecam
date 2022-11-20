@@ -2,7 +2,7 @@ import InputPrompt from "./InputPrompt";
 import Toast from 'react-native-root-toast';
 import React, { useState, useEffect } from "react";
 import RNPickerSelect from "react-native-picker-select";
-import CodeEditor from '@rivascva/react-native-code-editor';
+import CodeEditor, { CodeEditorSyntaxStyles } from '@rivascva/react-native-code-editor';
 import FullWidthButton from "../../components/Buttons/FullWidthButton";
 
 import { styles } from "./styles";
@@ -36,8 +36,11 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
     const [enable, setEnable] = useState(true);
     const [snippetName, setSnippetName] = useState(photoSnippetName);
     const {userCodePhotos, userProfile} = useSelector(state => state.user);
-    useEffect(() => {
 
+    const {theme} = useSelector(state => state.ui)
+    useEffect(() => {
+        console.log("theme = ", theme);
+        
         if(!newPhoto) {
             let currentLanguageIndex = 0;
             allowedProgrammingLanguages.forEach((lang, index) => {
@@ -71,6 +74,8 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                 }
                 const photos = userCodePhotos.filter(item => item._id !== photoId);
                 const photo = response.photo;
+                console.log(photos, "PHOTOS");
+                
                 store.dispatch(updateUserPhotos({
                     userCodePhotos: photos
                 }))
@@ -134,11 +139,29 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
     
 
      return (
-        
+        <View style={{ flex: 1 }}>
         <ScrollView>
-            <View style={styles.container}>
+            <View style={[
+                styles.container,
+                theme==='dark'?
+                    styles.containerDarkMode
+                :
+                    styles.containerLightMode
+            ]}>
                 <TextInput 
-                    style={ styles.snippetInput }
+                    style={[ 
+                        styles.snippetInput,
+                        theme==='dark'?
+                        (
+                            styles.mainColorDark,
+                            styles.snippetColorsDark
+                        )
+                        :
+                        (
+                            styles.mainColorLight,
+                            styles.snippetColorsLight
+                        )
+                    ]}
                     value={snippetName}
                     placeholder={"Snippet Name..."}
                     onChangeText={val => setSnippetName(val)}
@@ -150,11 +173,17 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                         items={ allowedProgrammingLanguages }
                         useNativeAndroidPickerStyle={false}
                         placeholder={languagePlaceHolder}
-                        style={{ 
-                            inputIOS: styles.inputIOS , 
-                            inputAndroid: styles.inputAndroid, 
+                        style={theme==='dark'?{
+                            inputIOS: styles.inputIOSDark , 
+                            inputAndroid: styles.inputAndroidDark, 
                             iconContainer:styles.iconContainer 
-                        }}
+                        }:
+                        {
+                            inputIOS: styles.inputIOSLight , 
+                            inputAndroid: styles.inputAndroidLight, 
+                            iconContainer:styles.iconContainer 
+                        }
+                        }
                         value={chosenLanguage.value}
                         Icon={icon}
                     />
@@ -180,16 +209,44 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                                 } }
                                 initialValue={codeContent}
                                 showLineNumbers
+                                syntaxStyle={
+                                    theme==="dark"?
+                                        CodeEditorSyntaxStyles.atomOneDark
+                                    :
+                                        CodeEditorSyntaxStyles.github
+                                }
                             />
                             
                         </View>
-                        <Text style={styles.outputTitle}>Output</Text>
-                        <View style={styles.outputWrapper}>
-                            <Text style={styles.outputText}>
-                                {output}
-                            </Text>
+                        <Text style={[
+                            styles.outputTitle,
+                            theme==='dark'?
+                                styles.mainColorDark
+                            :
+                                styles.mainColorLight
+                            ]}>Output</Text>
+                        <View style={[
+                            styles.outputWrapper,
+                            theme==='dark'?
+                                styles.outputBorderDark
+                            :
+                                styles.outputBorderLight,
+                                styles.outputWrapperLight
+                            ]}>
+                            <ScrollView nestedScrollEnabled>
+                                <Text style={[
+                                    styles.outputText,
+                                    theme==='dark'?
+                                    styles.mainColorDark
+                                    :
+                                    styles.mainColorLight
+                                ]}>
+                                    {output}
+                                </Text>
+                            </ScrollView>
                         </View>
-                        <View style={styles.groupBtns}>
+                        <View 
+                            style={styles.groupBtns}>
                             <FullWidthButton
                                 groupBtn
                                 BGBlue
@@ -225,6 +282,7 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                 setOutput={setOutput}
             />
         </ScrollView>
+        </View>
 
      );
  }
