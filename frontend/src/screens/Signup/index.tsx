@@ -20,6 +20,7 @@ import { store } from '../../redux/store';
 import { signup } from '../../api/auth/authApi';
 import { getUserInfo } from '../../api/user/userApi';
 import { updateUserProfile } from '../../redux/slices/userSlice';
+import { useSelector } from 'react-redux';
 
 
 const Signup = () => {
@@ -40,6 +41,8 @@ const Signup = () => {
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState('');
 
   const [enabled, setEnabled] = useState(false);
+  
+  const {theme} = useSelector(state => state.ui);
 
   useEffect(() => {
     setEnabled([email, fullName, password, passwordConfirm].every(Boolean));
@@ -119,7 +122,13 @@ const Signup = () => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
       enabled   
       keyboardVerticalOffset={100} 
-      style={styles.signupContainer}
+      style={[
+        styles.signupContainer, 
+        theme==='dark'?
+          styles.containerBgColorDark
+        :
+          styles.containerBgColorLight,
+      ]}
     >
       <ScrollView>
         <View style={styles.form}>
