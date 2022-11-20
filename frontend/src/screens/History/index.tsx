@@ -12,6 +12,7 @@ import { updateUserPhotos } from '../../redux/slices/userSlice';
 
 const History = ({navigation, route}) => {
   const {userProfile, userCodePhotos} = useSelector(state => state.user);
+  const { theme } = useSelector(state => state.ui);
   const userId = userProfile.userId;
   const [photos, setPhotos] = useState([]);
 
@@ -41,7 +42,15 @@ const History = ({navigation, route}) => {
     userCodePhotos?.length == 0?
       <EmptyState Icon={ NoCodeIcon } text='Photos are saved here' />
     :
-    <SafeAreaView style={styles.container} >
+    <SafeAreaView 
+      style={[
+        styles.container,
+        theme==='dark'?
+          styles.containerBgColorDark
+        :
+          styles.containerBgColorLight
+      ]} 
+    >
       <FlatList 
         data={userCodePhotos}
         keyExtractor={photo => photo._id}
