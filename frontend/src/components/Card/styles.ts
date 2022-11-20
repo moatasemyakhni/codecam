@@ -2,17 +2,28 @@ import { StyleSheet } from 'react-native';
 import { colors } from '../../constants/palette';
 
 export const styles = StyleSheet.create({
+    cardContainerLight: {
+        backgroundColor: colors.primary 
+    },
+    cardContainerDark: {
+        backgroundColor: colors.white,
+    },
     cardContainer: { 
         padding: 15, 
         marginTop: 25,
         marginHorizontal: 22,
-        backgroundColor: colors.white,
 
     },
     snippetTitle: { 
         fontSize: 22,
         fontWeight: 'bold',
 
+    },
+    textLight: {
+        color: colors.white 
+    },
+    textDark: {
+        color: colors.lightBlack,
     },
     infoSection: {
         flexDirection: 'row',
@@ -25,7 +36,9 @@ export const styles = StyleSheet.create({
     },
     image: { 
         height: 300, 
-        resizeMode:'contain'
+        resizeMode:'contain',
+        borderWidth: 1,
+        borderColor: colors.primary,
     },
     yellow: {
         color: colors.yellow
