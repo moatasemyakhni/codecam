@@ -10,7 +10,7 @@ const initialState: themeInterface = {
 }
 
 const themeSlice = createSlice({
-    name: 'theme',
+    name: 'ui',
     initialState,
     reducers: {
         toggleTheme(state, action) {
