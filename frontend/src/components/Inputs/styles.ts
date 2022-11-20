@@ -3,6 +3,12 @@ import { colors, spacing } from '../../constants/palette'
 
 
 export const styles = StyleSheet.create({
+    inputTextColorLight: {
+        color: colors.lightBlack
+    },
+    inputTextColorDark: {
+        color: colors.white
+    },
     input: {
         backgroundColor: colors.transparent,
         borderWidth: 1,

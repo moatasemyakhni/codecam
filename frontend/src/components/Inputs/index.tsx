@@ -1,3 +1,5 @@
+import React, { FC } from 'react';
+
 import { 
   View, 
   Text, 
@@ -6,7 +8,7 @@ import {
   TouchableWithoutFeedback, 
 } from 'react-native';
 import {styles} from './styles';
-import React, { FC } from 'react';
+import { useSelector } from 'react-redux';
 import { colors } from '../../constants/palette';
 
 interface InputProps {
@@ -24,12 +26,13 @@ interface InputProps {
 
 const Input: FC<InputProps> = (props) => {
 
+  const {theme} = useSelector(state => state.ui);
+  
   const handleChange = (e) => {
     props.setError(false);
     props.setMessage('');
     props.setVal(e);
   }
-
   return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
           
@@ -47,9 +50,20 @@ const Input: FC<InputProps> = (props) => {
             </Text>
               <View>
                 <TextInput
-                  style={ [styles.input, props.error? styles.inputError: styles.inputErrorFree] }
+                  style={[
+                    styles.input, props.error? 
+                      styles.inputError
+                    : 
+                      styles.inputErrorFree,
+                    
+                    theme === 'dark'? 
+                      styles.inputTextColorDark
+                    :
+                      styles.inputTextColorLight,
+
+                  ]}
                   placeholder={props.placeholder}
-                  placeholderTextColor={colors.white}
+                  placeholderTextColor={theme === 'dark'? colors.white : colors.gray}
                   keyboardType='default'
                   onChangeText={handleChange}
                   secureTextEntry={props.isPassword? true: false}
