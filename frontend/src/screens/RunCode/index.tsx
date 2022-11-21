@@ -13,14 +13,14 @@ import {
     ScrollView 
 } from "react-native";
 import { useSelector } from "react-redux";
-import { store } from "../../redux/store";
 import { AntDesign } from '@expo/vector-icons';
 import { colors } from "../../constants/palette";
+import { RootState, store } from "../../redux/store";
 import { useKeyboard } from '@react-native-community/hooks';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { editPhotoById, savePhoto } from "../../api/photo/photoApi";
-import { addPhoto, updateUserPhotos } from "../../redux/slices/userSlice";
+import { PhotosInterface, updateUserPhotos } from "../../redux/slices/userSlice";
 import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../constants/utilities";
 
 
@@ -35,9 +35,9 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
     const [visiblePrompt, setVisiblePrompt] = useState(false);
     const [enable, setEnable] = useState(true);
     const [snippetName, setSnippetName] = useState(photoSnippetName);
-    const {userCodePhotos, userProfile} = useSelector(state => state.user);
+    const {userCodePhotos, userProfile} = useSelector((state: RootState) => state.user);
 
-    const {theme} = useSelector(state => state.ui)
+    const {theme} = useSelector((state: RootState) => state.ui)
     useEffect(() => {
         if(!newPhoto) {
             let currentLanguageIndex = 0;
@@ -71,14 +71,9 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                     return;
                 }
                 const photos = userCodePhotos.filter(item => item._id !== photoId);
-                const photo = response.photo;
-                
-                store.dispatch(updateUserPhotos({
-                    userCodePhotos: photos
-                }))
-                store.dispatch(addPhoto({
-                    photo,
-                }))
+                const photo: PhotosInterface = response.photo;
+                photos.unshift(photo);
+                store.dispatch(updateUserPhotos(photos));
                 
                 Toast.show('Code Saved Successfully', {
                     duration: Toast.durations.LONG,
@@ -99,7 +94,11 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                     });
                     return;
                 }
-    
+                const photos = [...userCodePhotos];
+                const photo: PhotosInterface = savePhotoResponse.photo;
+                photos.unshift(photo);
+                store.dispatch(updateUserPhotos(photos));
+
                 Toast.show(savePhotoResponse.message, {
                     duration: Toast.durations.LONG,
                 });
@@ -121,9 +120,9 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
     const showPrompt = () => {
         setVisiblePrompt(true);
     }
-    const icon = () => (<AntDesign name="down" size={16} color={colors.white} />)
+    const Icon = () => <AntDesign name="down" size={16} color={colors.white} />
 
-    const changeLanguage = (value, index) => {
+    const changeLanguage = (_, index) => {
         if(index != 0) {
             setChosenLanguage(allowedProgrammingLanguages[index-1])
             setEditorLanguage(editorSupportedLanguages[index-1])
@@ -182,7 +181,7 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                         }
                         }
                         value={chosenLanguage.value}
-                        Icon={icon}
+                        Icon={Icon}
                     />
                     
                     <SafeAreaView >
@@ -236,7 +235,8 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                                     theme==='dark'?
                                     styles.mainColorDark
                                     :
-                                    styles.mainColorLight
+                                    styles.mainColorLight,
+                                    {color: 'red'}
                                 ]}>
                                     {output}
                                 </Text>
