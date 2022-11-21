@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 export interface UserInterface {
@@ -34,15 +34,21 @@ const userSlice = createSlice({
         // when logout or token expires
         return initialState;
     },
-    updateUserProfile(state, action){
+    updateUserProfile(state, action: PayloadAction<UserInterface>){
         state.userProfile = action.payload.userProfile;
+        console.log(action.payload.userProfile, "UPDATE USER PROFILE");
+        
     },
-    updateUserPhotos(state, action) {
-      state.userCodePhotos = action.payload.userCodePhotos;
+    updateUserPhotos(state, action: PayloadAction<Array<PhotosInterface>>) {
+      state.userCodePhotos = action.payload;
+      console.log(action.payload, "UPDATE USER PHOTOS");
+      
     },
-    addPhoto(state, action) {
+    addPhoto(state, action: PayloadAction<PhotosInterface>) {
       const add= action.payload;
-      state.userCodePhotos.push(add.photo);
+      state.userCodePhotos.push(add);
+      console.log(add, "ADD USER PHOTOS");
+      
     }
   },
 });
