@@ -9,25 +9,31 @@ import EditPenIcon from '../../../assets/images/icons/EditPenIcon';
 import BigIconButton from '../../components/Buttons/BigIconButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { Text, View, Image, ScrollView, Alert } from 'react-native';
+import { 
+  Text, 
+  View, 
+  Image,  
+  Alert,
+  ScrollView,
+} from 'react-native';
 import { styles } from './styles';
 import { colors } from '../../constants/palette';
-import { store } from '../../redux/store';
+import { RootState, store } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { deleteUser } from '../../redux/slices/userSlice';
 import { shareGithubLink, linkedInLink } from '../../constants/utilities';
 
 
-export const Setting = (props) => {
+export const Setting = ({navigation}) => {
   const [visibleShare, setVisibleShare] = useState(false);
   const [visibleAbout, setVisibleAbout] = useState(false);
   const [visibleLogout, setVisibleLogout] = useState(false);
 
-  const {userProfile} = useSelector(state => state.user);
-  const {theme} = useSelector(state => state.ui);
+  const {userProfile} = useSelector((state: RootState) => state.user);
+  const {theme} = useSelector((state: RootState) => state.ui);
 
   const handleEdit = () => {
-    props.navigation.navigate('EditProfile');
+    navigation.navigate('EditProfile');
   }
 
   const handleShare = async () => {
