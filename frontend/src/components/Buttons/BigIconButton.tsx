@@ -1,8 +1,17 @@
-import { Text, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { FC } from 'react';
+
+import { Text, TouchableOpacity } from 'react-native';
 import {styles} from './styles';
 
-const BigIconButton = ({ title, onPress, Icon, darkTheme }) => {
+interface BigIconButtonInterface {
+  title?: string,
+  darkTheme?: boolean,
+  Icon?: () => JSX.Element
+  onPress?: () => void
+}
+
+const BigIconButton: FC<BigIconButtonInterface> = ({ title, onPress, Icon, darkTheme }) => {
+  // This component was created because IconButton could not handle big size svg components
   return (
     <TouchableOpacity 
         onPress={onPress} 
