@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 
 interface themeInterface {
@@ -13,8 +13,8 @@ const themeSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        toggleTheme(state, action) {
-            state.theme = action.payload;
+        toggleTheme(state, action: PayloadAction<themeInterface>) {
+            state.theme = action.payload.theme;
         }
     },
 });
