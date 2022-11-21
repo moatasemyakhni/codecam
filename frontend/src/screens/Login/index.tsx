@@ -13,9 +13,9 @@ import {
 } from 'react-native';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
-import { store } from '../../redux/store';
 import { StatusBar } from 'expo-status-bar';
 import { login } from '../../api/auth/authApi';
+import { RootState, store } from '../../redux/store';
 import { getUserInfo } from '../../api/user/userApi';
 import { emailFormat } from '../../constants/utilities';
 import { updateUserProfile } from '../../redux/slices/userSlice';
@@ -30,7 +30,7 @@ const Login = ({navigation}) => {
   const [passwordMessage, setPasswordMessage] = useState('');
   const [enabled, setEnabled] = useState(false);
 
-  const { theme } = useSelector(state => state.ui);
+  const { theme } = useSelector((state: RootState) => state.ui);
   useEffect(() => {
     setEnabled([email, password].every(Boolean));
   }, [email, password])
