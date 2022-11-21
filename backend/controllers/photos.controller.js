@@ -195,14 +195,16 @@ const deletePhoto = async (req, res) => {
 
 // should be used in try catch block
 const writeInFile = (userId, snippet, textContent) => {
-    // replace '/' and '\' by '' to not create new route
+    // replace '/' and '\' by '' to not create new routes
     const fileName = `${snippet.replace(/\\|\s|\//g, '')}_${Date.now()}.txt`;
     const path = `${CODE_TEXT_STORAGE_PATH}/${userId}`;
     if(!fs.existsSync(path)) {
         fs.mkdir(
             path, 
             (error) => {
-                throw {message: error};
+                if(error) {
+                    throw {message: error.message};
+                }
             });
     }
 
@@ -210,7 +212,7 @@ const writeInFile = (userId, snippet, textContent) => {
     fs.writeFile(completePath, textContent, 
         (error) => {
             if(error) {
-                throw {message: error};
+                throw {message: error.message};
             }
         });
     
@@ -244,7 +246,7 @@ const readFromFile = async (codeUrl) => {
     const content = fs.readFileSync(destination, 'utf-8', 
     (error) => {
         if(error) {
-            throw {message: error};
+            throw {message: error.message};
         }
     });
     
