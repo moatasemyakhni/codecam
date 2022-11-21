@@ -20,10 +20,6 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = (props) => {
   const { userProfile } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    console.log(userProfile);
-    
-  }, [])
   return (
     <View style={styles.container}>
 
