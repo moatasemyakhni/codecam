@@ -14,7 +14,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const MainStack = () => {
     const StackMain = createStackNavigator();
-    const navigation = useNavigation();
+    const navigation = useNavigation<any>();
 
     return (
     
