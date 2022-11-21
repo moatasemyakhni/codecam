@@ -12,13 +12,13 @@ export interface UserInterface {
 
 export interface PhotosInterface {
   userId?: string,
-  postId?: string,
+  _id?: string,
   codeUrl?: string,
-  createdAt?: Date,
+  createdAt?: string,
   photoUrl?: string,
   programmingLanguage?: string,
   snippetName?: string,
-  updatedAt?: Date,
+  updatedAt?: string,
 }
 
 const initialState: UserInterface = {
@@ -36,20 +36,11 @@ const userSlice = createSlice({
     },
     updateUserProfile(state, action: PayloadAction<UserInterface>){
         state.userProfile = action.payload.userProfile;
-        console.log(action.payload.userProfile, "UPDATE USER PROFILE");
-        
     },
     updateUserPhotos(state, action: PayloadAction<Array<PhotosInterface>>) {
       state.userCodePhotos = action.payload;
-      console.log(action.payload, "UPDATE USER PHOTOS");
       
     },
-    addPhoto(state, action: PayloadAction<PhotosInterface>) {
-      const add= action.payload;
-      state.userCodePhotos.push(add);
-      console.log(add, "ADD USER PHOTOS");
-      
-    }
   },
 });
 
@@ -57,7 +48,6 @@ export const {
     deleteUser, 
     updateUserProfile,
     updateUserPhotos,
-    addPhoto,
 } = userSlice.actions;
 
 export default userSlice.reducer;
