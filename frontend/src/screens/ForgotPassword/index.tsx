@@ -11,9 +11,10 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 import { styles } from './styles';
-import { emailFormat } from '../../constants/utilities';
-import { sendEmail } from '../../api/auth/authApi';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
+import { sendEmail } from '../../api/auth/authApi';
+import { emailFormat } from '../../constants/utilities';
 
 
 const ForgotPassword = () => {
@@ -22,7 +23,7 @@ const ForgotPassword = () => {
     const [email, setEmail] = useState('');
     const [enabled, setEnabled] = useState(false);
 
-    const {theme} = useSelector(state => state.ui);
+    const {theme} = useSelector((state: RootState) => state.ui);
 
     const handleChange = async () => {
       setEnabled(false)
