@@ -58,6 +58,9 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 | -----------------| -----|
 | ![Sign up](https://github.com/moatasemyakhni/codecam/blob/main/readme/Signup_Page_WireFrame.jpg) | ![Sign up](https://github.com/moatasemyakhni/codecam/blob/main/readme/Signup_Page.jpg) |
 
+| Forgot Password WireFrame | Forgot Password Mockup |
+| -----------------| -----|
+| ![Forgot Password](https://github.com/moatasemyakhni/codecam/blob/main/readme/Forgot_Password_WireFrame.jpg) | ![Forgot Password](https://github.com/moatasemyakhni/codecam/blob/main/readme/Forgot_Password.jpg) |
 
 
 <br><br>
@@ -78,9 +81,39 @@ Here's a brief high-level overview of the tech stack the CodeCam app uses:
 
 > Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing | Home |
+| Landing | Landing |
 | -----------------| -----|
-| ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/Real_Landing_Page.jpg) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/Real_Home_Page.jpg) |
+| ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Login.png) | ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Login.png) |
+
+| Home | Home |
+| -----------------| -----|
+| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Home.png) |
+
+| Run Code | Run Code |
+| -----------------| -----|
+| ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/RunCode.png) | ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/RunCode.png) |
+
+| History | History |
+| -----------------| -----|
+| ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/History.png) | ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/History.png) |
+
+| Setting | Setting |
+| -----------------| -----|
+| ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Setting.png) | ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Setting.png) |
+
+| Edit Profile | Edit Profile |
+| -----------------| -----|
+| ![EditProfile](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/EditProfile.png) | ![EditProfile](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/EditProfile.png) |
+
+| Sign up | Sign up |
+| -----------------| -----|
+| ![Signup](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Signup.png) | ![Signup](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Signup.png) |
+
+| Forgot Password | Forgot Password |
+| -----------------| -----|
+| ![ForgotPassword](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/ForgotPassword.png) | ![ForgotPassword](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/ForgotPassword.png) |
+
+
 
 
 <br><br>
@@ -95,15 +128,21 @@ Here's a brief high-level overview of the tech stack the CodeCam app uses:
   ```sh
   npm install npm@latest -g
   ```
+* expo CLI
+   ```sh
+   npm install -g expo-cli
+   ```
 
 ### Installation
 
-
-1. Clone the repo
+1. create service account at [console google cloud](https://console.cloud.google.com/getting-started) after creating a project on google
+2. Get a free API Key at [hacker earth](https://www.hackerearth.com/docs/wiki/developers/v4/)
+3. generate 'App Pass' for your gmail account following these [steps](https://support.google.com/mail/answer/185833?hl=en)
+4. Clone the repo
    ```sh
    git clone https://github.com/moatasemyakhni/codecam.git
    ```
-2. Install NPM packages
+5. Install NPM packages
    ```sh
    npm install
    ```
