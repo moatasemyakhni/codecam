@@ -1,4 +1,6 @@
-export const getExtensionFromFilePath = (path) => {
+import { Languages } from "@rivascva/react-native-code-editor/lib/typescript/languages";
+
+export const getExtensionFromFilePath = (path: string) : string => {
     const imageExtensionArr = path.split('.');
     const imageExtension = imageExtensionArr[imageExtensionArr.length - 1];
     return imageExtension;
@@ -20,7 +22,7 @@ export const allowedProgrammingLanguages = [
     {label: 'PHP', value: 'PHP'},
 ];
 
-export const editorSupportedLanguages = [
+export const editorSupportedLanguages: Array<Languages> = [
     'javascript',
     'python',
     'python',
@@ -31,13 +33,13 @@ export const editorSupportedLanguages = [
     'php'
 ];
 
-export const emailFormat = (value) => {
+export const emailFormat = (value:string): Array<any> | null => {
     const expression = /^(\w([\.-]?\w)*)+@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     return value.match(expression);
 }
 
-export const comparePasswords = (pwd, pwdConfirm) => pwd.trim() === pwdConfirm.trim();
+export const comparePasswords = (pwd: string, pwdConfirm: string) : boolean => pwd.trim() === pwdConfirm.trim();
 
-export const passwordStrength = (pwd) => pwd.trim().length >= 6 && pwd.trim().length < 64;
+export const passwordStrength = (pwd: string) : boolean => pwd.trim().length >= 6 && pwd.trim().length < 64;
 
-export const validName = (name) => name.trim().length>=3 && name.trim().length < 25;
+export const validName = (name: string) : boolean => name.trim().length>=3 && name.trim().length < 25;
