@@ -16,11 +16,11 @@ import {
   validName,
 } from '../../constants/utilities';
 import { styles } from './styles';
-import { store } from '../../redux/store';
+import { useSelector } from 'react-redux';
 import { signup } from '../../api/auth/authApi';
+import { RootState, store } from '../../redux/store';
 import { getUserInfo } from '../../api/user/userApi';
 import { updateUserProfile } from '../../redux/slices/userSlice';
-import { useSelector } from 'react-redux';
 
 
 const Signup = () => {
@@ -42,7 +42,7 @@ const Signup = () => {
 
   const [enabled, setEnabled] = useState(false);
   
-  const {theme} = useSelector(state => state.ui);
+  const {theme} = useSelector((state: RootState) => state.ui);
 
   useEffect(() => {
     setEnabled([email, fullName, password, passwordConfirm].every(Boolean));
