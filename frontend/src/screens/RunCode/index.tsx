@@ -39,8 +39,6 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
 
     const {theme} = useSelector(state => state.ui)
     useEffect(() => {
-        console.log("theme = ", theme);
-        
         if(!newPhoto) {
             let currentLanguageIndex = 0;
             allowedProgrammingLanguages.forEach((lang, index) => {
@@ -74,7 +72,6 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                 }
                 const photos = userCodePhotos.filter(item => item._id !== photoId);
                 const photo = response.photo;
-                console.log(photos, "PHOTOS");
                 
                 store.dispatch(updateUserPhotos({
                     userCodePhotos: photos
