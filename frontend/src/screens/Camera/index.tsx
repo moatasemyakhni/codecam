@@ -25,7 +25,6 @@ import {
     FlashMode 
 } from 'expo-camera';
 import { styles } from './styles';
-import { useSelector } from 'react-redux';
 import { colors } from '../../constants/palette';
 import { ImagePickerOptions } from 'expo-image-picker';
 import { textDetection } from '../../api/user/userApi';
@@ -41,7 +40,6 @@ const CameraScreen = ({navigation}) => {
     const [type, setType] = useState(CameraType.back);
     const [flash, setFlash] = useState(FlashMode.off);
     const cameraRef = useRef(null);
-    const { userProfile } = useSelector(state => state.user);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
