@@ -31,6 +31,8 @@ const EditProfile = ({navigation}) => {
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
 
+    const {theme} = useSelector(state => state.ui);
+
     const handleUpdateName = async () => {
         setEnable(false);
         try {
@@ -118,7 +120,13 @@ const EditProfile = ({navigation}) => {
     <KeyboardAvoidingView 
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'} 
         enabled 
-        style={styles.container}
+        style={[
+            styles.container,
+            theme==='dark'?
+             styles.containerDarkMode
+             :
+             styles.containerLightMode
+        ]}
         keyboardVerticalOffset={100}
     > 
         <ScrollView>
@@ -127,7 +135,10 @@ const EditProfile = ({navigation}) => {
                 onPress={pickImage}
                 style={styles.imageWrapper}
             >
-                <Text style={styles.imageText}>Edit</Text>
+                <Text style={[
+                    styles.imageText,
+                    
+                    ]}>Edit</Text>
             
                 <Image 
                     source={{
