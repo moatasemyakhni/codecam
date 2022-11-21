@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
 
+import { styles } from './styles';
 import { View, Text } from 'react-native';
 import { useSelector } from 'react-redux';
-import { styles } from './styles';
+import { RootState } from '../../redux/store';
 
 
 interface EmptyStateInterface {
@@ -13,7 +14,7 @@ interface EmptyStateInterface {
 
 const EmptyState: FC<EmptyStateInterface> = ({Icon, text}) => {
 
-  const {theme} = useSelector(state => state.ui);
+  const {theme} = useSelector((state: RootState) => state.ui);
 
   return (
     <View style={[
