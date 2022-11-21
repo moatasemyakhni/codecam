@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 
 import { 
   View, 
@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { StackNavigationProp } from '@react-navigation/stack';
 
 interface HeaderProps {
@@ -18,7 +19,7 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = (props) => {
-  const { userProfile } = useSelector((state) => state.user);
+  const { userProfile } = useSelector((state: RootState) => state.user);
 
   return (
     <View style={styles.container}>
