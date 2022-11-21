@@ -9,15 +9,15 @@ import {
     Text, 
     Image,
     TouchableOpacity,
-} from 'react-native'
+} from 'react-native';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
-import { store } from '../../redux/store';
 import { colors } from '../../constants/palette';
+import { store, RootState } from '../../redux/store';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { updateUserPhotos } from '../../redux/slices/userSlice';
 import { deletePhoto, getPhotoById } from '../../api/photo/photoApi';
-
+import { PhotosInterface, updateUserPhotos } from '../../redux/slices/userSlice';
+ 
 interface CardPropsInterface {
     snippetTitle?: string,
     date?: string,
@@ -27,12 +27,11 @@ interface CardPropsInterface {
 }
 
 const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, navigation}) => {
-    const { userCodePhotos } = useSelector(state => state.user);
-    const { theme } = useSelector(state => state.ui);
+    const { userCodePhotos } = useSelector((state: RootState) => state.user);
+    const { theme } = useSelector((state: RootState) => state.ui);
 
     const [visiblePrompt, setVisiblePrompt] = useState(false);
     const [message, setMessage] = useState('Code Deleted Successfully');
-
 
     const handlePressPhoto = async (photoId) => {
         try {
@@ -67,11 +66,9 @@ const Card: FC<CardPropsInterface> = ({photoId, snippetTitle, date, imageUrl, na
                 return;
             }    
                
-            const photos = userCodePhotos.filter(photos => photos._id !== photoId);
+            const photos:Array<PhotosInterface> = userCodePhotos.filter(photos => photos._id !== photoId);
             store.dispatch(
-                updateUserPhotos({
-                userCodePhotos: photos,
-                })
+                updateUserPhotos(photos)
             );
             setMessage(response.message);
         } catch (error) {
