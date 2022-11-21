@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {styles} from './styles';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 import { colors } from '../../constants/palette';
 
 interface InputProps {
@@ -26,7 +27,7 @@ interface InputProps {
 
 const Input: FC<InputProps> = (props) => {
 
-  const {theme} = useSelector(state => state.ui);
+  const {theme} = useSelector((state: RootState) => state.ui);
   
   const handleChange = (e) => {
     props.setError(false);
