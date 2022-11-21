@@ -80,7 +80,6 @@ const Login = ({navigation}) => {
       setEmail('');
       setPassword('');
     } catch (error) {
-      console.log(error)
       setEmailError(true);
       setPasswordError(true);
       setEmailMessage(error.message);
@@ -134,7 +133,12 @@ const Login = ({navigation}) => {
                 label='Password' 
                 placeholder='Password...' 
               />
-              <FullWidthButton enabled={enabled} BGPrimary title='Login' onPress={loginUser} />
+              <FullWidthButton 
+                enabled={enabled} 
+                BGPrimary 
+                title='Login' 
+                onPress={loginUser}
+              />
               <TouchableOpacity onPress={() => navigation.navigate('Signup')}>
                   <Text style={[styles.links, styles.linkTopPadding]}>Signup</Text>
               </TouchableOpacity>
