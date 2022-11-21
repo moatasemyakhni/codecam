@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
-import { store } from '../../redux/store';
+import { RootState, store } from '../../redux/store';
 import {ImagePickerOptions} from 'expo-image-picker';
 import { updateUserProfile } from '../../redux/slices/userSlice';
 import { editFullName, editProfile } from '../../api/user/userApi';
@@ -25,13 +25,13 @@ import { getExtensionFromFilePath } from '../../constants/utilities';
 
 
 const EditProfile = ({navigation}) => {
-    const {userProfile} = useSelector(state => state.user);
+    const {userProfile} = useSelector((state: RootState) => state.user);
     const [enable, setEnable] = useState(false);
     const [fullName, setFullName] = useState(userProfile.fullName);
     const [error, setError] = useState(false);
     const [message, setMessage] = useState('');
 
-    const {theme} = useSelector(state => state.ui);
+    const {theme} = useSelector((state: RootState) => state.ui);
 
     const handleUpdateName = async () => {
         setEnable(false);
