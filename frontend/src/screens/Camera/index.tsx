@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import IconButton from '../../components/Buttons/IconButton';
 import CheckIcon from '../../../assets/images/icons/CheckIcon';
 import CameraIcon from '../../../assets/images/icons/CameraIcon';
+import LoadingComponent from '../../components/LoadingComponent';
 import HistoryIcon from '../../../assets/images/icons/HistoryIcon';
 import LibraryIcon from '../../../assets/images/icons/LibraryIcon';
 import DeleteWithBorderIcon from '../../../assets/images/icons/DeleteWithBorderIcon';
@@ -24,13 +25,10 @@ import {
     FlashMode 
 } from 'expo-camera';
 import { styles } from './styles';
-import { store } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { colors } from '../../constants/palette';
-import { savePhoto } from '../../api/photo/photoApi';
-import {ImagePickerOptions} from 'expo-image-picker';
+import { ImagePickerOptions } from 'expo-image-picker';
 import { textDetection } from '../../api/user/userApi';
-import { addPhoto } from '../../redux/slices/userSlice';
 import { getExtensionFromFilePath } from '../../constants/utilities';
 
 
@@ -44,6 +42,7 @@ const CameraScreen = ({navigation}) => {
     const [flash, setFlash] = useState(FlashMode.off);
     const cameraRef = useRef(null);
     const { userProfile } = useSelector(state => state.user);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         (async () => {
@@ -92,6 +91,7 @@ const CameraScreen = ({navigation}) => {
                 
             } catch (error) {
                 Alert.alert("Something Wrong happened")
+                
             }
         }
     }
@@ -107,6 +107,7 @@ const CameraScreen = ({navigation}) => {
 
     const moveToCode = async () => {
         try {
+            setLoading(true);
             const defaultSnippetName = 'Snippet1';
             const img = `data:image/${extension};base64,${base64Image}`;
             
@@ -139,6 +140,7 @@ const CameraScreen = ({navigation}) => {
             });
         } finally {
             setImage(null);
+            setLoading(false);
         }
         
     }
@@ -146,7 +148,13 @@ const CameraScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
             {/* if image is not taken or rejected show camera */}
-            {!image ?
+            
+            {loading?
+                    <LoadingComponent />
+            
+                        : 
+            
+            !image ?
                 <Camera
                     style={styles.camera}
                     type={type}
@@ -155,6 +163,7 @@ const CameraScreen = ({navigation}) => {
                     
                 >
                     <View style={styles.topContainer} >
+                        
                         <IconButton 
                             icon='retweet'
                             onPress={() => setType(type === CameraType.back?CameraType.front : CameraType.back)}
@@ -179,7 +188,10 @@ const CameraScreen = ({navigation}) => {
                 />
             }
             <View style={styles.bottomContainer}>
-                {image?
+                {loading?
+                null
+                :
+                image?
                     <View style={styles.bottomContainerContentWrapper}>
                         <View style={styles.bottomContainerButtonsWrapper}>
                             {/* reject button */}
@@ -193,7 +205,9 @@ const CameraScreen = ({navigation}) => {
                         </View>
                     </View>
                     :
-
+                    loading?
+                        null
+                    :
                     <View style={styles.bottomContainerButtonsWrapper}>
                         {/* library button */}
                         <TouchableOpacity style={ styles.icon } onPress={pickImage}>
