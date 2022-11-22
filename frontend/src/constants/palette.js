@@ -23,10 +23,24 @@ export const colors = {
     
 }
 export const spacing = {
-    paddingFromPhoneWidth: 25,
-    paddingHorizontal15: 15,
-    paddingTop10: 10,
-    gapBetweenInputs: 26,
+    spaceFromPhoneEdge: 25,
+    sm: 5,
+    md: 10,
+    l: 15,
+    xl: 20,
+    xxl: 25,
+    xxxl: 30, 
+    x4l: 40,
+}
+
+export const fontSize = {
+    small: 10,
+    medium: 13,
+    regular: 16,
+    large: 18,
+    xLarge: 20,
+    xxLarge: 22,
+    xxxLarge: 30,
 }
 
 export default {
