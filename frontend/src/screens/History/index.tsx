@@ -1,27 +1,29 @@
 import Card from '../../components/Card';
-import React, {useState, useEffect} from 'react';
+import React, { useEffect } from 'react';
 import EmptyState from '../../components/EmptyState';
 import NoCodeIcon from '../../../assets/images/icons/NoCodeIcon';
 
 import {styles} from './styles';
 import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+import { RootState, store } from '../../redux/store';
 import { FlatList, SafeAreaView, Alert } from 'react-native';
 import { getAllPhotosForUser } from '../../api/photo/photoApi';
+import { updateUserPhotos } from '../../redux/slices/userSlice';
 
 
 const History = ({navigation}) => {
   const {userProfile, userCodePhotos} = useSelector((state: RootState) => state.user);
   const { theme } = useSelector((state: RootState) => state.ui);
   const userId = userProfile.userId;
-  const [photos, setPhotos] = useState([]);
 
   useEffect(() => {
-    if(photos.length === 0) {
+    if(userCodePhotos?.length === 0 || !userCodePhotos) {
       (async () => {
         const response = await getAllPhotosForUser(userId);
         if(!response.error) {
-          setPhotos(response.photos);
+          store.dispatch(
+            updateUserPhotos(response.photos),
+          );
         }else {
           Alert.alert('Error', response.message);
         }
