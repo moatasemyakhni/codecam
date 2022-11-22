@@ -14,6 +14,12 @@ export const styles = StyleSheet.create({
         paddingHorizontal: spacing.paddingFromPhoneWidth,
 
     },
+    themeIcon: {
+        width: 30,
+        height: 30,
+        alignSelf: 'flex-end',
+        marginTop: 10,
+    },
     image: {
         resizeMode: 'contain',
         alignSelf: 'center',
@@ -21,7 +27,7 @@ export const styles = StyleSheet.create({
         height: 200, 
         borderRadius: 999,
         width: 200,
-        marginVertical: 40,
+        marginBottom: 40,
     },
     textLightMode: {
         color: colors.primary,
