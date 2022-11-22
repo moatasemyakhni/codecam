@@ -60,7 +60,7 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 
 | Forgot Password WireFrame | Forgot Password Mockup |
 | -----------------| -----|
-| ![Forgot Password](https://github.com/moatasemyakhni/codecam/blob/main/readme/Forgot_Password_WireFrame.jpg) | ![Forgot Password](https://github.com/moatasemyakhni/codecam/blob/main/readme/Forgot_Password.jpg) |
+| ![Forgot Password](https://github.com/moatasemyakhni/codecam/blob/main/readme/Forgot_Password_Wireframe.jpg) | ![Forgot Password](https://github.com/moatasemyakhni/codecam/blob/main/readme/Forgot_Password.jpg) |
 
 
 <br><br>
@@ -87,7 +87,7 @@ Here's a brief high-level overview of the tech stack the CodeCam app uses:
 
 | Home | Home |
 | -----------------| -----|
-| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Home.png) |
+| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) |
 
 | Run Code | Run Code |
 | -----------------| -----|
