@@ -5,8 +5,8 @@ import { colors } from "../../constants/palette";
 export const styles = StyleSheet.create({
     container: {
         position: 'absolute',
-        top: Math.floor(Dimensions.get('window').height/4),
-        left: Math.floor(Dimensions.get('window').width/4),
+        top: Math.floor(Dimensions.get('window').height/2) - 75,
+        left: Math.floor(Dimensions.get('window').width/2) - 75,
         backgroundColor: colors.lightBlackOpacity,
         zIndex: 9999
     },
