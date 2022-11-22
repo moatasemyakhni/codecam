@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.darkMode.background,
-        paddingHorizontal: spacing.paddingFromPhoneWidth,
+        paddingHorizontal: spacing.spaceFromPhoneEdge,
 
     },
     themeIcon: {
