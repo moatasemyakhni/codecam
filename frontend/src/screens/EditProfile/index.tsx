@@ -160,14 +160,12 @@ const EditProfile = ({navigation}) => {
             />
       
         <View style={styles.btnContainer}>
-            <View style={styles.btnWrapper}>
-                <FullWidthButton 
-                    BGGreen 
-                    enabled={enable? true: false}
-                    title='UPDATE'
-                    onPress={handleUpdateName}
-                    />
-            </View>
+            <FullWidthButton 
+                BGGreen 
+                enabled={enable? true: false}
+                title='UPDATE'
+                onPress={handleUpdateName}
+                />
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
