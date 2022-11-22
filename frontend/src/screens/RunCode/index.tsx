@@ -2,8 +2,8 @@ import InputPrompt from "./InputPrompt";
 import Toast from 'react-native-root-toast';
 import React, { useState, useEffect } from "react";
 import RNPickerSelect from "react-native-picker-select";
-import CodeEditor, { CodeEditorSyntaxStyles } from '@rivascva/react-native-code-editor';
 import FullWidthButton from "../../components/Buttons/FullWidthButton";
+import CodeEditor, { CodeEditorSyntaxStyles } from '@rivascva/react-native-code-editor';
 
 import { styles } from "./styles";
 import { 
@@ -14,20 +14,20 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { AntDesign } from '@expo/vector-icons';
-import { colors } from "../../constants/palette";
 import { RootState, store } from "../../redux/store";
 import { useKeyboard } from '@react-native-community/hooks';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { FontAwesome5, MaterialIcons } from '@expo/vector-icons';
 import { editPhotoById, savePhoto } from "../../api/photo/photoApi";
+import { colors, fontSize, spacing } from "../../constants/palette";
 import { PhotosInterface, updateUserPhotos } from "../../redux/slices/userSlice";
 import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../constants/utilities";
 
 
  const RunCode = ({route, navigation}) => {
     const keyboard = useKeyboard();
-    const {photoId, newPhoto, language, textContent, photoSnippetName, base64Photo} = route.params;
     const languagePlaceHolder = { label: "Choose a Language...", value: null };
+    const {photoId, newPhoto, language, textContent, photoSnippetName, base64Photo} = route.params;
     const [chosenLanguage, setChosenLanguage] = useState(allowedProgrammingLanguages[0]);
     const [editorLanguage, setEditorLanguage] = useState(editorSupportedLanguages[0]);
     const [codeContent, setCodeContent] = useState(textContent);
@@ -187,9 +187,9 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
 
                                 style={{                           
                                     ...{
-                                        fontSize: 18,
-                                        inputLineHeight: 26,
-                                        highlighterLineHeight: 26,
+                                        fontSize: fontSize.large,
+                                        inputLineHeight: spacing.xxl,
+                                        highlighterLineHeight: spacing.xxl,
 
                                     },
                                     ...(keyboard.keyboardShown
@@ -257,7 +257,7 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                                 title="save"
                                 onPress={saveCode}
                                 Icon={
-                                    <MaterialIcons name="save" size={24} color={colors.white} />
+                                    <MaterialIcons name="save" size={fontSize.xxLarge} color={colors.white} />
                                 }
                             />
                         </View>
