@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import * as Linking from 'expo-linking';
 import Prompt from '../../components/Prompt';
 import ExitIcon from '../../../assets/images/icons/ExitIcon';
+import IconButton from '../../components/Buttons/IconButton';
 import ShareIcon from '../../../assets/images/icons/ShareIcon';
 import AboutUsIcon from '../../../assets/images/icons/AboutUsIcon';
 import EditPenIcon from '../../../assets/images/icons/EditPenIcon';
@@ -17,10 +18,11 @@ import {
   ScrollView,
 } from 'react-native';
 import { styles } from './styles';
+import { useSelector } from 'react-redux';
 import { colors } from '../../constants/palette';
 import { RootState, store } from '../../redux/store';
-import { useSelector } from 'react-redux';
 import { deleteUser } from '../../redux/slices/userSlice';
+import { toggleTheme } from '../../redux/slices/themeSlice';
 import { shareGithubLink, linkedInLink } from '../../constants/utilities';
 
 
@@ -65,6 +67,18 @@ export const Setting = ({navigation}) => {
       Alert.alert("Something went wrong");
     }
   }
+
+  const changeTheme = () => {
+
+    theme === 'dark'?
+      store.dispatch(toggleTheme({
+        theme: 'light',
+      }))
+    :
+      store.dispatch(toggleTheme({
+        theme: 'dark',
+      }))
+  }
   
   return (
     <View style={[
@@ -75,6 +89,14 @@ export const Setting = ({navigation}) => {
         styles.containerLightMode
     ]}>
       <ScrollView>
+        <View style={styles.themeIcon}>
+        {
+          theme==='dark'?
+            <IconButton onPress={changeTheme} color={colors.yellow} icon='moon' />
+          :
+            <IconButton onPress={changeTheme} color={colors.primary} icon='light-up' />
+        }
+        </View>
       {
         <Image 
           source={{ 
