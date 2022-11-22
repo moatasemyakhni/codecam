@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants/palette';
+import { colors, fontSize, spacing } from '../../constants/palette';
 
 export const styles = StyleSheet.create({
     containerLightMode: {
@@ -14,9 +14,9 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
     },
     text: {
-        fontSize: 20,
+        fontSize: fontSize.xLarge,
         textTransform: 'capitalize',
-        marginTop: 30,
+        marginTop: spacing.xxxl,
         color: colors.primary,
     }
 });

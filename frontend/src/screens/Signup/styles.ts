@@ -11,10 +11,10 @@ export const styles = StyleSheet.create({
     signupContainer: { 
         flex:1,  
         backgroundColor: colors.darkMode.background, 
-        paddingTop: 27 
+        paddingTop: spacing.xxl 
     },
     form: { 
-        paddingHorizontal: spacing.paddingFromPhoneWidth, 
+        paddingHorizontal: spacing.spaceFromPhoneEdge, 
         flex: 1
     },
 })

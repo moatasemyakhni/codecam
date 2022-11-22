@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors, spacing } from '../../constants/palette'
+import { colors, fontSize, spacing } from '../../constants/palette'
 
 
 export const styles = StyleSheet.create({
@@ -12,10 +12,10 @@ export const styles = StyleSheet.create({
     input: {
         backgroundColor: colors.transparent,
         borderWidth: 1,
-        borderRadius: 5,
-        padding: 12,
+        borderRadius: spacing.sm,
+        padding: spacing.md,
         color: colors.white,
-        fontSize: 20,
+        fontSize: fontSize.xLarge,
     },
     inputError: {  
         borderColor: colors.red,
@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     label: {
         textTransform: 'capitalize',
         paddingBottom: 2,
-        fontSize: 14,
+        fontSize: fontSize.medium,
     },
     labelText: {
         color: colors.primary,
@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
         color: colors.red,
     },
     inputGap: {
-        marginVertical: spacing.gapBetweenInputs,
+        marginVertical: spacing.xxl,
     }
 })
 

@@ -1,28 +1,28 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants/palette';
+import { colors, fontSize, spacing } from '../../constants/palette';
 
 export const styles = StyleSheet.create({
     
     promptTitle: { 
         color: colors.white, 
-        fontSize: 20, 
+        fontSize: fontSize.xLarge, 
         textAlign: 'center', 
         fontWeight: 'bold', 
         textTransform: 'capitalize' 
     },
     promptDescription: {
         color: colors.white, 
-        fontSize: 16,
+        fontSize: fontSize.regular,
     },
     btnCancel: { 
         borderWidth:1, 
         borderColor: colors.white, 
-        borderRadius: 5, 
-        marginRight: 10 
+        borderRadius: spacing.sm, 
+        marginRight: spacing.md, 
     },
     btnAction:{ 
-        padding:10, 
+        padding: spacing.md, 
         backgroundColor: colors.white, 
-        borderRadius: 5 
+        borderRadius: spacing.sm, 
     },
 });

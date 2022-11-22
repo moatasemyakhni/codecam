@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, spacing } from '../../constants/palette';
+import { colors, fontSize, spacing } from '../../constants/palette';
 
 
 export const styles = StyleSheet.create({
@@ -17,17 +17,17 @@ export const styles = StyleSheet.create({
         alignItems: 'center'
     },
     linkTopPadding: {
-        paddingTop: spacing.paddingTop10,
+        paddingTop: spacing.md,
     },
     form: {
-        paddingHorizontal: spacing.paddingFromPhoneWidth,
+        paddingHorizontal: spacing.spaceFromPhoneEdge,
     },
     links: {
-        fontSize: 20,
+        fontSize: fontSize.xLarge,
         lineHeight: 23,
         color: colors.primary,
         textAlign: 'center',
-        paddingBottom: 21,
+        paddingBottom: spacing.xxl,
     }
 });
 

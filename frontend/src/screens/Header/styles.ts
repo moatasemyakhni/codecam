@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../constants/palette';
+import { colors, fontSize, spacing } from '../../constants/palette';
 
 export const styles = StyleSheet.create({
     container: { 
@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     title: { 
         flex: 1, 
         textAlign: 'center', 
-        fontSize: 22, 
+        fontSize: fontSize.xxLarge, 
         fontWeight:'bold', 
         color: colors.white,
     },
@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.white,
         width: 36,
         height: 36,
-        borderRadius: 20,
+        borderRadius: spacing.xl,
         resizeMode: 'contain', 
     },
     smSize: {

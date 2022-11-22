@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, spacing } from '../../constants/palette';
+import { colors, fontSize, spacing } from '../../constants/palette';
 
 export const styles = StyleSheet.create({
     containerLightMode: {
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
         width: 30,
         height: 30,
         alignSelf: 'flex-end',
-        marginTop: 10,
+        marginTop: spacing.md,
     },
     image: {
         resizeMode: 'contain',
@@ -27,7 +27,7 @@ export const styles = StyleSheet.create({
         height: 200, 
         borderRadius: 999,
         width: 200,
-        marginBottom: 40,
+        marginBottom: spacing.x4l,
     },
     textLightMode: {
         color: colors.primary,
@@ -45,8 +45,8 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         color: colors.white,
         fontWeight: 'bold',
-        fontSize: 22,
-        marginBottom: 100,
+        fontSize: fontSize.xxLarge,
+        marginBottom: 2*spacing.x4l,
 
     },
     btnContainer: {
@@ -56,13 +56,13 @@ export const styles = StyleSheet.create({
     },
     btn: {
         width: '100%',
-        paddingBottom: 5,
+        paddingBottom: spacing.sm,
         borderBottomWidth: 1,
         borderBottomColor: colors.white,
     },
     btnGrouping:{ 
         borderTopWidth: 1, 
-        borderColor: 'white', 
-        marginBottom: 30 
+        borderColor: colors.white, 
+        marginBottom: spacing.xxxl 
     },
 });

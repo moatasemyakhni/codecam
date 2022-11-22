@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants/palette';
+import { colors, fontSize, spacing } from '../../constants/palette';
 
 export const styles = StyleSheet.create({
     cardContainerLight: {
@@ -9,13 +9,13 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     cardContainer: { 
-        padding: 15, 
-        marginTop: 25,
-        marginHorizontal: 22,
+        padding: spacing.l, 
+        marginTop: spacing.xxl,
+        marginHorizontal: spacing.xl,
 
     },
     snippetTitle: { 
-        fontSize: 22,
+        fontSize: fontSize.xxLarge,
         fontWeight: 'bold',
 
     },
@@ -28,11 +28,10 @@ export const styles = StyleSheet.create({
     infoSection: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 20,
+        marginBottom: spacing.xl,
     },
     date: { 
-        fontSize: 16,
-
+        fontSize: fontSize.regular,
     },
     image: { 
         height: 300, 

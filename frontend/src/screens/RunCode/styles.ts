@@ -1,5 +1,5 @@
-import { Keyboard, StyleSheet } from "react-native";
-import { colors } from "../../constants/palette";
+import { StyleSheet } from "react-native";
+import { colors, fontSize, spacing } from "../../constants/palette";
 
 
 export const styles = StyleSheet.create({
@@ -22,74 +22,69 @@ export const styles = StyleSheet.create({
     },
     snippetInput: {
        height: 50,
-       paddingHorizontal: 10,
-       paddingTop: 20,
-       paddingBottom: 15,
+       paddingHorizontal: spacing.md,
+       paddingTop: spacing.xl,
+       paddingBottom: spacing.l,
        fontWeight: 'bold',
-       marginBottom: 15,
+       marginBottom: spacing.l,
     },
     iconContainer: {
-       paddingTop: 25,
-       paddingRight: 20,
+       paddingTop: spacing.xxl,
+       paddingRight: spacing.xl,
     },
     contentWrapper: {
-       paddingHorizontal: 22,
-    },
-    selectInputColorsDark: {
-
-    },
-    selectInputColorsLight: {
+       paddingHorizontal: spacing.xl,
     },
     inputIOSDark: {
-       fontSize: 15,
-       paddingTop: 20,
-       paddingHorizontal: 15,
-       paddingBottom: 15,
+       fontSize: fontSize.regular,
+       paddingTop: spacing.xl,
+       paddingHorizontal: spacing.l,
+       paddingBottom: spacing.l,
        borderWidth: 2,
        borderColor: colors.lightBlack,
-       borderRadius: 5,
+       borderRadius: spacing.sm,
        color: colors.white,
        backgroundColor: colors.lightBlackOpacity,
    },
    inputAndroidDark: {
-       fontSize: 15,
-        paddingTop: 20,
-        paddingHorizontal: 15,
-        paddingBottom: 15,
+       fontSize: fontSize.regular,
+        paddingTop: spacing.xl,
+        paddingHorizontal: spacing.l,
+        paddingBottom: spacing.l,
         borderWidth: 2,
         borderColor: colors.lightBlack,
-        borderRadius: 5,
+        borderRadius: spacing.sm,
         color: colors.white,
         backgroundColor: colors.lightBlackOpacity,
    },
    inputIOSLight: {
-    fontSize: 15,
-    paddingTop: 20,
-    paddingHorizontal: 15,
-    paddingBottom: 15,
+    fontSize: fontSize.regular,
+    paddingTop: spacing.xl,
+    paddingHorizontal: spacing.l,
+    paddingBottom: spacing.l,
     borderWidth: 2,
     borderColor: colors.lightBlack,
-    borderRadius: 5,
+    borderRadius: spacing.sm,
     color: colors.white,
     backgroundColor: colors.gray
     },
     inputAndroidLight: {
-        fontSize: 15,
-        paddingTop: 20,
-        paddingHorizontal: 15,
-        paddingBottom: 15,
+        fontSize: fontSize.regular,
+        paddingTop: spacing.xl,
+        paddingHorizontal: spacing.l,
+        paddingBottom: spacing.l,
         borderWidth: 2,
         borderColor: colors.lightBlack,
-        borderRadius: 5,
+        borderRadius: spacing.sm,
         color: colors.white,
         backgroundColor: colors.gray
     },
    editorContainer: { 
     borderWidth: 2, 
     borderColor: colors.primary, 
-    borderRadius: 5, 
+    borderRadius: spacing.sm, 
     height: 300, 
-    marginVertical: 15 
+    marginVertical: spacing.l, 
     },
     
     mainColorLight: {
@@ -101,8 +96,8 @@ export const styles = StyleSheet.create({
     outputTitle: { 
         textAlign:'center', 
         fontWeight: 'bold', 
-        fontSize: 15,
-        paddingBottom: 16, 
+        fontSize: fontSize.regular,
+        paddingBottom: spacing.l, 
     },
     outputBorderDark: {
         borderColor: colors.white 
@@ -119,35 +114,35 @@ export const styles = StyleSheet.create({
         borderRightWidth: 1,
     },
     outputText: {
-        paddingTop: 10,
-        paddingHorizontal: 10,
+        paddingTop: spacing.md,
+        paddingHorizontal: spacing.md,
     },
     groupBtns: { 
         flexDirection:'row', 
         justifyContent: 'space-between', 
-        marginVertical: 21
+        marginVertical: spacing.xl,
     },
     promptContainer: { 
         backgroundColor: colors.primary,  
     },
     promptTitle: { 
         color: colors.white, 
-        fontSize: 20, 
+        fontSize: fontSize.xLarge, 
         textAlign: 'center', 
         fontWeight: 'bold', 
         textTransform: 'capitalize' 
     },
     promptDescription: {
         color: colors.white, 
-        fontSize: 16,
+        fontSize: fontSize.regular,
     },
     descriptionTitle: {
-        padding: 5,
+        padding: spacing.sm,
     },
     codeSnippet: { 
         backgroundColor: colors.darkMode.background, 
-        padding: 10,
-        borderRadius: 5, 
+        padding: spacing.md,
+        borderRadius: spacing.sm, 
     },
     yellow: {
         color: colors.yellow

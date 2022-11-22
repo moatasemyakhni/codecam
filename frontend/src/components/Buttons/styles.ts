@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { colors } from '../../constants/palette'
+import { colors, fontSize, spacing } from '../../constants/palette'
 
 
 export const styles = StyleSheet.create({
@@ -18,12 +18,12 @@ export const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.primary,
-        borderRadius: 5,
+        borderRadius: spacing.sm,
         height: 50,
     },
     btnText: {
         color: colors.white,
-        fontSize: 18,
+        fontSize: fontSize.large,
         fontWeight: 'bold',
         textTransform: 'uppercase',
     },
@@ -47,25 +47,25 @@ export const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 20,
+        paddingBottom: spacing.xl,
     },
     iconText: {
         fontWeight: 'bold',
-        fontSize: 16,
+        fontSize: fontSize.regular,
         color: colors.white,
-        marginLeft: 10,
+        marginLeft: spacing.md,
     },
     bgIconBtn: { 
         backgroundColor: 'transparent', 
         justifyContent: 'flex-start',
-        paddingVertical: 14,
-        paddingHorizontal: 8,
+        paddingVertical: spacing.l,
+        paddingHorizontal: spacing.md,
         height: 63,
         borderBottomWidth: 1,
-        borderColor: 'white',
+        borderColor: colors.white,
       },
     bgIconText: {
-        fontSize: 20, 
+        fontSize: fontSize.xLarge, 
         textTransform: 'uppercase'
     },
     textLightMode: {

@@ -1,28 +1,28 @@
 import { StyleSheet, Dimensions } from 'react-native';
-import { colors } from '../../constants/palette';
+import { colors, fontSize, spacing } from '../../constants/palette';
 
 
 export const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000',
+        backgroundColor: 'black',
         justifyContent: 'center',
-        paddingBottom: 20,
+        paddingBottom: spacing.xl,
     },
     camera: {   
         flex: 1,
-        borderRadius: 20,
+        borderRadius: spacing.xl,
         resizeMode: 'contain',
     },
     topContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 30
+        padding: spacing.xxxl,
     },
     bottomContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 30
+        padding: spacing.xxxl,
     },
     permissionDeniedContainer: {
         backgroundColor: colors.darkMode.background,
@@ -32,11 +32,11 @@ export const styles = StyleSheet.create({
 
     },
     deniedPermissionText: {
-        fontSize: 20,
+        fontSize: fontSize.xLarge,
         color: colors.red,
         backgroundColor: colors.redOpacity,
         fontWeight: 'bold',
-        padding: 5,
+        padding: spacing.sm,
     },
     bottomContainerContentWrapper: { 
         flexDirection: 'row',
@@ -65,7 +65,3 @@ export const styles = StyleSheet.create({
     
     
 });
-
-export default {
-    styles,
-}
