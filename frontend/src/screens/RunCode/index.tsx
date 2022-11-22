@@ -103,11 +103,7 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                     duration: Toast.durations.LONG,
                 });
             }
-            navigation.navigate({
-                name: 'History',
-                params: {refresh: true}
-            }
-            );
+            navigation.navigate('History');
 
         } catch (error) {
             Toast.show(error.message, {
@@ -236,7 +232,6 @@ import { allowedProgrammingLanguages, editorSupportedLanguages } from "../../con
                                     styles.mainColorDark
                                     :
                                     styles.mainColorLight,
-                                    {color: 'red'}
                                 ]}>
                                     {output}
                                 </Text>
