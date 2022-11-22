@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        paddingHorizontal: spacing.paddingFromPhoneWidth,
+        paddingHorizontal: spacing.spaceFromPhoneEdge,
         minHeight: Math.round(Dimensions.get('window').height)
     },
     imageWrapper: { 
