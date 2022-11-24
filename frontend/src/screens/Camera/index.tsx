@@ -41,7 +41,7 @@ const CameraScreen = ({navigation}) => {
     const [flash, setFlash] = useState(FlashMode.off);
     const cameraRef = useRef(null);
     const [loading, setLoading] = useState(false);
-
+    
     useEffect(() => {
         (async () => {
             // request permission to get to library
@@ -73,6 +73,7 @@ const CameraScreen = ({navigation}) => {
         }
     }
 
+    const [endOfProgress, setEndOfProgressBar] = useState(false);
 
     const takePicture = async () => {
         if(cameraRef) {
@@ -114,6 +115,8 @@ const CameraScreen = ({navigation}) => {
                 fullName: defaultSnippetName,
             });
             
+            setEndOfProgressBar(true);
+
             if(textResponse.error) {
                 Toast.show(textResponse.message, {
                     duration: Toast.durations.LONG,
@@ -139,18 +142,21 @@ const CameraScreen = ({navigation}) => {
         } finally {
             setImage(null);
             setLoading(false);
+            setEndOfProgressBar(false);
         }
         
     }
-
+ 
     return (
         <View style={styles.container}>
-            {/* if image is not taken or rejected show camera */}
+        {/* if image is not taken or rejected show camera */}
             
             {loading?
-                    <LoadingComponent />
-            
-                        : 
+                    <LoadingComponent
+                        endOfProgress={endOfProgress}
+                        title='Scanning' 
+                    />
+            : 
             
             !image ?
                 <Camera
