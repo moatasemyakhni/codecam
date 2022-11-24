@@ -35,16 +35,17 @@ const LoadingComponent: FC<LoadingComponentInterface> = ({ endOfProgress, smallL
       <CircularProgress
         radius={
           smallLoadingIcon?
-            30
+            60
           :
             150
         }
         value={value}
         valueSuffix={'%'}
-        activeStrokeColor={colors.primary}
+        activeStrokeColor={!smallLoadingIcon? colors.primary : colors.blue}
         inActiveStrokeOpacity={0.2}
         duration={duration}
         title={title}
+        titleStyle={styles.titleText}
       />
     </View>
   );
