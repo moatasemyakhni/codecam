@@ -5,10 +5,13 @@ import { styles } from './styles';
 import { View, Text } from 'react-native';
 import { colors } from '../../constants/palette';
 import { codeOutput } from '../../api/user/userApi';
+import LoadingComponent from '../../components/LoadingComponent';
 
 
 const InputPrompt = ({visiblePrompt, setVisiblePrompt, languageValue, textContent, setOutput}) => {
     const [disable, setDisable] = useState(false);
+    const [ShowLoadingProgress, setShowLoadingProgress] = useState(false);
+    const [finishLoading, setFinishLoading] = useState(false);
     const handleCancel = () => {
         setVisiblePrompt(false);
     }
@@ -28,28 +31,30 @@ const InputPrompt = ({visiblePrompt, setVisiblePrompt, languageValue, textConten
                 language: languageValue,
                 inputs: input,
             }
-
+            setShowLoadingProgress(true);
             const response = await codeOutput(data);
             if(response.error) {
-                response.message === "OK"? setOutput('Missing/Wrong type of an input') : setOutput(response.message);
+                response.message === "OK"? setOutput('Missing/Wrong type/s of an input/s') : setOutput(response.message);
                 setDisable(false);
                 setVisiblePrompt(false);
                 return;
             }
-
+            setFinishLoading(true);
             setOutput(response.output);
-            setDisable(false);
-            setVisiblePrompt(false);
         } catch (error) {
             error.message === "OK"? setOutput('Missing/Wrong type of an input') : setOutput(error.message);
+        }finally {
             setDisable(false);
             setVisiblePrompt(false);
+            setShowLoadingProgress(false);
+            setFinishLoading(false);
         }
         
     }
 
 
     return (
+        !ShowLoadingProgress?
           <Dialog.Container contentStyle={styles.promptContainer}  visible={visiblePrompt} >
             <Dialog.Title style={styles.promptTitle}>Code Inputs</Dialog.Title>
             <Dialog.Description style={{ color: colors.white, fontSize: 16 }}>
@@ -94,6 +99,12 @@ const InputPrompt = ({visiblePrompt, setVisiblePrompt, languageValue, textConten
                 onPress={handleRun} 
             />
           </Dialog.Container>
+        :
+            <LoadingComponent 
+                title="Executing"
+                endOfProgress={finishLoading}
+                smallLoadingIcon
+            /> 
       );
 }
 
