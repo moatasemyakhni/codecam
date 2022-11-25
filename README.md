@@ -83,35 +83,35 @@ Here's a brief high-level overview of the tech stack the CodeCam app uses:
 
 | Landing | Landing |
 | -----------------| -----|
-| ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Login.png) | ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Login.png) |
+| ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/Login.png) | ![Landing](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/Login.png) |
 
 | Home | Home |
 | -----------------| -----|
-| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.gif) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) |
+| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/Home.gif) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/Home.png) |
 
 | Run Code | Run Code |
 | -----------------| -----|
-| ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/RunCode.png) | ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/RunCode.gif) |
+| ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/RunCode.png) | ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/RunCode.gif) |
 
 | History | History |
 | -----------------| -----|
-| ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/History.gif) | ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/History.png) |
+| ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/History.gif) | ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/History.png) |
 
 | Setting | Setting |
 | -----------------| -----|
-| ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Setting.png) | ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Setting.png) |
+| ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/Setting.png) | ![Setting](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/Setting.png) |
 
 | Edit Profile | Edit Profile |
 | -----------------| -----|
-| ![EditProfile](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/EditProfile.png) | ![EditProfile](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/EditProfile.png) |
+| ![EditProfile](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/EditProfile.png) | ![EditProfile](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/EditProfile.png) |
 
 | Sign up | Sign up |
 | -----------------| -----|
-| ![Signup](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Signup.png) | ![Signup](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/Signup.png) |
+| ![Signup](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/Signup.png) | ![Signup](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/Signup.png) |
 
 | Forgot Password | Forgot Password |
 | -----------------| -----|
-| ![ForgotPassword](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/ForgotPassword.png) | ![ForgotPassword](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/ForgotPassword.png) |
+| ![ForgotPassword](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/dark/ForgotPassword.png) | ![ForgotPassword](https://github.com/moatasemyakhni/codecam/blob/main/readme/readme/implementation/light/ForgotPassword.png) |
 
 
 
