@@ -87,15 +87,15 @@ Here's a brief high-level overview of the tech stack the CodeCam app uses:
 
 | Home | Home |
 | -----------------| -----|
-| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) |
+| ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.gif) | ![Home](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/Home.png) |
 
 | Run Code | Run Code |
 | -----------------| -----|
-| ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/RunCode.png) | ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/RunCode.png) |
+| ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/RunCode.png) | ![RunCode](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/RunCode.gif) |
 
 | History | History |
 | -----------------| -----|
-| ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/History.png) | ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/History.png) |
+| ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/dark/History.gif) | ![History](https://github.com/moatasemyakhni/codecam/blob/main/readme/implementation/light/History.png) |
 
 | Setting | Setting |
 | -----------------| -----|
