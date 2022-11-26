@@ -22,12 +22,14 @@ import {
     Camera, 
     CameraType,
     CameraPictureOptions, 
-    FlashMode 
+    FlashMode,
+    
 } from 'expo-camera';
 import { styles } from './styles';
 import { colors } from '../../constants/palette';
 import { ImagePickerOptions } from 'expo-image-picker';
 import { textDetection } from '../../api/user/userApi';
+import { useIsFocused } from '@react-navigation/native';
 import { getExtensionFromFilePath } from '../../constants/utilities';
 
 
@@ -41,7 +43,8 @@ const CameraScreen = ({navigation}) => {
     const [flash, setFlash] = useState(FlashMode.off);
     const cameraRef = useRef(null);
     const [loading, setLoading] = useState(false);
-    
+    const isFocused = useIsFocused();
+
     useEffect(() => {
         (async () => {
             // request permission to get to library
@@ -89,7 +92,7 @@ const CameraScreen = ({navigation}) => {
                 setExtension(getExtensionFromFilePath(data.uri))
                 
             } catch (error) {
-                Alert.alert("Something Wrong happened")
+                Alert.alert("Something Wrong happened");
                 
             }
         }
@@ -158,7 +161,7 @@ const CameraScreen = ({navigation}) => {
                     />
             : 
             
-            !image ?
+            !image && isFocused ?
                 <Camera
                     style={styles.camera}
                     type={type}
