@@ -1,0 +1,25 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeCam - Reset-Password</title>
+    <link rel="stylesheet" href="/views/reset-password/style">
+</head>
+<body>
+    <div class="container">
+        <div class="image-wrapper">
+            <img src="/views/reset-password/logo" alt="CodeCam logo">
+        </div>
+
+        <form class="form">
+            <input class="input" type="password" name="password" id="password" placeholder="New-Password...">
+            <input class="input" type="password" name="password-repeat" id="password-repeat" placeholder="Confirm-Password...">
+            <input class="input btn-submit" type="submit" value="Change Password" id="btn-submit">
+            <p class="status" id="status-message"></p>
+        </form>
+    </div>
+    
+    <script type="module" src="/views/reset-password/resetPassword"></script>
+</body>
+</html>

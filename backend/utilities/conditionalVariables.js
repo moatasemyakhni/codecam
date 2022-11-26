@@ -1,0 +1,17 @@
+const minimumNameLength = 3;
+
+const maximumNameLength = 25;
+
+const minimumPasswordLength = 6;
+
+const allowedProgrammingLanguages = ['C', 'CPP14', 'CSHARP', 'JAVA8', 'JAVASCRIPT_NODE', 'PHP', 'PYTHON2', 'PYTHON3'];
+
+const photoExtensions = ['JPEG', 'PNG', 'JPG'];
+
+module.exports = {
+    minimumNameLength,
+    maximumNameLength,
+    minimumPasswordLength,
+    allowedProgrammingLanguages,
+    photoExtensions,
+}
