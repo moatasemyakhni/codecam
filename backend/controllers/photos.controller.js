@@ -88,8 +88,7 @@ const savePhoto = async (req, res) => {
 
         const getPhotoUrl = await base64ToImageWithPath(userId, base64Photo, snippetName, CODE_IMAGE_STORAGE_PATH, CODE_IMAGE_CLOUD_URL, GET_CODE_IMAGE_CLOUD_URL);
 
-        const getCodeUrl = writeInFile(userId, snippetName, codeTextContent);
-
+        const getCodeUrl = await writeInFile(userId, snippetName, codeTextContent);
         const photo = new Photo();
         photo.photoUrl = getPhotoUrl;
         photo.codeUrl = getCodeUrl;
@@ -154,7 +153,7 @@ const editPhotoById = async (req, res) => {
             throw {message: 'UnAuthorized'};
         }
         //create new file.txt
-        const getCodeUrl = writeInFile(photo.userId, snippetName, codeTextContent);
+        const getCodeUrl = await writeInFile(photo.userId, snippetName, codeTextContent);
         // delete old file.txt
         const localDestination = photo.codeUrl.split(`${BUCKET_NAME}/`)[1];
         deleteFile(path.join(__dirname, `../storage/${localDestination}`));
@@ -194,7 +193,7 @@ const deletePhoto = async (req, res) => {
 
 
 // should be used in try catch block
-const writeInFile = (userId, snippet, textContent) => {
+const writeInFile = async (userId, snippet, textContent) => {
     // replace '/' and '\' by '' to not create new routes
     const fileName = `${snippet.replace(/\\|\s|\//g, '')}_${Date.now()}.txt`;
     const path = `${CODE_TEXT_STORAGE_PATH}/${userId}`;
@@ -218,7 +217,8 @@ const writeInFile = (userId, snippet, textContent) => {
     
     const destination = `${CODE_TEXT_CLOUD_URL.split(`${BUCKET_NAME}/`)[1]}/${userId}/${fileName}`;
 
-    codeCamBucket.upload(completePath, {
+    const up = await codeCamBucket
+        .upload(completePath, {
         destination: destination
     });
 
@@ -228,8 +228,8 @@ const writeInFile = (userId, snippet, textContent) => {
 
 const readFromFile = async (codeUrl) => {
     const path = codeUrl.split('/');
-    id = path[path.length-2];
-    textName = path[path.length-1];
+    const id = path[path.length-2];
+    const textName = path[path.length-1];
 
     const destination = `${CODE_TEXT_STORAGE_PATH}/${id}/${textName}`
     const srcFileName = codeUrl.split(`${BUCKET_NAME}/`)[1];
