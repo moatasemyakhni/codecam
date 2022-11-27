@@ -3,12 +3,12 @@ import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import LogoXL from '../../../assets/images/logos/LogoXL';
 import React, { useEffect, useRef, useState } from 'react';
-import IconButton from '../../components/Buttons/IconButton';
 import CheckIcon from '../../../assets/images/icons/CheckIcon';
 import CameraIcon from '../../../assets/images/icons/CameraIcon';
 import LoadingComponent from '../../components/LoadingComponent';
 import HistoryIcon from '../../../assets/images/icons/HistoryIcon';
 import LibraryIcon from '../../../assets/images/icons/LibraryIcon';
+import ButtonIconToLeft from '../../components/Buttons/ButtonIconToLeft';
 import DeleteWithBorderIcon from '../../../assets/images/icons/DeleteWithBorderIcon';
 
 import { 
@@ -26,6 +26,7 @@ import {
     
 } from 'expo-camera';
 import { styles } from './styles';
+import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../constants/palette';
 import { ImagePickerOptions } from 'expo-image-picker';
 import { textDetection } from '../../api/user/userApi';
@@ -171,19 +172,17 @@ const CameraScreen = ({navigation}) => {
                 >
                     <View style={styles.topContainer} >
                         
-                        <IconButton 
-                            icon='retweet'
+                        <ButtonIconToLeft
+                            Icon={() => <Entypo name='retweet' color={colors.white} size={20} />}
                             onPress={() => setType(type === CameraType.back?CameraType.front : CameraType.back)}
-                            title="flip"
+                            text={'flip'}
                         />
 
-                        <IconButton 
-                            icon='flash'
-                            color={flash === FlashMode.on ? colors.primary: colors.white}
+                        <ButtonIconToLeft
+                            Icon={() => <Entypo name='flash' color={flash === FlashMode.on ? colors.primary: colors.white} size={20} />}
                             onPress={() => setFlash(flash === FlashMode.off? FlashMode.on : FlashMode.off)}
-                            title='flash'
-                        
-                        /> 
+                            text={'flash'}
+                        />
                     </View>
                 </Camera>
                 :
