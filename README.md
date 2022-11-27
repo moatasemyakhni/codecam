@@ -32,36 +32,36 @@ Note that i didn't use any styling library or theme, all from scratch and using 
 
 | Landing WireFrame | Home Mockup |
 | -----------------| -----|
-| <img src="./readme/Landing_Page_WireFrame.jpg" height="350" width="175" alt="Landing" />| <img src="./readme/Landing_Page.jpg" height="350" width="175" alt="Landing" />|
+| <img src="./readme/Landing_Page_WireFrame.jpg" height="500" width="100%" alt="Landing" />| <img src="./readme/Landing_Page.jpg" height="500" width="100%" alt="Landing" />|
 
 | Home WireFrame | Home Mockup |
 | -----------------| -----|
-| <img src="./readme/Home_Page_WireFrame.jpg" height="350" width="175" alt="Landing" />| <img src="./readme/Home_Page.jpg" height="350" width="175" alt="Landing" />|
+| <img src="./readme/Home_Page_WireFrame.jpg" height="500" width="100%" alt="Landing" />| <img src="./readme/Home_Page.jpg" height="500" width="100%" alt="Landing" />|
 
 | Run Code WireFrame | Run Code Mockup |
 | -----------------| -----|
-| <img src="./readme/Run_Code_Page_WireFrame.jpg" height="350" width="175" alt="Run Code" />| <img src="./readme/Run_Code_Page.jpg" height="350" width="175" alt="Run Code" />|
+| <img src="./readme/Run_Code_Page_WireFrame.jpg" height="500" width="100%" alt="Run Code" />| <img src="./readme/Run_Code_Page.jpg" height="500" width="100%" alt="Run Code" />|
 
 | History WireFrame | History Mockup |
 | -----------------| -----|
-| <img src="./readme/History_Page_WireFrame.jpg" height="350" width="175" alt="History" />| <img src="./readme/History_Page.jpg" height="350" width="175" alt="History" />|
+| <img src="./readme/History_Page_WireFrame.jpg" height="500" width="100%" alt="History" />| <img src="./readme/History_Page.jpg" height="500" width="100%" alt="History" />|
 
 | Setting WireFrame | Setting Mockup |
 | -----------------| -----|
-| <img src="./readme/Setting_Page_WireFrame.jpg" height="350" width="175" alt="Setting" />| <img src="./readme/Setting_Page.jpg" height="350" width="175" alt="Setting" />|
+| <img src="./readme/Setting_Page_WireFrame.jpg" height="500" width="100%" alt="Setting" />| <img src="./readme/Setting_Page.jpg" height="500" width="100%" alt="Setting" />|
 
 
 | Edit WireFrame | Edit Mockup |
 | -----------------| -----|
-| <img src="./readme/Edit_Profile_Page_WireFrame.jpg" height="350" width="175" alt="Edit" />| <img src="./readme/Edit_Profile_Page.jpg" height="350" width="175" alt="Edit" />|
+| <img src="./readme/Edit_Profile_Page_WireFrame.jpg" height="500" width="100%" alt="Edit" />| <img src="./readme/Edit_Profile_Page.jpg" height="500" width="100%" alt="Edit" />|
 
 | Sign up WireFrame | Sign up Mockup |
 | -----------------| -----|
-| <img src="./readme/Signup_Page_WireFrame.jpg" height="350" width="175" alt="Edit" />| <img src="./readme/Signup_Page.jpg" height="350" width="175" alt="Edit" />|
+| <img src="./readme/Signup_Page_WireFrame.jpg" height="500" width="100%" alt="Edit" />| <img src="./readme/Signup_Page.jpg" height="500" width="100%" alt="Edit" />|
 
 | Forgot Password WireFrame | Forgot Password Mockup |
 | -----------------| -----|
-| <img src="./readme/Forgot_Password_Wireframe.jpg" height="350" width="175" alt="Forgot Password" />| <img src="./readme/Forgot_Password.jpg" height="350" width="175" alt="Forgot Password" />|
+| <img src="./readme/Forgot_Password_Wireframe.jpg" height="500" width="100%" alt="Forgot Password" />| <img src="./readme/Forgot_Password.jpg" height="500" width="100%" alt="Forgot Password" />|
 
 <br><br>
 
@@ -83,35 +83,35 @@ Here's a brief high-level overview of the tech stack the CodeCam app uses:
 
 | Landing | Landing |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/Login.png" height="350" width="175" alt="Landing" />| <img src="./readme/implementation/light/Login.png" height="350" width="175" alt="Landing" />
+| <img src="./readme/implementation/dark/Login.png" height="500" width="100%" alt="Landing" />| <img src="./readme/implementation/light/Login.png" height="500" width="100%" alt="Landing" />
 
 | Home | Home |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/Home.gif" height="350" width="175" alt="Home" />| <img src="./readme/implementation/light/Home.png" height="350" width="175" alt="Home" />|
+| <img src="./readme/implementation/dark/Home.gif" height="500" width="100%" alt="Home" />| <img src="./readme/implementation/light/Home.png" height="500" width="100%" alt="Home" />|
 
 | Run Code | Run Code |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/RunCode.png" height="350" width="175" alt="RunCode" />| <img src="./readme/implementation/light/RunCode.gif" height="350" width="175" alt="RunCode" />|
+| <img src="./readme/implementation/dark/RunCode.png" height="500" width="100%" alt="RunCode" />| <img src="./readme/implementation/light/RunCode.gif" height="500" width="100%" alt="RunCode" />|
 
 | History | History |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/History.gif" height="350" width="175" alt="History" />| <img src="./readme/implementation/light/History.png" height="350" width="175" alt="History" />|
+| <img src="./readme/implementation/dark/History.gif" height="500" width="100%" alt="History" />| <img src="./readme/implementation/light/History.png" height="500" width="100%" alt="History" />|
 
 | Setting | Setting |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/Setting.png" height="350" width="175" alt="Setting" />| <img src="./readme/implementation/light/Setting.png" height="350" width="175" alt="Setting" />|
+| <img src="./readme/implementation/dark/Setting.png" height="500" width="100%" alt="Setting" />| <img src="./readme/implementation/light/Setting.png" height="500" width="100%" alt="Setting" />|
 
 | Edit Profile | Edit Profile |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/EditProfile.png" height="350" width="175" alt="EditProfile" />| <img src="./readme/implementation/light/EditProfile.png" height="350" width="175" alt="EditProfile" />|
+| <img src="./readme/implementation/dark/EditProfile.png" height="500" width="100%" alt="EditProfile" />| <img src="./readme/implementation/light/EditProfile.png" height="500" width="100%" alt="EditProfile" />|
 
 | Sign up | Sign up |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/Signup.png" height="350" width="175" alt="Signup" />| <img src="./readme/implementation/light/Signup.png" height="350" width="175" alt="Signup" />|
+| <img src="./readme/implementation/dark/Signup.png" height="500" width="100%" alt="Signup" />| <img src="./readme/implementation/light/Signup.png" height="500" width="100%" alt="Signup" />|
 
 | Forgot Password | Forgot Password |
 | -----------------| -----|
-| <img src="./readme/implementation/dark/ForgotPassword.png" height="350" width="175" alt="ForgotPassword" />| <img src="./readme/implementation/light/ForgotPassword.png" height="350" width="175" alt="ForgotPassword" />|
+| <img src="./readme/implementation/dark/ForgotPassword.png" height="500" width="100%" alt="ForgotPassword" />| <img src="./readme/implementation/light/ForgotPassword.png" height="500" width="100%" alt="ForgotPassword" />|
 
 
 
