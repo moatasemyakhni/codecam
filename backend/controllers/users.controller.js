@@ -107,6 +107,11 @@ const codeOutput = async (req, res) => {
 
         const outputUrl = status.data.result.run_status.output;
         const codeStatus = status.data.result.run_status.status;
+
+        if (codeStatus === 'NA') {
+            throw {message: 'logic error in the code'};
+        }
+
         if(codeStatus !== 'AC') {
             // AC => ACCEPTED
             let errorMessage;
@@ -382,7 +387,7 @@ const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath, ge
     const regex = new RegExp(find, "g");
     const base64Image = base64.replace(regex, '');
 
-   const imageName = `${name.replace(/\\|\s|\//g, '')}_${Date.now()}.${extension}`;
+   const imageName = `${name.replace(/\\|\s|\//g, '_')}_${Date.now()}.${extension}`;
    const path = `${basePath}/${userId}`;
    if(!fs.existsSync(path)) {
     fs.mkdir(path, 
@@ -404,7 +409,7 @@ const base64ToImageWithPath = async (userId, base64, name, basePath, urlPath, ge
     const destination = `${urlPath.split(`${BUCKET_NAME}/`)[1]}/${userId}/${imageName}`;
 
     await codeCamBucket.upload(completePath, {
-        destination: destination
+        destination: destination,
     });
 
     const url = `${getUrlPath}/${userId}/${imageName}`;
