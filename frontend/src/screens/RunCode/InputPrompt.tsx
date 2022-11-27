@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Dialog from "react-native-dialog";
+import LoadingComponent from '../../components/LoadingComponent';
 
 import { styles } from './styles';
 import { View, Text } from 'react-native';
 import { colors } from '../../constants/palette';
 import { codeOutput } from '../../api/user/userApi';
-import LoadingComponent from '../../components/LoadingComponent';
 
 
 const InputPrompt = ({visiblePrompt, setVisiblePrompt, languageValue, textContent, setOutput}) => {
@@ -108,4 +108,4 @@ const InputPrompt = ({visiblePrompt, setVisiblePrompt, languageValue, textConten
       );
 }
 
-export default InputPrompt
+export default InputPrompt;
