@@ -9,7 +9,7 @@ import { RootState, store } from '../../redux/store';
 import { FlatList, SafeAreaView, Alert } from 'react-native';
 import { getAllPhotosForUser } from '../../api/photo/photoApi';
 import { updateUserPhotos } from '../../redux/slices/userSlice';
-
+import { getDate, getDateTime } from '../../constants/converts';
 
 const History = ({navigation}) => {
   const {userProfile, userCodePhotos} = useSelector((state: RootState) => state.user);
@@ -52,10 +52,10 @@ const History = ({navigation}) => {
           ({item}) => <Card 
             navigation={navigation}
             date={
-              item.updatedAt.split('.')[0] != item.createdAt.split('.')[0]?
-                `${item.updatedAt.split('T')[0]} (edited)`
+              getDateTime(item.updatedAt) != getDateTime(item.createdAt)?
+                `${getDate(item.updatedAt)} (edited)`
               :
-                item.updatedAt.split('T')[0]
+                getDate(item.updatedAt)
             }
             snippetTitle={item.snippetName}
             key={item._id}
@@ -69,4 +69,4 @@ const History = ({navigation}) => {
   )
 }
 
-export default History
+export default History;
