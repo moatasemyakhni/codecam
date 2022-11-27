@@ -65,4 +65,17 @@ export const styles = StyleSheet.create({
         borderColor: colors.white, 
         marginBottom: spacing.xxxl 
     },
+    bgIconBtn: { 
+        backgroundColor: 'transparent', 
+        justifyContent: 'flex-start',
+        paddingVertical: spacing.l,
+        paddingHorizontal: spacing.md,
+        height: 63,
+        borderBottomWidth: 1,
+        borderColor: colors.white,
+      },
+    bgIconText: {
+        fontSize: fontSize.xLarge, 
+        textTransform: 'uppercase'
+    },
 });
