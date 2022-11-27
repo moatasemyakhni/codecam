@@ -15,7 +15,7 @@ interface FullWidthButtonProps {
 }
 
 const FullWidthButton: FC<FullWidthButtonProps> = (props) => {
-// an enabled prop will be passed once all fields become non-empty
+    // if icon inserted, it will be after text
   return (
     <View style={!props.groupBtn?styles.btnWrapper: styles.groupBtn}>    
         <TouchableOpacity
