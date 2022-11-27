@@ -55,30 +55,4 @@ export const styles = StyleSheet.create({
         color: colors.white,
         marginLeft: spacing.md,
     },
-    bgIconBtn: { 
-        backgroundColor: 'transparent', 
-        justifyContent: 'flex-start',
-        paddingVertical: spacing.l,
-        paddingHorizontal: spacing.md,
-        height: 63,
-        borderBottomWidth: 1,
-        borderColor: colors.white,
-      },
-    bgIconText: {
-        fontSize: fontSize.xLarge, 
-        textTransform: 'uppercase'
-    },
-    textLightMode: {
-        color: colors.primary,
-    },
-    textDarkMode: {
-        color: colors.white
-    },
-    borderTextLightMode: {
-        
-        borderColor: colors.primary
-    },
-    borderTextDarkMode: {
-        borderColor: colors.white
-    },
 });
