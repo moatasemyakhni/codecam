@@ -3,12 +3,11 @@ import React, {useState} from 'react';
 import * as Linking from 'expo-linking';
 import Prompt from '../../components/Prompt';
 import ExitIcon from '../../../assets/images/icons/ExitIcon';
-import IconButton from '../../components/Buttons/IconButton';
 import ShareIcon from '../../../assets/images/icons/ShareIcon';
 import AboutUsIcon from '../../../assets/images/icons/AboutUsIcon';
 import EditPenIcon from '../../../assets/images/icons/EditPenIcon';
-import BigIconButton from '../../components/Buttons/BigIconButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import ButtonIconToLeft from '../../components/Buttons/ButtonIconToLeft';
 
 import { 
   Text, 
@@ -19,6 +18,7 @@ import {
 } from 'react-native';
 import { styles } from './styles';
 import { useSelector } from 'react-redux';
+import { Entypo } from '@expo/vector-icons';
 import { colors } from '../../constants/palette';
 import { RootState, store } from '../../redux/store';
 import { deleteUser } from '../../redux/slices/userSlice';
@@ -92,9 +92,15 @@ export const Setting = ({navigation}) => {
         <View style={styles.themeIcon}>
         {
           theme==='dark'?
-            <IconButton onPress={changeTheme} color={colors.yellow} icon='moon' />
+            <ButtonIconToLeft
+              onPress={changeTheme}
+              Icon={() => <Entypo color={colors.yellow} name={'moon'} size={20} />}
+            />
           :
-            <IconButton onPress={changeTheme} color={colors.primary} icon='light-up' />
+            <ButtonIconToLeft
+              onPress={changeTheme}
+              Icon={() => <Entypo color={colors.primary} name={'light-up'} size={20} />}
+            />
         }
         </View>
       {
@@ -114,30 +120,84 @@ export const Setting = ({navigation}) => {
           styles.textLightMode
         ]}>{userProfile.fullName || 'NA'}</Text>
       <View style={[styles.btnGrouping, theme==='dark'? styles.borderTextDarkMode: styles.borderTextLightMode]}>
-        <BigIconButton 
+        <ButtonIconToLeft
           onPress={handleEdit}
-          title={'Edit Profile'} 
+          text={'Edit Profile'}
           Icon={EditPenIcon}
-          darkTheme={theme==='dark'?true : false}
-          />
-        <BigIconButton 
-          onPress={() => setVisibleShare(true)} 
-          title={'Share the app'} 
+          styleContainer={[
+          styles.bgIconBtn,
+          theme==='dark'?
+            styles.borderTextDarkMode
+          :
+            styles.borderTextLightMode
+          ]}
+          styleText={[ 
+            styles.bgIconText,
+            theme==='dark'?
+              styles.textDarkMode
+            : 
+              styles.textLightMode
+            ]}
+        />
+        <ButtonIconToLeft
+          onPress={() => setVisibleShare(true)}
+          text={'Share the app'}
           Icon={ShareIcon}
-          darkTheme={theme==='dark'?true : false}
-          />
-        <BigIconButton 
+          styleContainer={[
+          styles.bgIconBtn,
+          theme==='dark'?
+            styles.borderTextDarkMode
+          :
+            styles.borderTextLightMode
+          ]}
+          styleText={[ 
+            styles.bgIconText,
+            theme==='dark'?
+              styles.textDarkMode
+            : 
+              styles.textLightMode
+            ]}
+        />
+
+        <ButtonIconToLeft
           onPress={() => setVisibleAbout(true)}
-          title={'About us'} 
+          text={'About us'}
           Icon={AboutUsIcon}
-          darkTheme={theme==='dark'?true : false}
-          />
-        <BigIconButton 
+          styleContainer={[
+          styles.bgIconBtn,
+          theme==='dark'?
+            styles.borderTextDarkMode
+          :
+            styles.borderTextLightMode
+          ]}
+          styleText={[ 
+            styles.bgIconText,
+            theme==='dark'?
+              styles.textDarkMode
+            : 
+              styles.textLightMode
+            ]}
+        />
+
+        <ButtonIconToLeft
           onPress={() => setVisibleLogout(true)}
-          title={'Logout'} 
-          Icon={ExitIcon} 
-          darkTheme={theme==='dark'?true : false}
-          />
+          text={'Logout'}
+          Icon={ExitIcon}
+          styleContainer={[
+          styles.bgIconBtn,
+          theme==='dark'?
+            styles.borderTextDarkMode
+          :
+            styles.borderTextLightMode
+          ]}
+          styleText={[ 
+            styles.bgIconText,
+            theme==='dark'?
+              styles.textDarkMode
+            : 
+              styles.textLightMode
+            ]}
+        />
       </View>
       </ScrollView>
 
@@ -181,4 +241,4 @@ export const Setting = ({navigation}) => {
 }
 
 
-export default Setting
+export default Setting;
